@@ -1,4 +1,4 @@
-local Library = {Toggle = true,FirstTab = nil,TabCount = 0,ColorTable = {}}
+local Library = {Toggle = true, FirstTab = nil, TabCount = 0, ColorTable = {}}
 
 local RunService = game:GetService("RunService")
 local HttpService = game:GetService("HttpService")
@@ -48,12 +48,6 @@ function Library:CreateWindow(Config, Parent)
 	local Topbar = Main.Topbar
 	local TContainer = Holder.TContainer
 	local TBContainer = Holder.TBContainer.Holder
-	--[[
-	-- idk probably fix for exploits that dont have this function
-	if syn and syn.protect_gui then
-		syn.protect_gui(Screen)
-	end
-	]]
 	
 	Screen.Name =  HttpService:GenerateGUID(false)
 	Screen.Parent = Parent
@@ -67,23 +61,27 @@ function Library:CreateWindow(Config, Parent)
 			end
 		end
 	end
+	
 	local function ResetAll()
-		for _,TabButton in pairs(TBContainer:GetChildren()) do
+		for _, TabButton in pairs(TBContainer:GetChildren()) do
 			if TabButton:IsA("TextButton") then
 				TabButton.BackgroundTransparency = 1
 			end
 		end
-		for _,TabButton in pairs(TBContainer:GetChildren()) do
+		
+		for _, TabButton in pairs(TBContainer:GetChildren()) do
 			if TabButton:IsA("TextButton") then
-				TabButton.Size = UDim2.new(0,480 / Library.TabCount,1,0)
+				TabButton.Size = UDim2.new(0, 480 / Library.TabCount, 1, 0)
 			end
 		end
-		for _,Pallete in pairs(Screen:GetChildren()) do
+		
+		for _, Pallete in pairs(Screen:GetChildren()) do
 			if Pallete:IsA("Frame") and Pallete.Name ~= "Main" then
 				Pallete.Visible = false
 			end
 		end
 	end
+	
 	local function KeepFirst()
 		for _,Tab in pairs(TContainer:GetChildren()) do
 			if Tab:IsA("ScrollingFrame") then
@@ -94,6 +92,7 @@ function Library:CreateWindow(Config, Parent)
 				end
 			end
 		end
+		
 		for _,TabButton in pairs(TBContainer:GetChildren()) do
 			if TabButton:IsA("TextButton") then
 				if TabButton.Name == Library.FirstTab .. " TB" then
@@ -104,6 +103,7 @@ function Library:CreateWindow(Config, Parent)
 			end
 		end
 	end
+	
 	local function Toggle(State)
 		if State then
 			Main.Visible = true
@@ -118,6 +118,7 @@ function Library:CreateWindow(Config, Parent)
 		end
 		Library.Toggle = State
 	end
+	
 	local function ChangeColor(Color)
 		Config.Color = Color
 		for i, v in pairs(Library.ColorTable) do
@@ -147,17 +148,22 @@ function Library:CreateWindow(Config, Parent)
 	end
 
 	function WindowInit:SetTileOffset(Offset)
-		Holder.TileSize = UDim2.new(0,Offset,0,Offset)
+		Holder.TileSize = UDim2.new(0, Offset, 0, Offset)
 	end
+	
 	function WindowInit:SetTileScale(Scale)
-		Holder.TileSize = UDim2.new(Scale,0,Scale,0)
+		Holder.TileSize = UDim2.new(Scale, 0, Scale, 0)
 	end
 
 	RunService.RenderStepped:Connect(function()
 		if Library.Toggle then
-			Screen.ToolTip.Position = UDim2.new(0,UserInputService:GetMouseLocation().X + 10,0,UserInputService:GetMouseLocation().Y - 5)
+			Screen.ToolTip.Position = UDim2.new(0, UserInputService:GetMouseLocation().X + 10, 0, UserInputService:GetMouseLocation().Y - 5)
 		end
 	end)
+	
+	function WindowInit:DestroyGui()
+		Screen.destroy()
+	end
 
 	function WindowInit:CreateTab(Name)
 		local TabInit = {}
@@ -207,16 +213,17 @@ function Library:CreateWindow(Config, Parent)
 
 		Tab.LeftSide.ListLayout:GetPropertyChangedSignal("AbsoluteContentSize"):Connect(function()
 			if GetSide(true).Name == Tab.LeftSide.Name then
-				Tab.CanvasSize = UDim2.new(0,0,0,Tab.LeftSide.ListLayout.AbsoluteContentSize.Y + 15)
+				Tab.CanvasSize = UDim2.new(0, 0, 0, Tab.LeftSide.ListLayout.AbsoluteContentSize.Y + 15)
 			else
-				Tab.CanvasSize = UDim2.new(0,0,0,Tab.RightSide.ListLayout.AbsoluteContentSize.Y + 15)
+				Tab.CanvasSize = UDim2.new(0, 0, 0, Tab.RightSide.ListLayout.AbsoluteContentSize.Y + 15)
 			end
 		end)
+		
 		Tab.RightSide.ListLayout:GetPropertyChangedSignal("AbsoluteContentSize"):Connect(function()
 			if GetSide(true).Name == Tab.LeftSide.Name then
-				Tab.CanvasSize = UDim2.new(0,0,0,Tab.LeftSide.ListLayout.AbsoluteContentSize.Y + 15)
+				Tab.CanvasSize = UDim2.new(0, 0, 0, Tab.LeftSide.ListLayout.AbsoluteContentSize.Y + 15)
 			else
-				Tab.CanvasSize = UDim2.new(0,0,0,Tab.RightSide.ListLayout.AbsoluteContentSize.Y + 15)
+				Tab.CanvasSize = UDim2.new(0, 0, 0, Tab.RightSide.ListLayout.AbsoluteContentSize.Y + 15)
 			end
 		end)
 
@@ -227,10 +234,10 @@ function Library:CreateWindow(Config, Parent)
 			Section.Parent = GetSide(false)
 
 			Section.Title.Text = Name
-			Section.Title.Size = UDim2.new(0,Section.Title.TextBounds.X + 10,0,2)
+			Section.Title.Size = UDim2.new(0, Section.Title.TextBounds.X + 10, 0, 2)
 
 			Section.Container.ListLayout:GetPropertyChangedSignal("AbsoluteContentSize"):Connect(function()
-				Section.Size = UDim2.new(1,0,0,Section.Container.ListLayout.AbsoluteContentSize.Y + 15)
+				Section.Size = UDim2.new(1, 0, 0, Section.Container.ListLayout.AbsoluteContentSize.Y + 15)
 			end)
 			
 			function SectionInit:CreateLabel(Name)
@@ -239,10 +246,10 @@ function Library:CreateWindow(Config, Parent)
 				Label.Name = Name .. " L"
 				Label.Parent = Section.Container
 				Label.Text = Name
-				Label.Size = UDim2.new(1,-10,0,Label.TextBounds.Y)
+				Label.Size = UDim2.new(1, -10, 0, Label.TextBounds.Y)
 				function LabelInit:UpdateText(Text)
 					Label.Text = Text
-					Label.Size = UDim2.new(1,-10,0,Label.TextBounds.Y)
+					Label.Size = UDim2.new(1, -10, 0, Label.TextBounds.Y)
 				end
 				return LabelInit
 			end
@@ -252,7 +259,7 @@ function Library:CreateWindow(Config, Parent)
 				Button.Name = Name .. " B"
 				Button.Parent = Section.Container
 				Button.Title.Text = Name
-				Button.Size = UDim2.new(1,-10,0,Button.Title.TextBounds.Y + 5)
+				Button.Size = UDim2.new(1, -10, 0,Button.Title.TextBounds.Y + 5)
 				table.insert(Library.ColorTable, Button)
 
 				Button.MouseButton1Down:Connect(function()
@@ -260,11 +267,11 @@ function Library:CreateWindow(Config, Parent)
 				end)
 
 				Button.MouseButton1Up:Connect(function()
-					Button.BackgroundColor3 = Color3.fromRGB(50,50,50)
+					Button.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
 				end)
 
 				Button.MouseLeave:Connect(function()
-					Button.BackgroundColor3 = Color3.fromRGB(50,50,50)
+					Button.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
 				end)
 
 				Button.MouseButton1Click:Connect(function()
@@ -275,7 +282,7 @@ function Library:CreateWindow(Config, Parent)
 					if tostring(Name):gsub(" ", "") ~= "" then
 						Button.MouseEnter:Connect(function()
 							Screen.ToolTip.Text = Name
-							Screen.ToolTip.Size = UDim2.new(0,Screen.ToolTip.TextBounds.X + 5,0,Screen.ToolTip.TextBounds.Y + 5)
+							Screen.ToolTip.Size = UDim2.new(0, Screen.ToolTip.TextBounds.X + 5, 0, Screen.ToolTip.TextBounds.Y + 5)
 							Screen.ToolTip.Visible = true
 						end)
 
@@ -294,8 +301,8 @@ function Library:CreateWindow(Config, Parent)
 				TextBox.Parent = Section.Container
 				TextBox.Title.Text = Name
 				TextBox.Background.Input.PlaceholderText = PlaceHolder
-				TextBox.Title.Size = UDim2.new(1,0,0,TextBox.Title.TextBounds.Y + 5)
-				TextBox.Size = UDim2.new(1,-10,0,TextBox.Title.TextBounds.Y + 25)
+				TextBox.Title.Size = UDim2.new(1, 0, 0,TextBox.Title.TextBounds.Y + 5)
+				TextBox.Size = UDim2.new(1, -10, 0,TextBox.Title.TextBounds.Y + 25)
 
 				TextBox.Background.Input.FocusLost:Connect(function()
 					if NumbersOnly and not tonumber(TextBox.Background.Input.Text) then
@@ -314,7 +321,7 @@ function Library:CreateWindow(Config, Parent)
 					if tostring(Name):gsub(" ", "") ~= "" then
 						TextBox.MouseEnter:Connect(function()
 							Screen.ToolTip.Text = Name
-							Screen.ToolTip.Size = UDim2.new(0,Screen.ToolTip.TextBounds.X + 5,0,Screen.ToolTip.TextBounds.Y + 5)
+							Screen.ToolTip.Size = UDim2.new(0, Screen.ToolTip.TextBounds.X + 5, 0, Screen.ToolTip.TextBounds.Y + 5)
 							Screen.ToolTip.Visible = true
 						end)
 
@@ -332,7 +339,7 @@ function Library:CreateWindow(Config, Parent)
 				Toggle.Name = Name .. " T"
 				Toggle.Parent = Section.Container
 				Toggle.Title.Text = Name
-				Toggle.Size = UDim2.new(1,-10,0,Toggle.Title.TextBounds.Y + 5)
+				Toggle.Size = UDim2.new(1, -10, 0, Toggle.Title.TextBounds.Y + 5)
 				
 				table.insert(Library.ColorTable, Toggle.Toggle)
 				local ToggleState = false
@@ -341,7 +348,7 @@ function Library:CreateWindow(Config, Parent)
 					if State then
 						Toggle.Toggle.BackgroundColor3 = Config.Color
 					elseif not State then
-						Toggle.Toggle.BackgroundColor3 = Color3.fromRGB(50,50,50)
+						Toggle.Toggle.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
 					end
 					ToggleState = State
 					Callback(State)
@@ -356,7 +363,7 @@ function Library:CreateWindow(Config, Parent)
 					if tostring(Name):gsub(" ", "") ~= "" then
 						Toggle.MouseEnter:Connect(function()
 							Screen.ToolTip.Text = Name
-							Screen.ToolTip.Size = UDim2.new(0,Screen.ToolTip.TextBounds.X + 5,0,Screen.ToolTip.TextBounds.Y + 5)
+							Screen.ToolTip.Size = UDim2.new(0, Screen.ToolTip.TextBounds.X + 5, 0, Screen.ToolTip.TextBounds.Y + 5)
 							Screen.ToolTip.Visible = true
 						end)
 
@@ -395,8 +402,8 @@ function Library:CreateWindow(Config, Parent)
 					end)
 
 					Toggle.Keybind:GetPropertyChangedSignal("TextBounds"):Connect(function()
-						Toggle.Keybind.Size = UDim2.new(0,Toggle.Keybind.TextBounds.X,1,0)
-						Toggle.Title.Size = UDim2.new(1,-Toggle.Keybind.Size.X.Offset - 15,1,0)
+						Toggle.Keybind.Size = UDim2.new(0, Toggle.Keybind.TextBounds.X,1,0)
+						Toggle.Title.Size = UDim2.new(1, -Toggle.Keybind.Size.X.Offset - 15,1,0)
 					end)
 
 					UserInputService.InputBegan:Connect(function(Input)
@@ -443,17 +450,17 @@ function Library:CreateWindow(Config, Parent)
 				Slider.Parent = Section.Container
 				
 				Slider.Title.Text = Name
-				Slider.Slider.Bar.Size = UDim2.new(Min / Max,0,1,0)
+				Slider.Slider.Bar.Size = UDim2.new(Min / Max, 0, 1, 0)
 				Slider.Slider.Bar.BackgroundColor3 = Config.Color
 				Slider.Value.PlaceholderText = tostring(Min / Max)
-				Slider.Title.Size = UDim2.new(1,0,0,Slider.Title.TextBounds.Y + 5)
-				Slider.Size = UDim2.new(1,-10,0,Slider.Title.TextBounds.Y + 15)
+				Slider.Title.Size = UDim2.new(1, 0, 0,Slider.Title.TextBounds.Y + 5)
+				Slider.Size = UDim2.new(1, -10, 0, Slider.Title.TextBounds.Y + 15)
 				table.insert(Library.ColorTable, Slider.Slider.Bar)
 
 				local GlobalSliderValue = 0
 				local Dragging = false
 				local function Sliding(Input)
-                    local Position = UDim2.new(math.clamp((Input.Position.X - Slider.Slider.AbsolutePosition.X) / Slider.Slider.AbsoluteSize.X,0,1),0,1,0)
+                    local Position = UDim2.new(math.clamp((Input.Position.X - Slider.Slider.AbsolutePosition.X) / Slider.Slider.AbsoluteSize.X, 0, 1), 0, 1, 0)
                     Slider.Slider.Bar.Size = Position
 					local SliderPrecise = ((Position.X.Scale * Max) / Max) * (Max - Min) + Min
 					local SliderNonPrecise = math.floor(((Position.X.Scale * Max) / Max) * (Max - Min) + Min)
@@ -465,7 +472,7 @@ function Library:CreateWindow(Config, Parent)
                 end
 				local function SetValue(Value)
 					GlobalSliderValue = Value
-					Slider.Slider.Bar.Size = UDim2.new(Value / Max,0,1,0)
+					Slider.Slider.Bar.Size = UDim2.new(Value / Max, 0, 1, 0)
 					Slider.Value.PlaceholderText = Value
 					Callback(Value)
 				end
@@ -479,7 +486,7 @@ function Library:CreateWindow(Config, Parent)
 					end
 		
 					GlobalSliderValue = Slider.Value.Text
-					Slider.Slider.Bar.Size = UDim2.new(Slider.Value.Text / Max,0,1,0)
+					Slider.Slider.Bar.Size = UDim2.new(Slider.Value.Text / Max, 0, 1, 0)
 					Slider.Value.PlaceholderText = Slider.Value.Text
 					Callback(tonumber(Slider.Value.Text))
 					Slider.Value.Text = ""
@@ -533,7 +540,7 @@ function Library:CreateWindow(Config, Parent)
 				if Default == nil then
 					function SliderInit:SetValue(Value)
 						GlobalSliderValue = Value
-						Slider.Slider.Bar.Size = UDim2.new(Value / Max,0,1,0)
+						Slider.Slider.Bar.Size = UDim2.new(Value / Max, 0, 1, 0)
 						Slider.Value.PlaceholderText = Value
 						Callback(Value)
 					end
@@ -554,19 +561,19 @@ function Library:CreateWindow(Config, Parent)
 				Dropdown.Parent = Section.Container
 
 				Dropdown.Title.Text = Name
-				Dropdown.Title.Size = UDim2.new(1,0,0,Dropdown.Title.TextBounds.Y + 5)
-				Dropdown.Container.Position = UDim2.new(0,0,0,Dropdown.Title.TextBounds.Y + 5)
-				Dropdown.Size = UDim2.new(1,-10,0,Dropdown.Title.TextBounds.Y + 25)
+				Dropdown.Title.Size = UDim2.new(1, 0, 0,Dropdown.Title.TextBounds.Y + 5)
+				Dropdown.Container.Position = UDim2.new(0, 0, 0,Dropdown.Title.TextBounds.Y + 5)
+				Dropdown.Size = UDim2.new(1, -10, 0,Dropdown.Title.TextBounds.Y + 25)
 
 				local DropdownToggle = false
 
 				Dropdown.MouseButton1Click:Connect(function()
 					DropdownToggle = not DropdownToggle
 					if DropdownToggle then
-						Dropdown.Size = UDim2.new(1,-10,0,Dropdown.Container.Holder.Container.ListLayout.AbsoluteContentSize.Y + Dropdown.Title.TextBounds.Y + 30)
+						Dropdown.Size = UDim2.new(1, -10, 0,Dropdown.Container.Holder.Container.ListLayout.AbsoluteContentSize.Y + Dropdown.Title.TextBounds.Y + 30)
 						Dropdown.Container.Holder.Visible = true
 					else
-						Dropdown.Size = UDim2.new(1,-10,0,Dropdown.Title.TextBounds.Y + 25)
+						Dropdown.Size = UDim2.new(1, -10, 0,Dropdown.Title.TextBounds.Y + 25)
 						Dropdown.Container.Holder.Visible = false
 					end
 				end)
@@ -578,8 +585,8 @@ function Library:CreateWindow(Config, Parent)
 
 					Option.Title.Text = OptionName
 					Option.BackgroundColor3 = Config.Color
-					Option.Size = UDim2.new(1,0,0,Option.Title.TextBounds.Y + 5)
-					Dropdown.Container.Holder.Size = UDim2.new(1,-5,0,Dropdown.Container.Holder.Container.ListLayout.AbsoluteContentSize.Y)
+					Option.Size = UDim2.new(1, 0, 0,Option.Title.TextBounds.Y + 5)
+					Dropdown.Container.Holder.Size = UDim2.new(1, -5, 0,Dropdown.Container.Holder.Container.ListLayout.AbsoluteContentSize.Y)
 					table.insert(Library.ColorTable, Option)
 
 					Option.MouseButton1Down:Connect(function()
@@ -603,7 +610,7 @@ function Library:CreateWindow(Config, Parent)
 					if tostring(Name):gsub(" ", "") ~= "" then
 						Dropdown.MouseEnter:Connect(function()
 							Screen.ToolTip.Text = Name
-							Screen.ToolTip.Size = UDim2.new(0,Screen.ToolTip.TextBounds.X + 5,0,Screen.ToolTip.TextBounds.Y + 5)
+							Screen.ToolTip.Size = UDim2.new(0, Screen.ToolTip.TextBounds.X + 5, 0, Screen.ToolTip.TextBounds.Y + 5)
 							Screen.ToolTip.Visible = true
 						end)
 
@@ -616,6 +623,7 @@ function Library:CreateWindow(Config, Parent)
 				function DropdownInit:GetOption()
 					return Dropdown.Container.Value.Text
 				end
+				
 				function DropdownInit:SetOption(Name)
 					for _,Option in pairs(Dropdown.Container.Holder.Container:GetChildren()) do
 						if Option:IsA("TextButton") and string.find(Option.Name, Name) then
@@ -624,29 +632,34 @@ function Library:CreateWindow(Config, Parent)
 						end
 					end
 				end
+				
 				function DropdownInit:RemoveOption(Name)
 					for _,Option in pairs(Dropdown.Container.Holder.Container:GetChildren()) do
 						if Option:IsA("TextButton") and string.find(Option.Name, Name) then
 							Option:Destroy()
 						end
 					end
-					Dropdown.Container.Holder.Size = UDim2.new(1,-5,0,Dropdown.Container.Holder.Container.ListLayout.AbsoluteContentSize.Y)
-							Dropdown.Size = UDim2.new(1,-10,0,Dropdown.Container.Holder.Container.ListLayout.AbsoluteContentSize.Y + Dropdown.Title.TextBounds.Y + 30)
+					Dropdown.Container.Holder.Size = UDim2.new(1, -5, 0,Dropdown.Container.Holder.Container.ListLayout.AbsoluteContentSize.Y)
+							Dropdown.Size = UDim2.new(1, -10, 0,Dropdown.Container.Holder.Container.ListLayout.AbsoluteContentSize.Y + Dropdown.Title.TextBounds.Y + 30)
 				end
+				
 				function DropdownInit:ClearOptions()
 					for _, Option in pairs(Dropdown.Container.Holder.Container:GetChildren()) do
 						if Option:IsA("TextButton") then
 							Option:Destroy()
 						end
 					end
-					Dropdown.Container.Holder.Size = UDim2.new(1,-5,0,Dropdown.Container.Holder.Container.ListLayout.AbsoluteContentSize.Y)
-					Dropdown.Size = UDim2.new(1,-10,0,Dropdown.Container.Holder.Container.ListLayout.AbsoluteContentSize.Y + Dropdown.Title.TextBounds.Y + 30)
+					Dropdown.Container.Holder.Size = UDim2.new(1, -5, 0,Dropdown.Container.Holder.Container.ListLayout.AbsoluteContentSize.Y)
+					Dropdown.Size = UDim2.new(1, -10, 0,Dropdown.Container.Holder.Container.ListLayout.AbsoluteContentSize.Y + Dropdown.Title.TextBounds.Y + 30)
 				end
+				
 				if InitialValue then
 					DropdownInit:SetOption(InitialValue)
 				end
+				
 				return DropdownInit
 			end
+			
 			function SectionInit:CreateColorpicker(Name,Callback)
 				local ColorpickerInit = {}
 				local Colorpicker = Folder.Colorpicker:Clone()
@@ -665,20 +678,22 @@ function Library:CreateWindow(Config, Parent)
 					Saturation = 0,
 					Value = 0
 				}
+				
 				local ColorRender = nil
 				local HueRender = nil
 				local ColorpickerRender = nil
+				
 				local function UpdateColor()
 					Colorpicker.Color.BackgroundColor3 = Color3.fromHSV(ColorTable.Hue,ColorTable.Saturation,ColorTable.Value)
-					Pallete.GradientPallete.BackgroundColor3 = Color3.fromHSV(ColorTable.Hue,1,1)
-					Pallete.Input.InputBox.PlaceholderText = "RGB: " .. math.round(Colorpicker.Color.BackgroundColor3.R* 255) .. "," .. math.round(Colorpicker.Color.BackgroundColor3.G * 255) .. "," .. math.round(Colorpicker.Color.BackgroundColor3.B * 255)
+					Pallete.GradientPallete.BackgroundColor3 = Color3.fromHSV(ColorTable.Hue, 1, 1)
+					Pallete.Input.InputBox.PlaceholderText = "RGB: " .. math.round(Colorpicker.Color.BackgroundColor3.R * 255) .. "," .. math.round(Colorpicker.Color.BackgroundColor3.G * 255) .. "," .. math.round(Colorpicker.Color.BackgroundColor3.B * 255)
 					Callback(Colorpicker.Color.BackgroundColor3)
 				end
 
 				Colorpicker.MouseButton1Click:Connect(function()
 					if not Pallete.Visible then
 						ColorpickerRender = RunService.RenderStepped:Connect(function()
-							Pallete.Position = UDim2.new(0,Colorpicker.Color.AbsolutePosition.X - 129,0,Colorpicker.Color.AbsolutePosition.Y + 52)
+							Pallete.Position = UDim2.new(0,Colorpicker.Color.AbsolutePosition.X - 129, 0, Colorpicker.Color.AbsolutePosition.Y + 52)
 						end)
 						Pallete.Visible = true
 					else
@@ -696,7 +711,7 @@ function Library:CreateWindow(Config, Parent)
 							local Mouse = UserInputService:GetMouseLocation()
 							local ColorX = math.clamp(Mouse.X - Pallete.GradientPallete.AbsolutePosition.X, 0, Pallete.GradientPallete.AbsoluteSize.X) / Pallete.GradientPallete.AbsoluteSize.X
                             local ColorY = math.clamp((Mouse.Y - 37) - Pallete.GradientPallete.AbsolutePosition.Y, 0, Pallete.GradientPallete.AbsoluteSize.Y) / Pallete.GradientPallete.AbsoluteSize.Y
-							Pallete.GradientPallete.Dot.Position = UDim2.new(ColorX,0,ColorY,0)
+							Pallete.GradientPallete.Dot.Position = UDim2.new(ColorX, 0, ColorY, 0)
 							ColorTable.Saturation = ColorX
 							ColorTable.Value = 1 - ColorY
 							UpdateColor()
@@ -723,22 +738,22 @@ function Library:CreateWindow(Config, Parent)
 							ColorTable.Hue = 1 - HueX
 							UpdateColor()
 						end)
-                    end
+					end
 				end)
 
 				Pallete.ColorSlider.InputEnded:Connect(function(Input)
 					if Input.UserInputType == Enum.UserInputType.MouseButton1 then
-                        if HueRender then
-                            HueRender:Disconnect()
-                        end
-                    end
+						if HueRender then
+							HueRender:Disconnect()
+						end
+					end
 				end)
 
 				function ColorpickerInit:UpdateColor(Color)
 					local Hue, Saturation, Value = Color:ToHSV()
 					Colorpicker.Color.BackgroundColor3 = Color3.fromHSV(Hue,Saturation,Value)
 					Pallete.GradientPallete.BackgroundColor3 = Color3.fromHSV(Hue,1,1)
-					Pallete.Input.InputBox.PlaceholderText = "RGB: " .. math.round(Colorpicker.Color.BackgroundColor3.R* 255) .. "," .. math.round(Colorpicker.Color.BackgroundColor3.G * 255) .. "," .. math.round(Colorpicker.Color.BackgroundColor3.B * 255)
+					Pallete.Input.InputBox.PlaceholderText = "RGB: " .. math.round(Colorpicker.Color.BackgroundColor3.R * 255) .. "," .. math.round(Colorpicker.Color.BackgroundColor3.G * 255) .. "," .. math.round(Colorpicker.Color.BackgroundColor3.B * 255)
 					ColorTable = {
 						Hue = Hue,
 						Saturation = Saturation,
@@ -749,7 +764,7 @@ function Library:CreateWindow(Config, Parent)
 
 				Pallete.Input.InputBox.FocusLost:Connect(function(Enter)
 					if Enter then
-						local ColorString = string.split(string.gsub(Pallete.Input.InputBox.Text," ", ""), ",")
+						local ColorString = string.split(string.gsub(Pallete.Input.InputBox.Text, " ", ""), ",")
 						ColorpickerInit:UpdateColor(Color3.fromRGB(ColorString[1],ColorString[2],ColorString[3]))
 						Pallete.Input.InputBox.Text = ""
 					end
@@ -759,7 +774,7 @@ function Library:CreateWindow(Config, Parent)
 					if tostring(Name):gsub(" ", "") ~= "" then
 						Colorpicker.MouseEnter:Connect(function()
 							Screen.ToolTip.Text = Name
-							Screen.ToolTip.Size = UDim2.new(0,Screen.ToolTip.TextBounds.X + 5,0,Screen.ToolTip.TextBounds.Y + 5)
+							Screen.ToolTip.Size = UDim2.new(0, Screen.ToolTip.TextBounds.X + 5, 0, Screen.ToolTip.TextBounds.Y + 5)
 							Screen.ToolTip.Visible = true
 						end)
 
@@ -768,7 +783,6 @@ function Library:CreateWindow(Config, Parent)
 						end)
 					end
 				end
-
 				return ColorpickerInit
 			end
 			return SectionInit
