@@ -155,15 +155,17 @@ function Library:CreateWindow(Config, Parent)
 	function WindowInit:SetTileScale(Scale)
 		Holder.TileSize = UDim2.new(Scale, 0, Scale, 0)
 	end
-
-	RunService.RenderStepped:Connect(function()
+	
+	local function LibraryToggle()
 		if Library.Toggle then
 			Screen.ToolTip.Position = UDim2.new(0, UserInputService:GetMouseLocation().X + 10, 0, UserInputService:GetMouseLocation().Y - 5)
 		end
-	end)
+	end
+	
+	RunService:BindToRenderStep("Library_Toggle", 1, LibraryToggle)
 	
 	function WindowInit:DestroyGui()
-		RunService.RenderStepped:Disconnect()
+		RunService:UnbindFromRenderStep("Library_Toggle")
 		Screen:destroy()
 	end
 
@@ -303,8 +305,8 @@ function Library:CreateWindow(Config, Parent)
 				TextBox.Parent = Section.Container
 				TextBox.Title.Text = Name
 				TextBox.Background.Input.PlaceholderText = PlaceHolder
-				TextBox.Title.Size = UDim2.new(1, 0, 0,TextBox.Title.TextBounds.Y + 5)
-				TextBox.Size = UDim2.new(1, -10, 0,TextBox.Title.TextBounds.Y + 25)
+				TextBox.Title.Size = UDim2.new(1, 0, 0, TextBox.Title.TextBounds.Y + 5)
+				TextBox.Size = UDim2.new(1, -10, 0, TextBox.Title.TextBounds.Y + 25)
 
 				TextBox.Background.Input.FocusLost:Connect(function()
 					if NumbersOnly and not tonumber(TextBox.Background.Input.Text) then
@@ -393,7 +395,7 @@ function Library:CreateWindow(Config, Parent)
 
 					local WaitingForBind = false
 					local Selected = Bind
-					local Blacklist = {"W","A","S","D","Slash","Tab","Backspace","Escape","Space","Delete","Unknown","Backquote"}
+					local Blacklist = {"W", "A", "S", "D", "Slash", "Tab", "Backspace", "Escape", "Space", "Delete", "Unknown", "Backquote"}
 
 					Toggle.Keybind.Visible = true
 					Toggle.Keybind.Text = "[ " .. Bind .. " ]"
@@ -404,8 +406,8 @@ function Library:CreateWindow(Config, Parent)
 					end)
 
 					Toggle.Keybind:GetPropertyChangedSignal("TextBounds"):Connect(function()
-						Toggle.Keybind.Size = UDim2.new(0, Toggle.Keybind.TextBounds.X,1,0)
-						Toggle.Title.Size = UDim2.new(1, -Toggle.Keybind.Size.X.Offset - 15,1,0)
+						Toggle.Keybind.Size = UDim2.new(0, Toggle.Keybind.TextBounds.X, 1, 0)
+						Toggle.Title.Size = UDim2.new(1, -Toggle.Keybind.Size.X.Offset - 15, 1, 0)
 					end)
 
 					UserInputService.InputBegan:Connect(function(Input)
@@ -455,8 +457,8 @@ function Library:CreateWindow(Config, Parent)
 				Slider.Slider.Bar.Size = UDim2.new(Min / Max, 0, 1, 0)
 				Slider.Slider.Bar.BackgroundColor3 = Config.Color
 				Slider.Value.PlaceholderText = tostring(Min / Max)
-				Slider.Title.Size = UDim2.new(1, 0, 0,Slider.Title.TextBounds.Y + 5)
-				Slider.Size = UDim2.new(1, -10, 0, Slider.Title.TextBounds.Y + 15)
+				Slider.Title.Size = UDim2.new(1, 0, 0, Slider.Title.TextBounds.Y + 5)
+				Slider.Size = UDim2.new(1, -10, 0,  Slider.Title.TextBounds.Y + 15)
 				table.insert(Library.ColorTable, Slider.Slider.Bar)
 
 				local GlobalSliderValue = 0
@@ -529,7 +531,7 @@ function Library:CreateWindow(Config, Parent)
 					if tostring(Name):gsub(" ", "") ~= "" then
 						Slider.MouseEnter:Connect(function()
 							Screen.ToolTip.Text = Name
-							Screen.ToolTip.Size = UDim2.new(0,Screen.ToolTip.TextBounds.X + 5,0,Screen.ToolTip.TextBounds.Y + 5)
+							Screen.ToolTip.Size = UDim2.new(0, Screen.ToolTip.TextBounds.X + 5, 0, Screen.ToolTip.TextBounds.Y + 5)
 							Screen.ToolTip.Visible = true
 						end)
 
@@ -563,19 +565,19 @@ function Library:CreateWindow(Config, Parent)
 				Dropdown.Parent = Section.Container
 
 				Dropdown.Title.Text = Name
-				Dropdown.Title.Size = UDim2.new(1, 0, 0,Dropdown.Title.TextBounds.Y + 5)
-				Dropdown.Container.Position = UDim2.new(0, 0, 0,Dropdown.Title.TextBounds.Y + 5)
-				Dropdown.Size = UDim2.new(1, -10, 0,Dropdown.Title.TextBounds.Y + 25)
+				Dropdown.Title.Size = UDim2.new(1, 0, 0, Dropdown.Title.TextBounds.Y + 5)
+				Dropdown.Container.Position = UDim2.new(0, 0, 0, Dropdown.Title.TextBounds.Y + 5)
+				Dropdown.Size = UDim2.new(1, -10, 0, Dropdown.Title.TextBounds.Y + 25)
 
 				local DropdownToggle = false
 
 				Dropdown.MouseButton1Click:Connect(function()
 					DropdownToggle = not DropdownToggle
 					if DropdownToggle then
-						Dropdown.Size = UDim2.new(1, -10, 0,Dropdown.Container.Holder.Container.ListLayout.AbsoluteContentSize.Y + Dropdown.Title.TextBounds.Y + 30)
+						Dropdown.Size = UDim2.new(1, -10, 0, Dropdown.Container.Holder.Container.ListLayout.AbsoluteContentSize.Y + Dropdown.Title.TextBounds.Y + 30)
 						Dropdown.Container.Holder.Visible = true
 					else
-						Dropdown.Size = UDim2.new(1, -10, 0,Dropdown.Title.TextBounds.Y + 25)
+						Dropdown.Size = UDim2.new(1, -10, 0, Dropdown.Title.TextBounds.Y + 25)
 						Dropdown.Container.Holder.Visible = false
 					end
 				end)
@@ -588,7 +590,7 @@ function Library:CreateWindow(Config, Parent)
 					Option.Title.Text = OptionName
 					Option.BackgroundColor3 = Config.Color
 					Option.Size = UDim2.new(1, 0, 0,Option.Title.TextBounds.Y + 5)
-					Dropdown.Container.Holder.Size = UDim2.new(1, -5, 0,Dropdown.Container.Holder.Container.ListLayout.AbsoluteContentSize.Y)
+					Dropdown.Container.Holder.Size = UDim2.new(1, -5, 0, Dropdown.Container.Holder.Container.ListLayout.AbsoluteContentSize.Y)
 					table.insert(Library.ColorTable, Option)
 
 					Option.MouseButton1Down:Connect(function()
@@ -641,8 +643,8 @@ function Library:CreateWindow(Config, Parent)
 							Option:Destroy()
 						end
 					end
-					Dropdown.Container.Holder.Size = UDim2.new(1, -5, 0,Dropdown.Container.Holder.Container.ListLayout.AbsoluteContentSize.Y)
-							Dropdown.Size = UDim2.new(1, -10, 0,Dropdown.Container.Holder.Container.ListLayout.AbsoluteContentSize.Y + Dropdown.Title.TextBounds.Y + 30)
+					Dropdown.Container.Holder.Size = UDim2.new(1, -5, 0, Dropdown.Container.Holder.Container.ListLayout.AbsoluteContentSize.Y)
+							Dropdown.Size = UDim2.new(1, -10, 0, Dropdown.Container.Holder.Container.ListLayout.AbsoluteContentSize.Y + Dropdown.Title.TextBounds.Y + 30)
 				end
 				
 				function DropdownInit:ClearOptions()
@@ -651,8 +653,8 @@ function Library:CreateWindow(Config, Parent)
 							Option:Destroy()
 						end
 					end
-					Dropdown.Container.Holder.Size = UDim2.new(1, -5, 0,Dropdown.Container.Holder.Container.ListLayout.AbsoluteContentSize.Y)
-					Dropdown.Size = UDim2.new(1, -10, 0,Dropdown.Container.Holder.Container.ListLayout.AbsoluteContentSize.Y + Dropdown.Title.TextBounds.Y + 30)
+					Dropdown.Container.Holder.Size = UDim2.new(1, -5, 0, Dropdown.Container.Holder.Container.ListLayout.AbsoluteContentSize.Y)
+					Dropdown.Size = UDim2.new(1, -10, 0, Dropdown.Container.Holder.Container.ListLayout.AbsoluteContentSize.Y + Dropdown.Title.TextBounds.Y + 30)
 				end
 				
 				if InitialValue then
@@ -670,7 +672,7 @@ function Library:CreateWindow(Config, Parent)
 				Colorpicker.Name = Name .. " CP"
 				Colorpicker.Parent = Section.Container
 				Colorpicker.Title.Text = Name
-				Colorpicker.Size = UDim2.new(1,-10,0,Colorpicker.Title.TextBounds.Y + 5)
+				Colorpicker.Size = UDim2.new(1, -10, 0, Colorpicker.Title.TextBounds.Y + 5)
 
 				Pallete.Name = Name .. " P"
 				Pallete.Parent = Screen
@@ -695,7 +697,7 @@ function Library:CreateWindow(Config, Parent)
 				Colorpicker.MouseButton1Click:Connect(function()
 					if not Pallete.Visible then
 						ColorpickerRender = RunService.RenderStepped:Connect(function()
-							Pallete.Position = UDim2.new(0,Colorpicker.Color.AbsolutePosition.X - 129, 0, Colorpicker.Color.AbsolutePosition.Y + 52)
+							Pallete.Position = UDim2.new(0, Colorpicker.Color.AbsolutePosition.X - 129, 0, Colorpicker.Color.AbsolutePosition.Y + 52)
 						end)
 						Pallete.Visible = true
 					else
@@ -767,7 +769,7 @@ function Library:CreateWindow(Config, Parent)
 				Pallete.Input.InputBox.FocusLost:Connect(function(Enter)
 					if Enter then
 						local ColorString = string.split(string.gsub(Pallete.Input.InputBox.Text, " ", ""), ",")
-						ColorpickerInit:UpdateColor(Color3.fromRGB(ColorString[1],ColorString[2],ColorString[3]))
+						ColorpickerInit:UpdateColor(Color3.fromRGB(ColorString[1], ColorString[2], ColorString[3]))
 						Pallete.Input.InputBox.Text = ""
 					end
 				end)
@@ -793,5 +795,4 @@ function Library:CreateWindow(Config, Parent)
 	end
 	return WindowInit
 end
-
 return Library
