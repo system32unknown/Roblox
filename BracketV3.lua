@@ -83,7 +83,7 @@ function Library:CreateWindow(Config, Parent)
 	end
 	
 	local function KeepFirst()
-		for _,Tab in pairs(TContainer:GetChildren()) do
+		for _, Tab in pairs(TContainer:GetChildren()) do
 			if Tab:IsA("ScrollingFrame") then
 				if Tab.Name == Library.FirstTab .. " T" then
 					Tab.Visible = true
@@ -93,7 +93,7 @@ function Library:CreateWindow(Config, Parent)
 			end
 		end
 		
-		for _,TabButton in pairs(TBContainer:GetChildren()) do
+		for _, TabButton in pairs(TBContainer:GetChildren()) do
 			if TabButton:IsA("TextButton") then
 				if TabButton.Name == Library.FirstTab .. " TB" then
 					TabButton.BackgroundTransparency = 0
@@ -143,6 +143,7 @@ function Library:CreateWindow(Config, Parent)
 	function WindowInit:SetBackgroundColor(Color)
 		Holder.ImageColor3 = Color
 	end
+	
 	function WindowInit:SetBackgroundTransparency(Transparency)
 		Holder.ImageTransparency = Transparency
 	end
