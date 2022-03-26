@@ -162,7 +162,7 @@ function Library:CreateWindow(Config, Parent)
 	end)
 	
 	function WindowInit:DestroyGui()
-		Screen.destroy()
+		Screen:destroy()
 	end
 
 	function WindowInit:CreateTab(Name)
