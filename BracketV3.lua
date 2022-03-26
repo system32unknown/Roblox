@@ -162,6 +162,7 @@ function Library:CreateWindow(Config, Parent)
 	end)
 	
 	function WindowInit:DestroyGui()
+		RunService.RenderStepped:Disconnect()
 		Screen:destroy()
 	end
 
