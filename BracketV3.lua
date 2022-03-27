@@ -53,9 +53,9 @@ function Library:CreateWindow(Config, Parent)
 	Screen.Parent = Parent
 	Topbar.WindowName.Text = Config.WindowName
 
-	MakeDraggable(Topbar,Main)
+	MakeDraggable(Topbar, Main)
 	local function CloseAll()
-		for _,Tab in pairs(TContainer:GetChildren()) do
+		for _, Tab in pairs(TContainer:GetChildren()) do
 			if Tab:IsA("ScrollingFrame") then
 				Tab.Visible = false
 			end
@@ -162,7 +162,7 @@ function Library:CreateWindow(Config, Parent)
 		end
 	end
 	
-	RunService:BindToRenderStep("Library_Toggle", 1, LibraryToggle)
+	RunService:BindToRenderStep("Library_Toggle", 100, LibraryToggle)
 	
 	function WindowInit:DestroyGui()
 		RunService:UnbindFromRenderStep("Library_Toggle")
@@ -389,7 +389,7 @@ function Library:CreateWindow(Config, Parent)
 					return ToggleState
 				end
 
-				function ToggleInit:CreateKeybind(Bind,Callback)
+				function ToggleInit:CreateKeybind(Bind, Callback)
 					local KeybindInit = {}
 					Bind = Bind or "NONE"
 
@@ -664,7 +664,7 @@ function Library:CreateWindow(Config, Parent)
 				return DropdownInit
 			end
 			
-			function SectionInit:CreateColorpicker(Name,Callback)
+			function SectionInit:CreateColorpicker(Name, Callback)
 				local ColorpickerInit = {}
 				local Colorpicker = Folder.Colorpicker:Clone()
 				local Pallete = Folder.Pallete:Clone()
