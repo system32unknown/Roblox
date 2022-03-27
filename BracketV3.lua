@@ -162,7 +162,7 @@ function Library:CreateWindow(Config, Parent)
 		end
 	end
 	
-	RunService:BindToRenderStep("Library_Toggle", 100, LibraryToggle)
+	RunService:BindToRenderStep("Library_Toggle", Enum.RenderPriority.First.Value - 1, LibraryToggle)
 	
 	function WindowInit:DestroyGui()
 		RunService:UnbindFromRenderStep("Library_Toggle")
