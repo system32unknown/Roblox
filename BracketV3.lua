@@ -156,11 +156,13 @@ function Library:CreateWindow(Config, Parent)
 		Holder.TileSize = UDim2.new(Scale, 0, Scale, 0)
 	end
 	
-	RunService:BindToRenderStep("Library_Toggle", Enum.RenderPriority.First.Value - 1, function()
+	local function Library_tog()
 		if Library.Toggle then
 			Screen.ToolTip.Position = UDim2.new(0, UserInputService:GetMouseLocation().X + 10, 0, UserInputService:GetMouseLocation().Y - 5)
 		end
-	end)
+	end
+	
+	RunService:BindToRenderStep("Library_Toggle", Enum.RenderPriority.First.Value, Library_tog())
 	
 	function WindowInit:DestroyGui()
 		RunService:UnbindFromRenderStep("Library_Toggle")
