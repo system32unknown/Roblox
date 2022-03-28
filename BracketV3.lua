@@ -263,7 +263,7 @@ function Library:CreateWindow(Config, Parent)
 				Button.Name = Name .. " B"
 				Button.Parent = Section.Container
 				Button.Title.Text = Name
-				Button.Size = UDim2.new(1, -10, 0,Button.Title.TextBounds.Y + 5)
+				Button.Size = UDim2.new(1, -10, 0, Button.Title.TextBounds.Y + 5)
 				table.insert(Library.ColorTable, Button)
 
 				Button.MouseButton1Down:Connect(function()
@@ -296,6 +296,11 @@ function Library:CreateWindow(Config, Parent)
 					end
 				end
 
+				function ButtonInit:UpdateText(Text)
+					Button.Title.Text = Text
+					Button.Size = UDim2.new(1, -10, 0, Button.Title.TextBounds.Y + 5)
+				end
+				
 				return ButtonInit
 			end
 			function SectionInit:CreateTextBox(Name, PlaceHolder, NumbersOnly, Callback)
