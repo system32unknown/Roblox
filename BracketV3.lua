@@ -591,8 +591,8 @@ function Library:CreateWindow(Config, Parent)
 					end
 				end)
 				
-				function DropdownInit:AddOption(table)
-					for _,OptionName in pairs(table) do
+				function DropdownInit:AddOption()
+					for _,OptionName in pairs(OptionTable) do
 						local Option = Folder.Option:Clone()
 						Option.Name = OptionName
 						Option.Parent = Dropdown.Container.Holder.Container
