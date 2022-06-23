@@ -622,7 +622,7 @@ function Library:CreateWindow(Config, Parent)
 					end
 				end
 				
-				DropdownInit:AddOption(OptionTable)
+				DropdownInit:AddOption()
 				
 				function DropdownInit:AddToolTip(Name)
 					if tostring(Name):gsub(" ", "") ~= "" then
