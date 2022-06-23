@@ -1,4 +1,4 @@
-local Library = {Toggle = true, FirstTab = nil, TabCount = 0, ColorTable = {}, Keybind = Enum.KeyCode.RightBracket}
+local Library = {Toggle = true, FirstTab = nil, TabCount = 0, ColorTable = {}}
 
 local RunService = game:GetService("RunService")
 local HttpService = game:GetService("HttpService")
