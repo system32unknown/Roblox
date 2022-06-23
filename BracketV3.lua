@@ -5,8 +5,6 @@ local HttpService = game:GetService("HttpService")
 local TweenService = game:GetService("TweenService")
 local UserInputService = game:GetService("UserInputService")
 
-local Toggled = false
-
 local function MakeDraggable(ClickObject, Object)
 	local Dragging = nil
 	local DragInput = nil
@@ -170,13 +168,6 @@ function Library:CreateWindow(Config, Parent)
 		RunService:UnbindFromRenderStep("Library_Toggle")
 		Screen:destroy()
 	end
-	
-	UserInputService.InputBegan:Connect(function(Input)
-		if Input.UserInputType == Library.Keybind then
-			Toggled = not Toggled
-			Toggle(Toggled)
-		end
-	end)
 
 	function WindowInit:CreateTab(Name)
 		local TabInit = {}
