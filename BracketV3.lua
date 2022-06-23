@@ -516,13 +516,17 @@ function Library:CreateWindow(Config, Parent)
 
 				UserInputService.InputBegan:Connect(function(Input)
 					if Input.KeyCode == Enum.KeyCode.LeftControl then
-						Slider.Value.ZIndex = 4
+						pcall(function() 
+							Slider.Value.ZIndex = 4	
+						end)
 					end
 				end)
 
 				UserInputService.InputEnded:Connect(function(Input)
 					if Input.KeyCode == Enum.KeyCode.LeftControl then
-						Slider.Value.ZIndex = 3
+						pcall(function() 
+							Slider.Value.ZIndex = 3		
+						end)
 					end
 				end)
 
