@@ -430,7 +430,7 @@ end)
 local StringSetting = Window:CreateTab("Strings")
 
 --Begins of String Section.
-local review_label = StringSetting:CreateLabel("")
+local review_label = StringSetting:CreateLabel("None")
 StringSetting:CreateTextBox("Review Text", "Texts", false, function(String)
 	review_text = String
 	review_label:UpdateText(review_text)
