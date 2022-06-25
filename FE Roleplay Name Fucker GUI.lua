@@ -93,6 +93,16 @@ function has_value(tab, val)
     return false
 end
 
+function CheckColor(Color)
+	if type(Color) == "table" then
+		return Color3.fromRGB(Color[1], Color[2], Color[3])
+	elseif typeof(Color) == "Color3" then
+		return Color
+	else
+		error("Color is not a table or Color3")
+	end
+end
+
 --Variables
 local prev_name = Get_Name("LocalPlayer")
 local texts = ""
@@ -123,7 +133,7 @@ Check_Admin(blacklisted_admin)
 local Config = {
 	Filename = "",
     WindowName = "[FE] Roleplay Name Fucker by Friskshift" .. VERSION,
-	Color = Color3.fromRGB(math.random(0, 255), math.random(0, 255), math.random(0, 255)),
+	Color = {math.random(0, 255), math.random(0, 255), math.random(0, 255)},
 	Keybind = Enum.KeyCode.RightBracket
 }
 
@@ -354,7 +364,7 @@ local Section_Settings = TabSetting:CreateSection("Settings")
 local Colorpicker3 = Section_Settings:CreateColorpicker("UI Color", function(Color)
 	Window:ChangeColor(Color)
 end)
-Colorpicker3:UpdateColor(Config.Color)
+Colorpicker3:UpdateColor(CheckColor(Config.Color))
 
 local Dropdown3 = Section_Settings:CreateDropdown("Image", {"Default", "Hearts", "Abstract", "Hexagon", "Circles", "Lace With Flowers", "Floral", "checker"}, function(Name)
 	if Name == "Default" then
