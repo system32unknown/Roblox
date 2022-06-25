@@ -177,10 +177,10 @@ Section1:CreateButton("Test Inject", function()
 	Change_All_Name(prev_name, true)
 end)
 
-Section1:CreateTextBox("TextArea", "hello world!", false, function(String)
+local lol = Section1:CreateTextBox("TextArea", "hello world!", false, function(String)
 	texts = String
 end)
-Section1:SetValue("lorum ipsum")
+lol:SetValue("lorum ipsum")
 
 Section1:CreateButton("Inject Name", function()
 	Change_All_Name(texts, islocalplayer, Selected_Player)
