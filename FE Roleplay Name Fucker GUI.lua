@@ -436,8 +436,6 @@ StringSetting:CreateTextBox("Review Text", "Texts", false, function(String)
 	review_label:UpdateText(review_text)
 end)
 
-review_label = StringSetting:CreateLabel("")
-
 StringSetting:CreateButton("Reverse Text", function()
 	string.reverse(review_text)
 	review_label:UpdateText(review_text)
