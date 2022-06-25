@@ -99,6 +99,7 @@ local islocalplayer = false
 local waits = 0
 local UseLegacy_wait = false
 local minBytes, maxBytes = 0, 255
+local VERSION = " v1.0.0 (git)"
 
 local Loops = 0
 local Toggled = true
@@ -122,7 +123,7 @@ end)
 
 local Config = {
 	Filename = "",
-    WindowName = "[FE] Roleplay Name Fucker by Friskshift",
+    WindowName = "[FE] Roleplay Name Fucker by Friskshift" .. VERSION,
 	Color = Color3.fromRGB(math.random(0, 255), math.random(0, 255), math.random(0, 255)),
 	Keybind = Enum.KeyCode.RightBracket
 }
