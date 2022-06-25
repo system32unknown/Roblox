@@ -121,7 +121,7 @@ local Text_List, Wait_List = {}, {}
 local Players_List = {}
 
 --Settings
-local VERSION = " v1.1.0 (git)"
+local VERSION = " v1.1.0"
 local blacklisted_admin = {
 	3163283356, -- Anime RP Admin
 	127518522 -- The Lion King 2D Roleplay Owner
@@ -132,7 +132,7 @@ Check_Admin(blacklisted_admin)
 
 local Config = {
 	Filename = "",
-    	WindowName = "[FE] Roleplay Name Fucker by Friskshift" .. VERSION,
+    WindowName = "[FE] Roleplay Name Fucker by Friskshift" .. VERSION,
 	Color = {math.random(0, 255), math.random(0, 255), math.random(0, 255)},
 	Keybind = Enum.KeyCode.RightBracket
 }
@@ -411,5 +411,30 @@ Section_Settings:CreateButton("Randomize Colors", function()
 
 	Colorpicker3:UpdateColor(Window_Color)
 	Colorpicker4:UpdateColor(BG_color)
+end)
+
+local file_name = ""
+Section_Settings:CreateTextBox("Filename", "File", false, function(String)
+	file_name = String
+end)
+
+Section_Settings:CreateButton("Save File", function()
+	local data = {
+		Color = HttpService:JSONEncode(Config.Color)
+	}
+	if not isfolder('FERNFG_Config') then
+		makefolder('FERNFG_Config')
+	end
+	writefile('FERNFG_Config\\' .. file_name .. '.lxua', data)
+end)
+
+Section_Settings:CreateButton("Load File", function()
+	local data = readfile('FERNFG_Config\\' .. file_name .. '.lxua')
+	if data then
+		local data_full = HttpService:JSONDecode(data)
+		if data_full.Color then
+			Colorpicker3:UpdateColor(CheckColor(HttpService:JSONDecode(data.Color)))
+		end
+	end
 end)
 --End of Setting Tab.
