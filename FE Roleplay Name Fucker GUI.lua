@@ -357,7 +357,7 @@ local Colorpicker3 = Section_Settings:CreateColorpicker("UI Color", function(Col
 end)
 Colorpicker3:UpdateColor(Config.Color)
 
-local Dropdown3 = Section_Settings:CreateDropdown("Image", {"Default", "Hearts", "Abstract", "Hexagon", "Circles", "Lace With Flowers", "Floral", "oof"}, function(Name)
+local Dropdown3 = Section_Settings:CreateDropdown("Image", {"Default", "Hearts", "Abstract", "Hexagon", "Circles", "Lace With Flowers", "Floral", "checker"}, function(Name)
 	if Name == "Default" then
 		Window:SetBackground("2151741365")
 	elseif Name == "Hearts" then
@@ -372,8 +372,8 @@ local Dropdown3 = Section_Settings:CreateDropdown("Image", {"Default", "Hearts",
 		Window:SetBackground("6071575925")
 	elseif Name == "Floral" then
 		Window:SetBackground("5553946656")
-	elseif Name == "oof" then
-		Window:SetBackground("1490261161")
+	elseif Name == "checker" then
+		Window:SetBackground("6032311318")
 	end
 end)
 Dropdown3:SetOption("Default")
