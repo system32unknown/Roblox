@@ -117,9 +117,7 @@ local blacklisted_admin = {
 }
 
 --Librarys
-game:GetService("Players").PlayerAdded:Connect(function()
-	Check_Admin(blacklisted_admin)
-end)
+Check_Admin(blacklisted_admin)
 
 local Config = {
 	Filename = "",
