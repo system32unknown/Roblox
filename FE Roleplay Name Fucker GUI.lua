@@ -180,7 +180,7 @@ end)
 local lol = Section1:CreateTextBox("TextArea", "hello world!", false, function(String)
 	texts = String
 end)
-lol:SetValue("lorum ipsum")
+lol:SetValue(1)
 
 Section1:CreateButton("Inject Name", function()
 	Change_All_Name(texts, islocalplayer, Selected_Player)
