@@ -156,8 +156,8 @@ local linked_connection = UserInputService.InputBegan:Connect(function(Input)
 	end
 end)
 
+--Begins of the Main Tab
 local Tab1 = Window:CreateTab("Home")
-local TabSetting = Window:CreateTab("Settings")
 
 --Begins of Section 1.
 local Section1 = Tab1:CreateSection("Main")
@@ -366,6 +366,9 @@ end)
 --End of Extra Section.
 
 --Begins of Setting Tab.
+local TabSetting = Window:CreateTab("Settings")
+
+--Begins of Setting Section.
 local Section_Settings = TabSetting:CreateSection("Settings")
 
 local Colorpicker3 = Section_Settings:CreateColorpicker("UI Color", function(Color)
@@ -420,3 +423,6 @@ Section_Settings:CreateButton("Randomize Colors", function()
 	Colorpicker4:UpdateColor(BG_color)
 end)
 --End of Setting Tab.
+
+--Begins of String Tab.
+local StringSetting = Window:CreateTab("Strings")
