@@ -4,6 +4,16 @@ local RunService = game:GetService("RunService")
 local HttpService = game:GetService("HttpService")
 local UserInputService = game:GetService("UserInputService")
 
+local function CheckColor(Color)
+	if type(Color) == "table" then
+		return Color3.fromRGB(Color[1], Color[2], Color[3])
+	elseif typeof(Color) == "Color3" then
+		return Color
+	else
+		error("Color is not a table or Color3")
+	end
+end
+
 local function MakeDraggable(ClickObject, Object)
 	local Dragging = nil
 	local DragInput = nil
@@ -107,7 +117,7 @@ function Library:CreateWindow(Config, Parent)
 		if State then
 			Main.Visible = true
 		elseif not State then
-			for _,Pallete in pairs(Screen:GetChildren()) do
+			for _, Pallete in pairs(Screen:GetChildren()) do
 				if Pallete:IsA("Frame") and Pallete.Name ~= "Main" then
 					Pallete.Visible = false
 				end
@@ -119,8 +129,8 @@ function Library:CreateWindow(Config, Parent)
 	end
 	
 	local function ChangeColor(Color)
-		Config.Color = Color
-		for i, v in pairs(Library.ColorTable) do
+		Config.Color = CheckColor(Color)
+		for _, v in pairs(Library.ColorTable) do
 			if v.BackgroundColor3 ~= Color3.fromRGB(50, 50, 50) then
 				v.BackgroundColor3 = Color
 			end
@@ -179,7 +189,7 @@ function Library:CreateWindow(Config, Parent)
 		TabButton.Name = Name .. " TB"
 		TabButton.Parent = TBContainer
 		TabButton.Title.Text = Name
-		TabButton.BackgroundColor3 = Config.Color
+		TabButton.BackgroundColor3 = CheckColor(Config.Color)
 
 		table.insert(Library.ColorTable, TabButton)
 		Library.TabCount = Library.TabCount + 1
@@ -266,7 +276,7 @@ function Library:CreateWindow(Config, Parent)
 				table.insert(Library.ColorTable, Button)
 
 				Button.MouseButton1Down:Connect(function()
-					Button.BackgroundColor3 = Config.Color
+					Button.BackgroundColor3 = CheckColor(Config.Color)
 				end)
 
 				Button.MouseButton1Up:Connect(function()
@@ -354,7 +364,7 @@ function Library:CreateWindow(Config, Parent)
 
 				local function SetState(State)
 					if State then
-						Toggle.Toggle.BackgroundColor3 = Config.Color
+						Toggle.Toggle.BackgroundColor3 = CheckColor(Config.Color)
 					elseif not State then
 						Toggle.Toggle.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
 					end
@@ -459,7 +469,7 @@ function Library:CreateWindow(Config, Parent)
 				
 				Slider.Title.Text = Name
 				Slider.Slider.Bar.Size = UDim2.new(Min / Max, 0, 1, 0)
-				Slider.Slider.Bar.BackgroundColor3 = Config.Color
+				Slider.Slider.Bar.BackgroundColor3 = CheckColor(Config.Color)
 				Slider.Value.PlaceholderText = tostring(Min / Max)
 				Slider.Title.Size = UDim2.new(1, 0, 0, Slider.Title.TextBounds.Y + 5)
 				Slider.Size = UDim2.new(1, -10, 0,  Slider.Title.TextBounds.Y + 15)
@@ -597,7 +607,7 @@ function Library:CreateWindow(Config, Parent)
 						Option.Parent = Dropdown.Container.Holder.Container
 	
 						Option.Title.Text = OptionName
-						Option.BackgroundColor3 = Config.Color
+						Option.BackgroundColor3 = CheckColor(Config.Color)
 						Option.Size = UDim2.new(1, 0, 0,Option.Title.TextBounds.Y + 5)
 						Dropdown.Container.Holder.Size = UDim2.new(1, -5, 0, Dropdown.Container.Holder.Container.ListLayout.AbsoluteContentSize.Y)
 						table.insert(Library.ColorTable, Option)

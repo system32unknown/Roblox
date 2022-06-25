@@ -1,5 +1,6 @@
 --Services
 local UserInputService = game:GetService("UserInputService")
+local HttpService = game:GetService("HttpService")
 
 --Functions
 if loaded then
@@ -110,7 +111,7 @@ local Text_List, Wait_List = {}, {}
 local Players_List = {}
 
 --Settings
-local VERSION = " v1.0.0 (git)"
+local VERSION = " v1.1.0 (git)"
 local blacklisted_admin = {
 	3163283356, -- Anime RP Admin
 	127518522 -- The Lion King 2D Roleplay Owner
