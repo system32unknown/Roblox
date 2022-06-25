@@ -435,6 +435,7 @@ local Section_Strings = StringSetting:CreateSection("Stings")
 local review_textbox = Section_Strings:CreateTextBox("Review Text", "Texts", false, function(String)
 	review_text = String
 end)
+review_textbox:SetValue(review_text)
 
 Section_Strings:CreateButton("Reverse Text", function()
 	review_textbox:SetValue(string.reverse(review_text))
