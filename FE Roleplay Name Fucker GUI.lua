@@ -177,10 +177,9 @@ Section1:CreateButton("Test Inject", function()
 	Change_All_Name(prev_name, true)
 end)
 
-local lol = Section1:CreateTextBox("TextArea", "hello world!", false, function(String)
+Section1:CreateTextBox("TextArea", "hello world!", false, function(String)
 	texts = String
 end)
-lol:SetValue(1)
 
 Section1:CreateButton("Inject Name", function()
 	Change_All_Name(texts, islocalplayer, Selected_Player)
@@ -436,7 +435,9 @@ local Section_Strings = StringSetting:CreateSection("Stings")
 local review_textbox = Section_Strings:CreateTextBox("Review Text", "Texts", false, function(String)
 	review_text = String
 end)
-review_textbox:SetValue("lorum ipsum")
+
+local success, action = pcall(function()review_textbox:SetValue("lorum ipsum") end)
+print(action)
 
 Section_Strings:CreateButton("Reverse Text", function()
 	review_textbox:SetValue(string.reverse(review_text))
