@@ -436,8 +436,7 @@ local review_textbox = Section_Strings:CreateTextBox("Review Text", "Texts", fal
 	review_text = String
 end)
 
-local success, action = pcall(function()review_textbox:SetValue("lorum ipsum") end)
-print(action)
+review_textbox:SetValue("lorum ipsum")
 
 Section_Strings:CreateButton("Reverse Text", function()
 	review_textbox:SetValue(string.reverse(review_text))
