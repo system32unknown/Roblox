@@ -128,6 +128,8 @@ local event_text, wait_text = "", ""
 local Text_List, Wait_List = {}, {}
 local Players_List = {}
 
+local review_text = "lorum ipsum"
+
 --Settings
 local VERSION = " v1.1.0"
 local blacklisted_admin = {
@@ -426,3 +428,9 @@ end)
 
 --Begins of String Tab.
 local StringSetting = Window:CreateTab("Strings")
+StringSetting:CreateTextBox("Review Text", "Text", false, function(String)
+	Review_Text = String
+	review_label:UpdateText(String)
+end)
+
+review_label = StringSetting:CreateLabel("")
