@@ -151,7 +151,7 @@ RFText:UpdateText("My Name: " .. (Get_Name("LocalPlayer") ~= "" and Get_Name("Lo
 
 Section1:CreateButton("Test Inject", function()
 	Change_All_Name("Test Injecting.", true)
-	if useLegacy then
+	if UseLegacy_wait then
 		wait(3)
 	else
 		task.wait(3)
@@ -167,7 +167,7 @@ Section1:CreateButton("Inject Name", function()
 	Change_All_Name(texts, islocalplayer, Selected_Player)
 	while looped do
 		Change_All_Name(texts, islocalplayer, Selected_Player)
-		if useLegacy then
+		if UseLegacy_wait then
 			wait(waits)
 		else
 			task.wait(waits)
@@ -324,7 +324,7 @@ end)
 SectionEvents:CreateButton("Inject List", function()
 	for i, v in pairs(Text_List) do
 		Change_All_Name(v, islocalplayer, Selected_Player)
-		if useLegacy then
+		if UseLegacy_wait then
 			wait(Wait_List[i])
 		else
 			task.wait(Wait_List[i])
@@ -340,7 +340,7 @@ end)
 SectionEvents:CreateButton("TypeWrite List", function()
 	for i, v in pairs(Text_List) do
 		typewriter(v, waits, islocalplayer, UseLegacy_wait, Selected_Player)
-		if useLegacy then
+		if UseLegacy_wait then
 			wait(Wait_List[i])
 		else
 			task.wait(Wait_List[i])

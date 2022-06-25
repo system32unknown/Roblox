@@ -561,7 +561,7 @@ function Library:CreateWindow(Config, Parent)
 					SetValue(DefaultLocal)
 				end
 
-				function SliderInit:GetValue(Value)
+				function SliderInit:GetValue()
 					return GlobalSliderValue
 				end
 
