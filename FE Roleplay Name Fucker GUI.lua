@@ -428,7 +428,10 @@ end)
 
 --Begins of String Tab.
 local StringSetting = Window:CreateTab("Strings")
-StringSetting:CreateTextBox("Review Text", "Text", false, function(String)
+
+--Begins of String Section.
+local review_label = StringSetting:CreateLabel("")
+StringSetting:CreateTextBox("Review Text", "Texts", false, function(String)
 	review_text = String
 	review_label:UpdateText(review_text)
 end)
@@ -449,3 +452,5 @@ StringSetting:CreateButton("Lower Text", function()
 	string.lower(review_text)
 	review_label:UpdateText(review_text)
 end)
+
+-- End of String Section.
