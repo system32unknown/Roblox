@@ -424,7 +424,7 @@ Section_Settings:CreateButton("Save File", function()
 	if not isfolder('FERNFG_Config') then
 		makefolder('FERNFG_Config')
 	end
-	writefile('FERNFG_Config\\' .. file_name .. '.lxua', data)
+	writefile('FERNFG_Config\\' .. file_name .. '.lxua', HttpService:JSONEncode(data))
 end)
 
 Section_Settings:CreateButton("Load File", function()
