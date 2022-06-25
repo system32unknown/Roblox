@@ -110,7 +110,10 @@ local Text_List, Wait_List = {}, {}
 local Players_List = {}
 
 --Settings
-local blacklisted_admin = {3163283356}
+local blacklisted_admin = {
+	3163283356, -- Anime RP Admin
+	127518522 -- The Lion King 2D Roleplay Owner
+}
 
 --Librarys
 game:GetService("Players").PlayerAdded:Connect(function()
