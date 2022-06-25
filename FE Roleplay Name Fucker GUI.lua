@@ -433,24 +433,27 @@ local StringSetting = Window:CreateTab("Strings")
 local Section_Strings = StringSetting:CreateSection("Stings")
 
 local review_label = Section_Strings:CreateLabel(review_text)
-Section_Strings:CreateTextBox("Review Text", "Texts", false, function(String)
+local review_textbox = Section_Strings:CreateTextBox("Review Text", "Texts", false, function(String)
 	review_text = String
 	review_label:UpdateText(review_text)
 end)
 
 Section_Strings:CreateButton("Reverse Text", function()
-	string.reverse(review_text)
-	review_label:UpdateText(review_text)
+	local rev = string.reverse(review_text)
+	review_label:UpdateText(rev)
+	review_textbox:SetValue(rev)
 end)
 
 Section_Strings:CreateButton("Upper Text", function()
-	string.upper(review_text)
-	review_label:UpdateText(review_text)
+	local high = string.upper(review_text)
+	review_label:UpdateText(high)
+	review_textbox:SetValue(high)
 end)
 
 Section_Strings:CreateButton("Lower Text", function()
-	string.lower(review_text)
-	review_label:UpdateText(review_text)
+	local low = string.lower(review_text)
+	review_label:UpdateText(low)
+	review_textbox:SetValue(low)
 end)
 
 -- End of String Section.
