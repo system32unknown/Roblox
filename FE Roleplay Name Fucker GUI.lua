@@ -17,7 +17,7 @@ function typewriter(str, sec, isLocal, useLegacy, plrs)
 	for i = 0, string.len(str) do
 		local init_text = string.sub(temp_str, 0, i)
 		Change_All_Name(init_text, isLocal, plr)
-		if useLegacy then
+		if UseLegacy_wait then
 			wait(sec)
 		else
 			task.wait(sec)
