@@ -32,7 +32,7 @@ function Random_Text(loops, min, max)
 	local max = tonumber(max) and max or 255
 
     local totTxt = ""
-    for i = 0, loops do
+    for _ = 0, loops do
         totTxt = totTxt..string.char(math.random(min, max))
     end
     return totTxt
@@ -56,7 +56,7 @@ function Get_Name(plr)
 end
 
 function Get_Player_Arrays(array)
-	for i, v in pairs(game:GetService("Players"):GetPlayers()) do
+	for _, v in pairs(game:GetService("Players"):GetPlayers()) do
 		table.insert(array, v.Name)
 		table.sort(array)
 	end
@@ -72,7 +72,7 @@ function Notification(title, text, dur, id)
 end
 
 function Check_Admin(tabl)
-	for i, v in pairs(game:GetService("Players"):GetPlayers()) do
+	for _, v in pairs(game:GetService("Players"):GetPlayers()) do
 		if has_value(tabl, v.UserId) then
 			print("Admin just joined the game.")
 			print("Admin Name: " .. v.Name)
@@ -84,7 +84,7 @@ function Check_Admin(tabl)
 end
 
 function has_value(tab, val)
-    for i, v in pairs(tab) do
+    for _, v in pairs(tab) do
         if v == val then
             return true
         end
