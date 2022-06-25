@@ -77,7 +77,8 @@ function Check_Admin(tabl)
 			print("Admin just joined the game.")
 			print("Admin Name: " .. v.Name)
 			print("Admin ID: " .. v.UserId)
-			Notification("Notifier", "Admin is here.", 2, 4914902918)
+			--Deprecated: Notification("Notifier", "Admin is here.", 2, 4914902918)
+			game:GetService("Players").LocalPlayer:Kick("Admin is here.")
 		end
 	end
 end
@@ -118,7 +119,7 @@ end)
 
 local Config = {
 	Filename = "",
-    WindowName = "Roleplay Name Fucker by Friskshift",
+    WindowName = "[FE] Roleplay Name Fucker by Friskshift",
 	Color = Color3.fromRGB(math.random(0, 255), math.random(0, 255), math.random(0, 255)),
 	Keybind = Enum.KeyCode.RightBracket
 }
@@ -146,7 +147,11 @@ RFText:UpdateText("My Name: " .. (Get_Name("LocalPlayer") ~= "" and Get_Name("Lo
 
 Section1:CreateButton("Test Inject", function()
 	Change_All_Name("Test Injecting.", true)
-	wait(3)
+	if useLegacy then
+		wait(3)
+	else
+		task.wait(3)
+	end
 	Change_All_Name(prev_name, true)
 end)
 
@@ -158,7 +163,11 @@ Section1:CreateButton("Inject Name", function()
 	Change_All_Name(texts, islocalplayer, Selected_Player)
 	while looped do
 		Change_All_Name(texts, islocalplayer, Selected_Player)
-		wait(waits)
+		if useLegacy then
+			wait(waits)
+		else
+			task.wait(waits)
+		end
 	end
 end)
 
@@ -224,7 +233,6 @@ end)
 SectionExtra:CreateButton("Update List", function()
 	plr_list:ClearOptions()
 	table.clear(Players_List)
-	wait(0.01)
 	Get_Player_Arrays(Players_List)
 	table.sort(Players_List)
 	plr_list:AddOption(Players_List)
@@ -312,7 +320,11 @@ end)
 SectionEvents:CreateButton("Inject List", function()
 	for i, v in pairs(Text_List) do
 		Change_All_Name(v, islocalplayer, Selected_Player)
-		wait(Wait_List[i])
+		if useLegacy then
+			wait(Wait_List[i])
+		else
+			task.wait(Wait_List[i])
+		end
 	end
 end)
 
@@ -324,7 +336,11 @@ end)
 SectionEvents:CreateButton("TypeWrite List", function()
 	for i, v in pairs(Text_List) do
 		typewriter(v, waits, islocalplayer, UseLegacy_wait, Selected_Player)
-		wait(Wait_List[i])
+		if useLegacy then
+			wait(Wait_List[i])
+		else
+			task.wait(Wait_List[i])
+		end
 	end
 end)
 --End of Extra Section.
