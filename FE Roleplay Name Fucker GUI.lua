@@ -99,7 +99,6 @@ local islocalplayer = false
 local waits = 0
 local UseLegacy_wait = false
 local minBytes, maxBytes = 0, 255
-local VERSION = " v1.0.0 (git)"
 
 local Loops = 0
 local Toggled = true
@@ -111,6 +110,7 @@ local Text_List, Wait_List = {}, {}
 local Players_List = {}
 
 --Settings
+local VERSION = " v1.0.0 (git)"
 local blacklisted_admin = {
 	3163283356, -- Anime RP Admin
 	127518522 -- The Lion King 2D Roleplay Owner
