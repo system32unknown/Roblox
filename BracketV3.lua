@@ -2,7 +2,6 @@ local Library = {Toggle = true, FirstTab = nil, TabCount = 0, ColorTable = {}}
 
 local RunService = game:GetService("RunService")
 local HttpService = game:GetService("HttpService")
-local TweenService = game:GetService("TweenService")
 local UserInputService = game:GetService("UserInputService")
 
 local function MakeDraggable(ClickObject, Object)
