@@ -377,7 +377,7 @@ Dropdown3:SetOption("Default")
 local Colorpicker4 = Section_Settings:CreateColorpicker("Color", function(Color)
 	Window:SetBackgroundColor(Color)
 end)
-Colorpicker4:UpdateColor(Color3.new(1,1,1))
+Colorpicker4:UpdateColor(Color3.new(1, 1, 1))
 
 local Slider3 = Section_Settings:CreateSlider("Transparency", 0, 1, nil, false, function(Value)
 	Window:SetBackgroundTransparency(Value)
