@@ -128,7 +128,7 @@ local event_text, wait_text = "", ""
 local Text_List, Wait_List = {}, {}
 local Players_List = {}
 
-local review_text = "lorum ipsum"
+local review_text = ""
 
 --Settings
 local VERSION = " v1.1.0"
@@ -435,7 +435,7 @@ local Section_Strings = StringSetting:CreateSection("Stings")
 local review_textbox = Section_Strings:CreateTextBox("Review Text", "Texts", false, function(String)
 	review_text = String
 end)
-review_textbox:SetValue(review_text)
+review_textbox:SetValue("lorum ipsum")
 
 Section_Strings:CreateButton("Reverse Text", function()
 	review_textbox:SetValue(string.reverse(review_text))
