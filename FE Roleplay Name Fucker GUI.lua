@@ -419,29 +419,4 @@ Section_Settings:CreateButton("Randomize Colors", function()
 	Colorpicker3:UpdateColor(Window_Color)
 	Colorpicker4:UpdateColor(BG_color)
 end)
-
-local file_name = ""
-Section_Settings:CreateTextBox("Filename", "File", false, function(String)
-	file_name = String
-end)
-
-Section_Settings:CreateButton("Save File", function()
-	local data = {
-		Color = Config.Color
-	}
-	if not isfolder('FERNFG_Config') then
-		makefolder('FERNFG_Config')
-	end
-	writefile('FERNFG_Config\\' .. file_name .. '.lxua', tostring(HttpService:JSONEncode(data)))
-end)
-
-Section_Settings:CreateButton("Load File", function()
-	local data = readfile('FERNFG_Config\\' .. file_name .. '.lxua')
-	if data then
-		local data_full = HttpService:JSONDecode(data)
-		if data_full.Color then
-			Colorpicker3:UpdateColor(CheckColor(HttpService:JSONDecode(data.Color)))
-		end
-	end
-end)
 --End of Setting Tab.
