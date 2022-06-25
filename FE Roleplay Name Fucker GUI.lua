@@ -132,7 +132,7 @@ Check_Admin(blacklisted_admin)
 
 local Config = {
 	Filename = "",
-    WindowName = "[FE] Roleplay Name Fucker by Friskshift" .. VERSION,
+    	WindowName = "[FE] Roleplay Name Fucker by Friskshift" .. VERSION,
 	Color = {math.random(0, 255), math.random(0, 255), math.random(0, 255)},
 	Keybind = Enum.KeyCode.RightBracket
 }
