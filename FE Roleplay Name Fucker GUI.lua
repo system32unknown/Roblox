@@ -103,6 +103,14 @@ function CheckColor(Color)
 	end
 end
 
+function getSaveableColor3(color)
+    return {r = color.r, g = color.g, b = color.b}
+end
+
+function loadColorFromDataStore(t)
+    return Color3.new(t.r, t.g, t.b)
+end
+
 --Variables
 local prev_name = Get_Name("LocalPlayer")
 local texts = ""
@@ -419,7 +427,7 @@ end)
 
 Section_Settings:CreateButton("Save File", function()
 	local data = {
-		Color = HttpService:JSONEncode(Config.Color)
+		Color = Config.Color
 	}
 	if not isfolder('FERNFG_Config') then
 		makefolder('FERNFG_Config')
