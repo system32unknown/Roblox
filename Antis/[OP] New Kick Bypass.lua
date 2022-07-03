@@ -22,18 +22,18 @@ local success, reason = pcall(function()
 	    elseif NamecallMethod == "FireServer" or NamecallMethod == "InvokeServer" then 
 	        if (NamecallMethod == "Kick" or NamecallMethod == "kick") and not checkcaller() then 
 				if self ~= plr then
-					return OldNameCall(Self, ...)
+					return OldNameCall(Self, Args)
 				end
 	         	return 
 	        end
 	    elseif (NamecallMethod == "Kick" or NamecallMethod == "kick") and not checkcaller() then 
 			if self ~= plr then
-				return OldNameCall(Self, ...)
+				return OldNameCall(Self, Args)
 			end
 	        return 
 	    end 
 
-	    return OldNameCall(Self, ...)
+	    return OldNameCall(Self, Args)
 	end))
 end)
 
