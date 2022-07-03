@@ -1,0 +1,47 @@
+local OldNameCall = nil
+local plr = game:GetService("Players").LocalPlayer
+local cclosure = syn_newcclosure or newcclosure or nil
+
+if not cclosure or not hookmetamethod then
+   plr:Kick("\n\nYour exploit doesn't support hookmetamethod\n(x.synapse.to | script-ware.com | krnl.place)\n")
+end
+
+local success, reason = pcall(function()
+	OldNameCall = hookmetamethod(game, "__namecall", cclosure(function(Self, ...)
+	    local Args = {...}
+	    local NamecallMethod = getnamecallmethod()
+	
+	    if NamecallMethod == "Destroy" or NamecallMethod == "destroy" then 
+	        return 
+	    elseif NamecallMethod == "Destroy" or NamecallMethod == "destroy" then 
+	        return 
+	    elseif NamecallMethod == "Disconnect" or NamecallMethod == "disconnect" then 
+	        return 
+	    elseif NamecallMethod == "Disconnect" or NamecallMethod == "disconnect" then 
+	        return 
+	    elseif NamecallMethod == "FireServer" or NamecallMethod == "InvokeServer" then 
+	        if (NamecallMethod == "Kick" or NamecallMethod == "kick") and not checkcaller() then 
+				if self ~= plr then
+					return OldNameCall(Self, ...)
+				end
+	         	return 
+	        end
+	    elseif (NamecallMethod == "Kick" or NamecallMethod == "kick") and not checkcaller() then 
+			if self ~= plr then
+				return OldNameCall(Self, ...)
+			end
+	        return 
+	    end 
+
+	    return OldNameCall(Self, ...)
+	end))
+end)
+
+if OldNameCall then
+	print(success)
+	if not success then
+		error("reason:" .. reason)
+	end
+else
+	plr:Kick("Anti Kick Failed.")
+end
