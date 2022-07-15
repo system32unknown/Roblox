@@ -421,14 +421,9 @@ Section_Strings:CreateButton("Lower Text", function()
 end)
 
 Section_Strings:CreateButton("Posion Text", function()
-	local blank_text = ""
-	local single_text = ""
+	local blank_text, single_text = "", ""
 	for v = 1, string.len(review_text) do
-		if math.random(0, 3) == 1 then
-			single_text = string.upper(review_text:sub(v, v))
-		else
-			single_text = string.lower(review_text:sub(v, v))
-		end
+		single_text = (math.random(0, 2) == 1 and string.upper(review_text:sub(v, v)) or string.lower(review_text:sub(v, v)))
 		blank_text = blank_text .. single_text
 	end
 	review_textbox:SetValue(blank_text)
