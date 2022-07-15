@@ -404,12 +404,11 @@ end)
 
 Section_Strings:CreateButton("Posion Text", function()
 	local blank_text = ""
-	for i = 0, string.len(review_text) do
-		local charstr = string.sub(review_text, i, (string.len(review_text) > i + 1 and i + 1 or i))
+	for v in string.gmatch(review_text, "%w+") do
 		if math.random(0, 10) == 5 then
-			string.upper(charstr)
+			blank_text = blank_text .. v
 		else
-			string.lower(charstr)
+			blank_text = blank_text .. v
 		end
 		blank_text = blank_text .. charstr
 	end
