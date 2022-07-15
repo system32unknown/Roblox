@@ -405,7 +405,7 @@ end)
 Section_Strings:CreateButton("Posion Text", function()
 	local blank_text = ""
 	for i = 0, string.len(review_text) do
-		local charstr = string.sub(review_text, i, i)
+		local charstr = string.sub(review_text, i, (string.len(review_text) > i + 1 and i + 1 or i))
 		if math.random(0, 10) == 5 then
 			string.upper(charstr)
 		else
