@@ -7,7 +7,7 @@ if not cclosure or not hookmetamethod then
 end
 
 local success, reason = pcall(function()
-	OldNameCall = hookmetamethod(game, "__namecall", cclosure(function(Self, ...)
+	OldNameCall = hookmetamethod(game, "__namecall", cclosure(function(self, ...)
 	    local Args = {...}
 	    local NamecallMethod = getnamecallmethod()
 	
@@ -22,18 +22,18 @@ local success, reason = pcall(function()
 	    elseif NamecallMethod == "FireServer" or NamecallMethod == "InvokeServer" then 
 	        if (NamecallMethod == "Kick" or NamecallMethod == "kick") and not checkcaller() then 
 				if self ~= plr then
-					return OldNameCall(Self, Args)
+					return OldNameCall(self, Args)
 				end
 	         	return 
 	        end
 	    elseif (NamecallMethod == "Kick" or NamecallMethod == "kick") and not checkcaller() then 
 			if self ~= plr then
-				return OldNameCall(Self, Args)
+				return OldNameCall(self, Args)
 			end
 	        return 
 	    end 
 
-	    return OldNameCall(Self, Args)
+	    return OldNameCall(self, Args)
 	end))
 end)
 

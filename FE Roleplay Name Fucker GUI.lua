@@ -13,12 +13,12 @@ pcall(function()
 end)
 
 function typewriter(str, sec, isLocal, useLegacy, plrs)
-	local plr = (plrs ~= "" and plrs or "LocalPlayer") 
+	local plr = (plrs ~= "" and plrs or "LocalPlayer")
 	local temp_str = str
 	for i = 0, string.len(str) do
 		local init_text = string.sub(temp_str, 0, i)
 		Change_All_Name(init_text, isLocal, plr)
-		if UseLegacy_wait then
+		if useLegacy then
 			wait(sec)
 		else
 			task.wait(sec)
@@ -56,14 +56,14 @@ function Get_Name(plr)
 	end
 end
 
-function Get_Player_Arrays(array)
+function Get_Player_Arrays(array:table)
 	for _, v in pairs(game:GetService("Players"):GetPlayers()) do
 		table.insert(array, v.Name)
 		table.sort(array)
 	end
 end
 
-function Notification(title, text, dur, id)
+function Notification(title, text, dur, id:number)
 	game.StarterGui:SetCore("SendNotification", {
 		Title = title;
 		Text = text;
@@ -101,14 +101,6 @@ function CheckColor(Color)
 	else
 		error("Color is not a table or Color3")
 	end
-end
-
-function getSaveableColor3(color)
-    return {r = color.r, g = color.g, b = color.b}
-end
-
-function loadColorFromDataStore(t)
-    return Color3.new(t.r, t.g, t.b)
 end
 
 --Variables
