@@ -68,18 +68,6 @@ function Notification(title, text, dur, id:number)
 	})
 end
 
-function Check_Admin(tabl)
-	for _, v in pairs(game:GetService("Players"):GetPlayers()) do
-		if has_value(tabl, v.UserId) then
-			print("Admin just joined the game.")
-			print("Admin Name: " .. v.Name)
-			print("Admin ID: " .. v.UserId)
-			--Deprecated: Notification("Notifier", "Admin is here.", 2, 4914902918)
-			game:GetService("Players").LocalPlayer:Kick("Admin is here.")
-		end
-	end
-end
-
 function has_value(tab, val)
     for _, v in pairs(tab) do
         if v == val then
@@ -120,13 +108,8 @@ local review_text = ""
 
 --Settings
 local VERSION = " v1.2.0"
-local blacklisted_admin = {
-	3163283356, -- Anime RP Admin
-	127518522 -- The Lion King 2D Roleplay Owner
-}
 
 --Librarys
-Check_Admin(blacklisted_admin)
 
 local Config = {
 	WindowName = "[FE] Roleplay Name Fucker by Friskshift" .. VERSION,
@@ -251,10 +234,6 @@ SectionExtra:CreateButton("Grab Name", function()
 		Notification("Grabbed Name!", "Copied to Clipboard!", 2, 4914902918)
 		setclipboard(getting_name)
 	end
-end)
-
-SectionExtra:CreateButton("Check Admin", function()
-	Get_Player_Arrays(Players_List)
 end)
 
 SectionExtra:CreateButton("Revert Selected Player", function()
