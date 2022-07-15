@@ -85,6 +85,24 @@ function CheckColor(Color: table | Color3)
 	end
 end
 
+function shuffle(str)
+	local letters = {}
+	for letter in string.gmatch(str, '.[\128-\191]*') do
+	  	table.insert(letters, {
+			letter = letter, 
+			rnd = math.random()
+		})
+	end
+	table.sort(letters, function(a, b) 
+		return a.rnd < b.rnd 
+	end)
+	for i, v in ipairs(letters) do 
+		letters[i] = v.letter 
+	end
+	return table.concat(letters)
+ end
+ 
+
 --Variables
 local prev_name = Get_Name("LocalPlayer")
 local texts, review_text = "", ""
@@ -406,7 +424,7 @@ Section_Strings:CreateButton("Posion Text", function()
 	local blank_text = ""
 	local single_text = ""
 	for v = 1, string.len(review_text) do
-		if math.random(0, 4) == 2 then
+		if math.random(minBytes, maxBytes) == 2 then
 			single_text = string.upper(review_text:sub(v, v))
 		else
 			single_text = string.lower(review_text:sub(v, v))
@@ -414,6 +432,10 @@ Section_Strings:CreateButton("Posion Text", function()
 		blank_text = blank_text .. single_text
 	end
 	review_textbox:SetValue(blank_text)
+end)
+
+Section_Strings:CreateButton("Shuffle Text", function()
+	review_textbox:SetValue(shuffle(review_text))
 end)
 
 -- End of String Section.
