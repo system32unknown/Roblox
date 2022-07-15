@@ -405,12 +405,7 @@ end)
 Section_Strings:CreateButton("Posion Text", function()
 	local blank_text = ""
 	for v in string.gmatch(review_text, "%w+") do
-		if math.random(0, 10) == 5 then
-			blank_text = blank_text .. v
-		else
-			blank_text = blank_text .. v
-		end
-		blank_text = blank_text .. charstr
+		blank_text = blank_text .. (math.random(0, 10) == 5 and string.upper(v) or string.lower(v))
 	end
 	review_textbox:SetValue(blank_text)
 end)
