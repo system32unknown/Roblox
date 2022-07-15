@@ -59,7 +59,7 @@ function Get_Player_Arrays(array:table)
 	end
 end
 
-function Notification(title, text, dur, id:number)
+function Notification(title, text, dur:number, id:number)
 	game.StarterGui:SetCore("SendNotification", {
 		Title = title;
 		Text = text;
@@ -77,25 +77,22 @@ function has_value(tab, val)
     return false
 end
 
-function CheckColor(Color)
+function CheckColor(Color: table | Color3)
 	if type(Color) == "table" then
 		return Color3.fromRGB(Color[1], Color[2], Color[3])
 	elseif typeof(Color) == "Color3" then
 		return Color
-	else
-		error("Color is not a table or Color3")
 	end
 end
 
 --Variables
 local prev_name = Get_Name("LocalPlayer")
-local texts = ""
+local texts, review_text = "", ""
 local islocalplayer = false
-local waits = 0
+local waits, Loops = 0, 0
 local minBytes, maxBytes = 0, 255
 wait_Func = task.wait
 
-local Loops = 0
 local Toggled = true
 local Selected_Player = ""
 local looped = false
@@ -103,8 +100,6 @@ local looped = false
 local event_text, wait_text = "", ""
 local Text_List, Wait_List = {}, {}
 local Players_List = {}
-
-local review_text = ""
 
 --Settings
 local VERSION = " v1.2.0"
@@ -158,6 +153,7 @@ end)
 
 Section1:CreateButton("Inject Name then Exit", function()
 	Change_All_Name(texts, islocalplayer, Selected_Player)
+	wait_Func(0.5)
 	game:shutdown()
 end)
 
@@ -404,6 +400,20 @@ end)
 
 Section_Strings:CreateButton("Lower Text", function()
 	review_textbox:SetValue(string.lower(review_text))
+end)
+
+Section_Strings:CreateButton("Posion Text", function()
+	local blank_text = ""
+	for i = 0, review_text do
+		local charstr = string.sub(review_text, i, i)
+		if math.random(0, 10) == 5 then
+			string.upper(charstr)
+		else
+			string.lower(charstr)
+		end
+		blank_text = blank_text .. charstr
+	end
+	review_textbox:SetValue(blank_text)
 end)
 
 -- End of String Section.
