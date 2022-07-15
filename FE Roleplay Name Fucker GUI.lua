@@ -8,21 +8,17 @@ if loaded then
 	return
 end
 
-pcall(function() 
+pcall(function()
 	getgenv().loaded = true
 end)
 
-function typewriter(str, sec, isLocal, useLegacy, plrs)
+function typewriter(str, sec, isLocal, plrs)
 	local plr = (plrs ~= "" and plrs or "LocalPlayer")
 	local temp_str = str
 	for i = 0, string.len(str) do
 		local init_text = string.sub(temp_str, 0, i)
 		Change_All_Name(init_text, isLocal, plr)
-		if useLegacy then
-			wait(sec)
-		else
-			task.wait(sec)
-		end
+		wait_Func(sec)
 	end
 	Change_All_Name(temp_str, isLocal, plr)
 end
@@ -108,8 +104,8 @@ local prev_name = Get_Name("LocalPlayer")
 local texts = ""
 local islocalplayer = false
 local waits = 0
-local UseLegacy_wait = false
 local minBytes, maxBytes = 0, 255
+wait_Func = task.wait
 
 local Loops = 0
 local Toggled = true
@@ -123,7 +119,7 @@ local Players_List = {}
 local review_text = ""
 
 --Settings
-local VERSION = " v1.1.0"
+local VERSION = " v1.2.0"
 local blacklisted_admin = {
 	3163283356, -- Anime RP Admin
 	127518522 -- The Lion King 2D Roleplay Owner
@@ -161,11 +157,7 @@ RFText:UpdateText("My Name: " .. (Get_Name("LocalPlayer") ~= "" and Get_Name("Lo
 
 Section1:CreateButton("Test Inject", function()
 	Change_All_Name("Test Injecting.", true)
-	if UseLegacy_wait then
-		wait(3)
-	else
-		task.wait(3)
-	end
+	wait_Func(3)
 	Change_All_Name(prev_name, true)
 end)
 
@@ -177,16 +169,17 @@ Section1:CreateButton("Inject Name", function()
 	Change_All_Name(texts, islocalplayer, Selected_Player)
 	while looped do
 		Change_All_Name(texts, islocalplayer, Selected_Player)
-		if UseLegacy_wait then
-			wait(waits)
-		else
-			task.wait(waits)
-		end
+		wait_Func(waits)
 	end
 end)
 
+Section1:CreateButton("Inject Name then Exit", function()
+	Change_All_Name(texts, islocalplayer, Selected_Player)
+	game:shutdown()
+end)
+
 Section1:CreateButton("TypeWriter", function()
-	typewriter(texts, waits, islocalplayer, UseLegacy_wait, Selected_Player)
+	typewriter(texts, waits, islocalplayer, Selected_Player)
 end)
 
 Section1:CreateButton("Revert Name", function()
@@ -203,7 +196,7 @@ Section1:CreateToggle("Is Local", nil, function(State)
 end)
 
 Section1:CreateToggle("Use Legacy Wait", nil, function(State)
-	UseLegacy_wait = State
+	wait_Func = State and wait or task.wait
 end)
 
 Section1:CreateToggle("Looped", nil, function(State)
@@ -334,11 +327,7 @@ end)
 SectionEvents:CreateButton("Inject List", function()
 	for i, v in pairs(Text_List) do
 		Change_All_Name(v, islocalplayer, Selected_Player)
-		if UseLegacy_wait then
-			wait(Wait_List[i])
-		else
-			task.wait(Wait_List[i])
-		end
+		wait_Func(Wait_List[i])
 	end
 end)
 
@@ -349,12 +338,8 @@ end)
 
 SectionEvents:CreateButton("TypeWrite List", function()
 	for i, v in pairs(Text_List) do
-		typewriter(v, waits, islocalplayer, UseLegacy_wait, Selected_Player)
-		if UseLegacy_wait then
-			wait(Wait_List[i])
-		else
-			task.wait(Wait_List[i])
-		end
+		typewriter(v, waits, islocalplayer, Selected_Player)
+		wait_Func(Wait_List[i])
 	end
 end)
 --End of Extra Section.

@@ -53,11 +53,9 @@ function Library:CreateWindow(Config, Parent)
 	local Folder = game:GetObjects("rbxassetid://7141683860")[1]
 	local Screen = Folder.Bracket:Clone()
 	local Main = Screen.Main
-	local Holder = Main.Holder
-	local Topbar = Main.Topbar
-	local TContainer = Holder.TContainer
-	local TBContainer = Holder.TBContainer.Holder
-	
+	local Holder, Topbar = Main.Holder, Main.Topbar
+	local TContainer, TBContainer = Holder.TContainer, Holder.TBContainer.Holder
+
 	Screen.Name =  HttpService:GenerateGUID(false)
 	Screen.Parent = Parent
 	Topbar.WindowName.Text = Config.WindowName
@@ -75,11 +73,6 @@ function Library:CreateWindow(Config, Parent)
 		for _, TabButton in pairs(TBContainer:GetChildren()) do
 			if TabButton:IsA("TextButton") then
 				TabButton.BackgroundTransparency = 1
-			end
-		end
-		
-		for _, TabButton in pairs(TBContainer:GetChildren()) do
-			if TabButton:IsA("TextButton") then
 				TabButton.Size = UDim2.new(0, 480 / Library.TabCount, 1, 0)
 			end
 		end
