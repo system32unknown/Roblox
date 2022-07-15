@@ -424,7 +424,7 @@ Section_Strings:CreateButton("Posion Text", function()
 	local blank_text = ""
 	local single_text = ""
 	for v = 1, string.len(review_text) do
-		if math.random(minBytes, maxBytes) == 2 then
+		if math.random(0, 3) == 1 then
 			single_text = string.upper(review_text:sub(v, v))
 		else
 			single_text = string.lower(review_text:sub(v, v))
