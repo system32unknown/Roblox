@@ -49,7 +49,7 @@ local E_DistanceText = Instance.new("TextLabel", TelekinesisGUI)
 E_DistanceText.Name = "E_DistanceText"
 E_DistanceText.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
 E_DistanceText.BackgroundTransparency = 1
-E_DistanceText.Position = UDim2.new(0.825, 0, 0.945, 0)
+E_DistanceText.Position = UDim2.new(0.825, 0, 0.965, 0)
 E_DistanceText.Size = UDim2.new(0, 227, 0, 11)
 E_DistanceText.Font = Enum.Font.SourceSans
 E_DistanceText.Text = "Distance: 0"
@@ -222,7 +222,7 @@ table.insert(scripts, sandbox(TelekinesisScript, function()
                 local target = mouse.Target
                 if not target.Anchored then
                     object = target
-                    E_SelectedText = "Selected: " .. target.Name
+                    E_SelectedText.Text = "Selected: " .. target.Name
                     dist = (object.Position - front.Position).magnitude
                     break
                 end
@@ -247,7 +247,7 @@ table.insert(scripts, sandbox(TelekinesisScript, function()
         end
         object = nil
 
-        E_SelectedText = "Selected: nil"
+        E_SelectedText.Text = "Selected: nil"
     end
 
 	local function take_ownership(boolean)
@@ -414,7 +414,7 @@ table.insert(scripts, sandbox(TelekinesisScript, function()
 			FirstFrame.Visible = not FirstFrame.Visible
 		end
 
-        E_DistanceText = "Distance: " .. dist
+        E_DistanceText.Text = "Distance: " .. dist
     end
 	
 	local function onUnequip()
