@@ -70,9 +70,9 @@ E_SelectedText.Size = UDim2.new(0, 227, 0, 11)
 E_SelectedText.Font = Enum.Font.SourceSans
 E_SelectedText.Text = "Selected Object: nil"
 E_SelectedText.TextColor3 = Color3.fromRGB(0, 0, 0)
-E_SelectedText.TextSize = 16.000
+E_SelectedText.TextSize = 16
 E_SelectedText.TextStrokeColor3 = Color3.fromRGB(255, 255, 255)
-E_SelectedText.TextStrokeTransparency = 0.000
+E_SelectedText.TextStrokeTransparency = 0
 E_SelectedText.TextWrapped = true
 E_SelectedText.TextXAlignment = Enum.TextXAlignment.Right
 E_SelectedText.TextYAlignment = Enum.TextYAlignment.Bottom
@@ -84,10 +84,10 @@ E_VersionText.BackgroundTransparency = 1.000
 E_VersionText.Position = UDim2.new(0, 0, 0.95, 0)
 E_VersionText.Size = UDim2.new(0, 227, 0, 33)
 E_VersionText.Font = Enum.Font.Code
-E_VersionText.Text = "Telekinesis Script FE\nModded By Friskshift" .. VERSION
+E_VersionText.Text = "Telekinesis Script FE\nModded By Friskshift " .. VERSION
 E_VersionText.TextColor3 = Color3.fromRGB(0, 0, 0)
 E_VersionText.TextSize = 16
-E_VersionText.TextStrokeColor3 = Color3.fromRGB(0, 0, 0)
+E_VersionText.TextStrokeColor3 = Color3.fromRGB(255, 255, 255)
 E_VersionText.TextStrokeTransparency = 0
 E_VersionText.TextWrapped = true
 E_VersionText.TextXAlignment = Enum.TextXAlignment.Left
@@ -205,7 +205,7 @@ table.insert(scripts, sandbox(TelekinesisScript, function()
                 if object == nil then
                     if mouse.Target == nil then
                         local w = CFrame.new(front.Position, mouse.Hit.p)
-                        H.CFrame = CFrame.new(front.Position + w.lookVector * 1000)
+                        H.CFrame = CFrame.new(front.Position + w.LookVector * 1000)
                     else
                         H.CFrame = CFrame.new(mouse.Hit.p)
                     end
@@ -222,8 +222,9 @@ table.insert(scripts, sandbox(TelekinesisScript, function()
                 local target = mouse.Target
                 if not target.Anchored then
                     object = target
-                    E_SelectedText.Text = "Selected: " .. target.Name
                     dist = (object.Position - front.Position).magnitude
+                    E_SelectedText.Text = "Selected: " .. target.Name
+                    E_DistanceText.Text = "Distance: " .. math.floor(dist) * .5
                     break
                 end
             end
@@ -236,7 +237,7 @@ table.insert(scripts, sandbox(TelekinesisScript, function()
             end
             local w = CFrame.new(front.Position, mouse.Hit.p)
             BP.Parent = object
-            BP.position = front.Position + w.lookVector * dist
+            BP.position = front.Position + w.LookVector * dist
             wait_func()
         end
 		
@@ -248,6 +249,7 @@ table.insert(scripts, sandbox(TelekinesisScript, function()
         object = nil
 
         E_SelectedText.Text = "Selected: nil"
+        E_DistanceText.Text = "Distance: nil"
     end
 
 	local function take_ownership(boolean)
@@ -267,7 +269,7 @@ table.insert(scripts, sandbox(TelekinesisScript, function()
 					end
             	end)
             	game:GetService("StarterGui"):SetCore("SendNotification", {
-					Title = "Simple Net", 
+					Title = "Simple Net",
 					Text = "Enabled"
 				})
 			end
@@ -284,7 +286,7 @@ table.insert(scripts, sandbox(TelekinesisScript, function()
             	end
             	wait_func()
             	game:GetService("StarterGui"):SetCore("SendNotification", {
-            	    Title = "Simple Net", 
+            	    Title = "Simple Net",
             	    Text = "Disabled"
             	})
 			end
@@ -413,8 +415,6 @@ table.insert(scripts, sandbox(TelekinesisScript, function()
 		if key == Keys_Settings["Show Help Menu"] then
 			FirstFrame.Visible = not FirstFrame.Visible
 		end
-
-        E_DistanceText.Text = "Distance: " .. dist
     end
 	
 	local function onUnequip()
