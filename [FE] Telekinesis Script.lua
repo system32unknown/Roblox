@@ -17,16 +17,17 @@ SecondFrame.Position = UDim2.new(0, 5, 0, 5)
 SecondFrame.Size = UDim2.new(0, 140, 0, 190)
 
 local label_Text = {
-	"Key Q = Decrease Distance",
-	"Key E = Increase Distance",
-	"Key R = Freeze Rotation",
-	"Key T = Pull",
-	"Key \"-\" = Increase Power",
-	"Key \"+\" = Decrease Power",
-	"Key X = Clone Object",
-	"Key K = Net Bypass",
-	"Key B = Pull Torso to Part",
-    "Key V = Show Help Menu"
+	"Decrease Distance",
+	"Increase Distance",
+	"Freeze Rotation",
+	"Pull",
+    "Throw",
+	"Increase Power",
+	"Decrease Power",
+	"Clone Object",
+	"Net Bypass",
+	"Pull Torso to Part",
+    "Show Help Menu"
 }
 
 local Keys_Settings = getgenv().Keys_Settings or {
@@ -58,8 +59,8 @@ function Create_Text(Name, Color, Pos, Size, Text, TextSize)
 end
 
 for i, v in pairs(label_Text) do
-	local pos = {0, (i - 1) * 20}
-	Create_Text("Tex_" .. i, Color3.fromRGB(0, 0, 0), pos, {140, 20}, v, 14)
+	local pos = {0, (i - 1) * 15}
+	Create_Text("Tex_" .. i, Color3.fromRGB(0, 0, 0), pos, {140, 20}, "Key: "..Keys_Settings[v].." - "..v, 14)
 end
 
 --The Script--
