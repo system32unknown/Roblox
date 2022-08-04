@@ -415,6 +415,8 @@ table.insert(scripts, sandbox(TelekinesisScript, function()
 		if key == Keys_Settings["Show Help Menu"] then
 			FirstFrame.Visible = not FirstFrame.Visible
 		end
+
+        E_DistanceText.Text = "Distance: " .. math.floor(dist) * .5
     end
 	
 	local function onUnequip()
