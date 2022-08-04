@@ -401,7 +401,6 @@ table.insert(scripts, sandbox(TelekinesisScript, function()
 
     tool.Equipped:connect(onEquipped)
 	tool.Unequipped:connect(onUnequipOrDeact)
-	tool.Deactivated:connect(onUnequipOrDeact)
 end))
 
 for _, v in pairs(Model_tel:GetChildren()) do
