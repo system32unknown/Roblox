@@ -372,12 +372,10 @@ table.insert(scripts, sandbox(TelekinesisScript, function()
 		
         if key == Keys_Settings["Decrease Power"] then
             BP.P = BP.P * 1.5
-            E_PowerText.Text = "Power: " .. math.floor(BP.P)
         end
 		
         if key == Keys_Settings["Increase Power"] then
             BP.P = BP.P * 0.5
-            E_PowerText.Text = "Power: " .. math.floor(BP.P)
         end
 
 		if key == Keys_Settings["Clone Object"] then
@@ -436,6 +434,12 @@ table.insert(scripts, sandbox(TelekinesisScript, function()
 
         if mousedown then
             E_DistanceText.Text = "Distance: " .. math.floor(dist) * .5
+        end
+
+        if BP then
+            E_PowerText.Text = "Power: " .. math.floor(BP.P)
+        else
+            E_PowerText.Text = "Power: nil"
         end
     end
 	
