@@ -472,7 +472,7 @@ table.insert(scripts, sandbox(TelekinesisScript, function()
             onKeyDown(key)
         end)
 
-        E_GrabText = "Grabbed: " .. mousedown
+        E_GrabText = "Grabbed: " .. tostring(mousedown)
         mouse.Icon = "rbxasset://textures\\GunCursor.png"
     end
 
