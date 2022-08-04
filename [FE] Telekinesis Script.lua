@@ -26,7 +26,21 @@ local label_Text = {
 	"Key X = Clone Object",
 	"Key K = Net Bypass",
 	"Key B = Pull Torso to Part",
+    "Key V = Show Help Menu"
+}
 
+local Keys_Settings = getgenv().Keys_Settings or {
+    ["Increase Distance"] = "q",
+    ["Decrease Distance"] = "e",
+    ["Freeze Rotation"] = "r",
+    ["Pull"] = "t",
+	["Throw"] = "y",
+    ["Increase Power"] = "-",
+    ["Decrease Power"] = "+",
+    ["Clone Object"] = "x",
+    ["Net Bypass"] = "k",
+    ["Pull Torso to Part"] = "b",
+    ["Show Help Menu"] = "v"
 }
 
 function Create_Text(Name, Color, Pos, Size, Text, TextSize)
@@ -228,13 +242,17 @@ table.insert(scripts, sandbox(TelekinesisScript, function()
     local function onKeyDown(key)
         local key = key:lower()
 
-        if key == "q" then
+        if key == Keys_Settings["Increase Distance"] then
             if dist >= 5 then
                 dist = dist - 10
             end
         end
+
+        if key == Keys_Settings["Decrease Distance"] then
+            dist = dist + 10
+        end
 		
-        if key == "r" then
+        if key == Keys_Settings["Freeze Rotation"] then
             if object == nil then
                 return
             end
@@ -270,31 +288,27 @@ table.insert(scripts, sandbox(TelekinesisScript, function()
             object.Orientation = Vector3.zero
         end
 		
-        if key == "e" then
-            dist = dist + 10
-        end
-		
-        if key == "t" then
+        if key == Keys_Settings["Pull"] then
             if dist ~= 10 then
                 dist = 10
             end
         end
 		
-        if key == "y" then
+        if key == Keys_Settings["Throw"] then
             if dist ~= 200 then
                 dist = 200
             end
         end
 		
-        if key == "=" then
+        if key == Keys_Settings["Decrease Power"] then
             BP.P = BP.P * 1.5
         end
 		
-        if key == "-" then
+        if key == Keys_Settings["Increase Power"] then
             BP.P = BP.P * 0.5
         end
 
-		if key == "x" then
+		if key == Keys_Settings["Clone Object"] then
 			if object == nil then
                 return
             end
@@ -310,7 +324,7 @@ table.insert(scripts, sandbox(TelekinesisScript, function()
 			object = New
 		end
 		
-        if key == "k" then
+        if key == Keys_Settings["Net Bypass"] then
             if hiddenproperty then
                 if RenderStep == nil then
 					take_ownership(true)
@@ -325,7 +339,7 @@ table.insert(scripts, sandbox(TelekinesisScript, function()
             end
         end
 		
-		if key == "b" then
+		if key == Keys_Settings["Pull Torso to Part"] then
 			if not hooked then
 				if object == nil then
 					return
@@ -344,7 +358,7 @@ table.insert(scripts, sandbox(TelekinesisScript, function()
 			end
 		end
 
-		if key == "v" then
+		if key == Keys_Settings["Show Help Menu"] then
 			FirstFrame.Visible = not FirstFrame.Visible
 		end
     end
