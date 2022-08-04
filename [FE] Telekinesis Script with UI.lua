@@ -77,22 +77,6 @@ E_SelectedText.TextWrapped = true
 E_SelectedText.TextXAlignment = Enum.TextXAlignment.Right
 E_SelectedText.TextYAlignment = Enum.TextYAlignment.Bottom
 
-local E_GrabText = Instance.new("TextLabel", TelekinesisGUI)
-E_GrabText.Name = "E_GrabText"
-E_GrabText.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-E_GrabText.BackgroundTransparency = 1
-E_GrabText.Position = UDim2.new(0.825, 0, 0.965, 0)
-E_GrabText.Size = UDim2.new(0, 227, 0, 11)
-E_GrabText.Font = Enum.Font.SourceSans
-E_GrabText.Text = "Grabbed: False"
-E_GrabText.TextColor3 = Color3.fromRGB(0, 0, 0)
-E_GrabText.TextSize = 16
-E_GrabText.TextStrokeColor3 = Color3.fromRGB(255, 255, 255)
-E_GrabText.TextStrokeTransparency = 0
-E_GrabText.TextWrapped = true
-E_GrabText.TextXAlignment = Enum.TextXAlignment.Right
-E_GrabText.TextYAlignment = Enum.TextYAlignment.Bottom
-
 local E_VersionText = Instance.new("TextLabel", TelekinesisGUI)
 E_VersionText.Name = "E_VersionText"
 E_VersionText.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
@@ -471,8 +455,6 @@ table.insert(scripts, sandbox(TelekinesisScript, function()
         mouse.KeyDown:connect(function(key)
             onKeyDown(key)
         end)
-
-        E_GrabText = "Grabbed: " .. tostring(mousedown)
         mouse.Icon = "rbxasset://textures\\GunCursor.png"
     end
 
