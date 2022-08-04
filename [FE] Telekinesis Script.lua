@@ -60,7 +60,7 @@ end
 
 for i, v in pairs(label_Text) do
 	local pos = {0, (i - 1) * 15}
-	Create_Text("Tex_" .. i, Color3.fromRGB(0, 0, 0), pos, {140, 20}, "Key: "..Keys_Settings[v].." - "..v, 14)
+	Create_Text("Tex_" .. i, Color3.fromRGB(0, 0, 0), pos, {140, 20}, "Key "..Keys_Settings[v]..": "..v, 14)
 end
 
 --The Script--
