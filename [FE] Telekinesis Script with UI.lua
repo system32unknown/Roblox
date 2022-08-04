@@ -1,6 +1,6 @@
 local TelekinesisGUI = Instance.new("ScreenGui", game.Players.LocalPlayer.PlayerGui)
 TelekinesisGUI.Name = "TelekinesisGUI"
-local VERSION = "1.0v"
+local VERSION = "v1.2"
 
 local FirstFrame = Instance.new("Frame", TelekinesisGUI)
 FirstFrame.Name = "FirstFrame"
@@ -77,10 +77,26 @@ E_SelectedText.TextWrapped = true
 E_SelectedText.TextXAlignment = Enum.TextXAlignment.Right
 E_SelectedText.TextYAlignment = Enum.TextYAlignment.Bottom
 
+local E_PowerText = Instance.new("TextLabel", TelekinesisGUI)
+E_PowerText.Name = "E_PowerText"
+E_PowerText.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+E_PowerText.BackgroundTransparency = 1
+E_PowerText.Position = UDim2.new(0.825, 0, 0.945, 0)
+E_PowerText.Size = UDim2.new(0, 227, 0, 11)
+E_PowerText.Font = Enum.Font.SourceSans
+E_PowerText.Text = "Power: 0"
+E_PowerText.TextColor3 = Color3.fromRGB(0, 0, 0)
+E_PowerText.TextSize = 16
+E_PowerText.TextStrokeColor3 = Color3.fromRGB(255, 255, 255)
+E_PowerText.TextStrokeTransparency = 0
+E_PowerText.TextWrapped = true
+E_PowerText.TextXAlignment = Enum.TextXAlignment.Right
+E_PowerText.TextYAlignment = Enum.TextYAlignment.Bottom
+
 local E_VersionText = Instance.new("TextLabel", TelekinesisGUI)
 E_VersionText.Name = "E_VersionText"
 E_VersionText.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-E_VersionText.BackgroundTransparency = 1.000
+E_VersionText.BackgroundTransparency = 1
 E_VersionText.Position = UDim2.new(0, 0, 0.95, 0)
 E_VersionText.Size = UDim2.new(0, 227, 0, 33)
 E_VersionText.Font = Enum.Font.Code
@@ -356,10 +372,12 @@ table.insert(scripts, sandbox(TelekinesisScript, function()
 		
         if key == Keys_Settings["Decrease Power"] then
             BP.P = BP.P * 1.5
+            E_PowerText.Text = "Power: " .. math.floor(BP.P)
         end
 		
         if key == Keys_Settings["Increase Power"] then
             BP.P = BP.P * 0.5
+            E_PowerText.Text = "Power: " .. math.floor(BP.P)
         end
 
 		if key == Keys_Settings["Clone Object"] then
@@ -416,7 +434,9 @@ table.insert(scripts, sandbox(TelekinesisScript, function()
 			FirstFrame.Visible = not FirstFrame.Visible
 		end
 
-        E_DistanceText.Text = "Distance: " .. math.floor(dist) * .5
+        if mousedown then
+            E_DistanceText.Text = "Distance: " .. math.floor(dist) * .5
+        end
     end
 	
 	local function onUnequip()
