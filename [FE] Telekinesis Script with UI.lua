@@ -164,7 +164,7 @@ table.insert(scripts, sandbox(TelekinesisScript, function()
     local tool = script.Parent
     local object = nil
     local mousedown = false
-	local dist = nil
+	local dist = 0
 
     local huge = math.huge * math.huge
 	
