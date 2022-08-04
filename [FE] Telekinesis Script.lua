@@ -60,7 +60,7 @@ end
 
 for i, v in pairs(label_Text) do
 	local pos = {0, (i - 1) * 15}
-	Create_Text("Tex_" .. i, Color3.fromRGB(0, 0, 0), pos, {140, 20}, "Key "..Keys_Settings[v]..": "..v, 14)
+	Create_Text("Tex_" .. i, Color3.fromRGB(0, 0, 0), pos, {140, 20}, "Key "..string.upper(Keys_Settings[v])..": "..v, 14)
 end
 
 --The Script--
@@ -79,7 +79,7 @@ function sandbox(var, func)
 	return func
 end
 
-local useLegacyObj = true
+local useLegacyObj = getgenv().useLegacyObj or false
 
 local wait_func = useLegacyObj and wait or task.wait
 local hiddenproperty = sethiddenproperty or set_hidden_property or set_hidden_prop
@@ -379,9 +379,15 @@ table.insert(scripts, sandbox(TelekinesisScript, function()
             if human.Health == 0 then
 				onUnequipOrDeact()
 				
-                BP:Destroy()
-                point:Destroy()
-                tool:Destroy()
+                if useLegacyObj then
+                    BP:Remove()
+                    point:Remove()
+                    tool:Remove()
+                else
+                    BP:Destroy()
+                    point:Destroy()
+                    tool:Destroy()
+                end
             end
         end)
 
