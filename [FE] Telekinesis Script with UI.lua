@@ -264,7 +264,7 @@ table.insert(scripts, sandbox(TelekinesisScript, function()
                         end
                     end)
                     if not s then
-                        error(r)
+                        error("ERROR: " .. r)
                     end
                     break
                 end
