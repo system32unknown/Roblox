@@ -258,15 +258,14 @@ table.insert(scripts, sandbox(TelekinesisScript, function()
                     dist = (object.Position - front.Position).magnitude
                     E_SelectedText.Text = "Selected: " .. target.Name
                     E_DistanceText.Text = "Distance: " .. math.floor(dist) * .5
-
                     local s, r = pcall(function()
-                        E_OwnerText.Text = "Ownership: " .. target:GetNetworkOwner()
+                        if target:CanSetNetworkOwnership() then
+                            E_OwnerText.Text = "Ownership: " .. target:GetNetworkOwner()
+                        end
                     end)
-
                     if not s then
-                        rconsoleerr('Error: ' .. r)
+                        error(r)
                     end
-                    
                     break
                 end
             end
