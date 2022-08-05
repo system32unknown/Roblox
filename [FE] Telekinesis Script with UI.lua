@@ -1,6 +1,6 @@
 local TelekinesisGUI = Instance.new("ScreenGui", game.Players.LocalPlayer.PlayerGui)
 TelekinesisGUI.Name = "TelekinesisGUI"
-local VERSION = "v1.2"
+local VERSION = "v1.2b"
 
 local FirstFrame = Instance.new("Frame", TelekinesisGUI)
 FirstFrame.Name = "FirstFrame"
@@ -45,6 +45,38 @@ local Keys_Settings = getgenv().Keys_Settings or {
     ["Show Help Menu"] = "v"
 }
 
+local E_PowerText = Instance.new("TextLabel", TelekinesisGUI)
+E_PowerText.Name = "E_PowerText"
+E_PowerText.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+E_PowerText.BackgroundTransparency = 1
+E_PowerText.Position = UDim2.new(0.825, 0, 0.925, 0)
+E_PowerText.Size = UDim2.new(0, 227, 0, 11)
+E_PowerText.Font = Enum.Font.SourceSans
+E_PowerText.Text = "Power: 0"
+E_PowerText.TextColor3 = Color3.fromRGB(0, 0, 0)
+E_PowerText.TextSize = 16
+E_PowerText.TextStrokeColor3 = Color3.fromRGB(255, 255, 255)
+E_PowerText.TextStrokeTransparency = 0
+E_PowerText.TextWrapped = true
+E_PowerText.TextXAlignment = Enum.TextXAlignment.Right
+E_PowerText.TextYAlignment = Enum.TextYAlignment.Bottom
+
+local E_OwnerText = Instance.new("TextLabel", TelekinesisGUI)
+E_OwnerText.Name = "E_OwnerText"
+E_OwnerText.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+E_OwnerText.BackgroundTransparency = 1
+E_OwnerText.Position = UDim2.new(0.825, 0, 0.945, 0)
+E_OwnerText.Size = UDim2.new(0, 227, 0, 11)
+E_OwnerText.Font = Enum.Font.SourceSans
+E_OwnerText.Text = "Ownership: nil"
+E_OwnerText.TextColor3 = Color3.fromRGB(0, 0, 0)
+E_OwnerText.TextSize = 16
+E_OwnerText.TextStrokeColor3 = Color3.fromRGB(255, 255, 255)
+E_OwnerText.TextStrokeTransparency = 0
+E_OwnerText.TextWrapped = true
+E_OwnerText.TextXAlignment = Enum.TextXAlignment.Right
+E_OwnerText.TextYAlignment = Enum.TextYAlignment.Bottom
+
 local E_DistanceText = Instance.new("TextLabel", TelekinesisGUI)
 E_DistanceText.Name = "E_DistanceText"
 E_DistanceText.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
@@ -76,22 +108,6 @@ E_SelectedText.TextStrokeTransparency = 0
 E_SelectedText.TextWrapped = true
 E_SelectedText.TextXAlignment = Enum.TextXAlignment.Right
 E_SelectedText.TextYAlignment = Enum.TextYAlignment.Bottom
-
-local E_PowerText = Instance.new("TextLabel", TelekinesisGUI)
-E_PowerText.Name = "E_PowerText"
-E_PowerText.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-E_PowerText.BackgroundTransparency = 1
-E_PowerText.Position = UDim2.new(0.825, 0, 0.945, 0)
-E_PowerText.Size = UDim2.new(0, 227, 0, 11)
-E_PowerText.Font = Enum.Font.SourceSans
-E_PowerText.Text = "Power: 0"
-E_PowerText.TextColor3 = Color3.fromRGB(0, 0, 0)
-E_PowerText.TextSize = 16
-E_PowerText.TextStrokeColor3 = Color3.fromRGB(255, 255, 255)
-E_PowerText.TextStrokeTransparency = 0
-E_PowerText.TextWrapped = true
-E_PowerText.TextXAlignment = Enum.TextXAlignment.Right
-E_PowerText.TextYAlignment = Enum.TextYAlignment.Bottom
 
 local E_VersionText = Instance.new("TextLabel", TelekinesisGUI)
 E_VersionText.Name = "E_VersionText"
@@ -241,6 +257,7 @@ table.insert(scripts, sandbox(TelekinesisScript, function()
                     dist = (object.Position - front.Position).magnitude
                     E_SelectedText.Text = "Selected: " .. target.Name
                     E_DistanceText.Text = "Distance: " .. math.floor(dist) * .5
+                    E_OwnerText.Text = "Ownership: " .. target:GetNetworkOwner()
                     break
                 end
             end
@@ -266,6 +283,7 @@ table.insert(scripts, sandbox(TelekinesisScript, function()
 
         E_SelectedText.Text = "Selected: nil"
         E_DistanceText.Text = "Distance: nil"
+        E_OwnerText = "Ownership: nil"
     end
 
 	local function take_ownership(boolean)
