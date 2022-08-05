@@ -203,6 +203,7 @@ table.insert(scripts, sandbox(TelekinesisScript, function()
     local BP = Instance.new("BodyPosition")
     BP.MaxForce = Vector3.new(huge, huge, huge)
     BP.P = BP.P * 1.1
+	E_PowerText.Text = "Power: " .. math.floor(BP.P)
     
 	local hooked = false 
 	local hookBP = BP:clone()
