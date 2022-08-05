@@ -1,6 +1,12 @@
+if AlreadyEquipped then
+    print("Telekinesis Script with UI is already running.")
+    return
+end
+
+getgenv().AlreadyEquipped = true
 local TelekinesisGUI = Instance.new("ScreenGui", game.Players.LocalPlayer.PlayerGui)
 TelekinesisGUI.Name = "TelekinesisGUI"
-local VERSION = "v1.2b"
+local VERSION = "v1.3"
 
 local FirstFrame = Instance.new("Frame", TelekinesisGUI)
 FirstFrame.Name = "FirstFrame"
@@ -190,7 +196,6 @@ handle.Material = Enum.Material.Metal
 
 local TelekinesisScript = Instance.new("LocalScript", tool)
 TelekinesisScript.Name = "MainScript"
-
 table.insert(scripts, sandbox(TelekinesisScript, function()
     wait_func()
     local tool = script.Parent
@@ -264,7 +269,7 @@ table.insert(scripts, sandbox(TelekinesisScript, function()
                         end
                     end)
                     if not s then
-                        error("ERROR: " .. r)
+                        print("[ERROR]: " .. r)
                     end
                     break
                 end
@@ -493,6 +498,8 @@ table.insert(scripts, sandbox(TelekinesisScript, function()
                     point:Destroy()
                     tool:Destroy()
                 end
+
+                getgenv().AlreadyEquipped = false
             end
         end)
 
