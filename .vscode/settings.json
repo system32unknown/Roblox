@@ -1,0 +1,18 @@
+{
+    "robloxLsp.diagnostics.globals": [
+        "sethiddenproperty",
+        "set_hidden_property",
+        "set_hidden_prop",
+        "setsimulationradius",
+        "set_simulation_radius",
+        "getgenv",
+        "syn_newcclosure",
+        "newcclosure",
+        "hookmetamethod",
+        "getnamecallmethod",
+        "checkcaller",
+        "setreadonly",
+        "getrawmetatable",
+        "setclipboard"
+    ]
+}

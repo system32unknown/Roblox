@@ -1,3 +1,4 @@
+---@diagnostic disable-next-line: undefined-global
 if AlreadyEquipped then
     print("Telekinesis Script with UI is already running.")
     return
@@ -134,7 +135,7 @@ E_VersionText.TextYAlignment = Enum.TextYAlignment.Bottom
 function Create_Text(Name, Color, Pos, Size, Text, TextSize)
 	local text_frame = Instance.new("TextLabel", SecondFrame)
 	text_frame.Name = Name
-	text_frame.BackgroundColor3 = Color3.fromRGB(255, 0, 0)
+	text_frame.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
 	text_frame.BackgroundTransparency = 1
 	text_frame.Position = UDim2.new(0, Pos[1], 0, Pos[2])
 	text_frame.Size = UDim2.new(0, Size[1], 0, Size[2])
