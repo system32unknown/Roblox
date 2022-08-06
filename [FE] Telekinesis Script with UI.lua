@@ -7,7 +7,7 @@ end
 getgenv().AlreadyEquipped = true
 local TelekinesisGUI = Instance.new("ScreenGui", game.Players.LocalPlayer.PlayerGui)
 TelekinesisGUI.Name = "TelekinesisGUI"
-local VERSION = "v1.3"
+local VERSION = "v1.4c"
 
 local FirstFrame = Instance.new("Frame", TelekinesisGUI)
 FirstFrame.Name = "FirstFrame"
@@ -35,7 +35,8 @@ local label_Text = {
 	"Clone Object",
 	"Net Bypass",
 	"Pull Torso to Part",
-    "Show Help Menu"
+    "Show Help Menu",
+    "Spawn Cube"
 }
 
 local Keys_Settings = getgenv().Keys_Settings or {
@@ -49,7 +50,8 @@ local Keys_Settings = getgenv().Keys_Settings or {
     ["Clone Object"] = "x",
     ["Net Bypass"] = "k",
     ["Pull Torso to Part"] = "b",
-    ["Show Help Menu"] = "v"
+    ["Show Help Menu"] = "v",
+    ["Spawn Cube"] = "n"
 }
 
 local E_PowerText = Instance.new("TextLabel", TelekinesisGUI)
@@ -460,6 +462,19 @@ table.insert(scripts, sandbox(TelekinesisScript, function()
 			end
 		end
 
+        if key == Keys_Settings["Spawn Cube"] then
+            local Cube = Instance.new("Part", workspace)
+            Cube.Size = Vector3.new(4, 4, 4)
+            Cube.Name = "WeightedStorageCube"
+            Cube.CFrame = CFrame.new(mouse.Hit.p) + Vector3.new(0,2,0)
+            for _, v in pairs(Enum.NormalId:GetEnumItems()) do
+                local Decal = Instance.new("Decal", Cube)
+                Decal.Texture = "rbxassetid://2662260"
+                Decal.Face = v
+                Decal.Name = "WeightedStorageCubeDecal"
+            end
+        end
+
 		if key == Keys_Settings["Show Help Menu"] then
 			FirstFrame.Visible = not FirstFrame.Visible
 		end
@@ -468,11 +483,7 @@ table.insert(scripts, sandbox(TelekinesisScript, function()
             E_DistanceText.Text = "Distance: " .. math.floor(dist) * .5
         end
 
-        if BP then
-            E_PowerText.Text = "Power: " .. math.floor(BP.P)
-        else
-            E_PowerText.Text = "Power: nil"
-        end
+        E_PowerText.Text = "Power: " .. (BP and math.floor(BP.P) or "nil")
     end
 	
 	local function onUnequip()
