@@ -343,7 +343,7 @@ table.insert(scripts, sandbox(TelekinesisScript, function()
 		end
 	end
 
-    local function onKeyDown(key)
+    local function onKeyDown(key, mouse)
         local key = key:lower()
 
         if key == Keys_Settings["Increase Distance"] then
@@ -524,7 +524,7 @@ table.insert(scripts, sandbox(TelekinesisScript, function()
         end)
 
         mouse.KeyDown:connect(function(key)
-            onKeyDown(key)
+            onKeyDown(key, mouse)
         end)
         mouse.Icon = "rbxasset://textures\\GunCursor.png"
     end
