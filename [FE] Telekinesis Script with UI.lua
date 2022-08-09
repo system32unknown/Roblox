@@ -497,23 +497,39 @@ table.insert(scripts, sandbox(TelekinesisScript, function()
     local function onEquipped(mouse)
         local human = tool.Parent.Humanoid
 		
-        human.Changed:connect(function()
-            if human.Health == 0 then
-				onUnequip()
-				
-                if useLegacyObj then
-                    BP:Remove()
-                    point:Remove()
-                    tool:Remove()
-                else
-                    BP:Destroy()
-                    point:Destroy()
-                    tool:Destroy()
-                end
+        if human then
+            human.Changed:connect(function()
+                if human.Health == 0 then
+		    		onUnequip()
+                
+                    if useLegacyObj then
+                        BP:Remove()
+                        point:Remove()
+                        tool:Remove()
+                    else
+                        BP:Destroy()
+                        point:Destroy()
+                        tool:Destroy()
+                    end
 
-                getgenv().AlreadyEquipped = false
+                    getgenv().AlreadyEquipped = false
+                end
+            end)
+        else
+            onUnequip()
+                
+            if useLegacyObj then
+                BP:Remove()
+                point:Remove()
+                tool:Remove()
+            else
+                BP:Destroy()
+                point:Destroy()
+                tool:Destroy()
             end
-        end)
+
+            getgenv().AlreadyEquipped = false
+        end
 
         mouse.Button1Down:connect(function()
             onButton1Down(mouse)
