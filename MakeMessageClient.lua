@@ -1,4 +1,6 @@
-onMessageClient = function(text, color, font, size)
+local ExploitTool = {}
+
+function ExploitTool:MakeSysMsg(text, color, font, size)
     local text = text or "Hello World"
     local color = color or Color3.fromRGB(255, 255, 255)
     local font = font or Enum.Font.SourceSansBold
@@ -12,4 +14,12 @@ onMessageClient = function(text, color, font, size)
     })
 end
 
-return onMessageClient
+function ExploitTool.EncodeReversedBase64(data)
+    return Krnl.Base64.Encode(string.reverse(data))
+end
+
+function ExploitTool.DecodeReversedBase64(data)
+    return Krnl.Base64.Decode(string.reverse(data))
+end
+
+return ExploitTool
