@@ -11,3 +11,5 @@ onMessageClient = function(text, color, font, size)
         TextSize = size;
     })
 end
+
+return onMessageClient
