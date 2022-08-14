@@ -14,6 +14,15 @@ function ExploitTool:MakeSysMsg(text, color, font, size)
     })
 end
 
+function ExploitTool:Notification(title, text, dur:number, id:number)
+	game.StarterGui:SetCore("SendNotification", {
+		Title = title;
+		Text = text;
+		Icon = "rbxthumb://type=Asset&id=" .. id .."&w=150&h=150";
+		Duration = dur;
+	})
+end
+
 function ExploitTool.EncodeReversedBase64(data)
     return Krnl.Base64.Encode(string.reverse(data))
 end
