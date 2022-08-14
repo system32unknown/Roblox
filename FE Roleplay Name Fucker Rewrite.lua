@@ -4,22 +4,33 @@ local github = 'https://raw.githubusercontent.com/'
 local repo = github..'wally-rblx/LinoriaLib/main/'
 
 local Library = loadstring(game:HttpGet(repo..'Library.lua'))()
-local ExploitLIB = loadstring(game:HttpGet(github..'system32unknown/Roblox/main/MakeMessageClient.lua'))()
+local MessageLIB = loadstring(game:HttpGet(github..'system32unknown/Roblox/main/MakeMessageClient.lua'))()
+local TableLIB = loadstring(game:HttpGet(github..'system32unknown/Roblox/main/TableTools.lua'))()
 local ThemeManager = loadstring(game:HttpGet(repo..'addons/ThemeManager.lua'))()
 local SaveManager = loadstring(game:HttpGet(repo..'addons/SaveManager.lua'))()
+local TextManager, PlayerManager = {}, {}
 
-function typewriter(str, sec, isLocal, plrs)
+local wait_Func = task.wait
+
+if loaded then
+	print("already loaded you dumb")
+	return
+end
+
+getgenv().loaded = true
+
+function TextManager.TypeWrite(str, sec, isLocal, plrs)
 	local plr = (plrs ~= "" and plrs or "LocalPlayer")
 	local temp_str = str
 	for i = 0, string.len(str) do
 		local init_text = string.sub(temp_str, 0, i)
-		Change_All_Name(init_text, isLocal, plr)
+		PlayerManager.Change_All_Name(init_text, isLocal, plr)
 		wait_Func(sec)
 	end
-	Change_All_Name(temp_str, isLocal, plr)
+	PlayerManager.Change_All_Name(temp_str, isLocal, plr)
 end
 
-function Random_Text(loops, min, max)
+function TextManager.Random_Text(loops, min, max)
 	local loops = tonumber(loops) and loops or 1
 	local min = tonumber(min) and min or 0
 	local max = tonumber(max) and max or 255
@@ -31,43 +42,11 @@ function Random_Text(loops, min, max)
     return totTxt
 end
 
-function Change_All_Name(str, isLocal, plrs)
-	local plr = (plrs ~= "" and plrs or "LocalPlayer")
-	for _, object in pairs((isLocal and game:GetService("Players")[plr].Character:GetDescendants() or workspace:GetDescendants())) do
-		if object.Name == "ServerHandler" and object:IsA("RemoteEvent") then
-			object:FireServer(str)
-		end
-	end
-end
-
-function Get_Name(plr)
-	for _, object in pairs(game:GetService("Players")[plr].Character:GetDescendants()) do
-		if object.Name == "ServerHandler" and object:IsA("RemoteEvent") then
-			return object.Parent.Name
-		end
-	end
-end
-
-function Get_Player_Arrays(array:table)
-	for _, v in pairs(game:GetService("Players"):GetPlayers()) do
-		table.insert(array, v.Name)
-		table.sort(array)
-	end
-end
-
-function CheckColor(Color: table | Color3)
-	if type(Color) == "table" then
-		return Color3.fromRGB(Color[1], Color[2], Color[3])
-	elseif typeof(Color) == "Color3" then
-		return Color
-	end
-end
-
-function shuffle(str)
+function TextManager.shuffle(str)
 	local letters = {}
 	for letter in string.gmatch(str, '.[\128-\191]*') do
 	  	table.insert(letters, {
-			letter = letter, 
+			letter = letter,
 			rnd = math.random()
 		})
 	end
@@ -80,55 +59,130 @@ function shuffle(str)
 	return table.concat(letters)
 end
 
+function PlayerManager.Change_All_Name(str, isLocal, plrs)
+	local plr = (plrs ~= "" and plrs or "LocalPlayer")
+	for _, object in pairs((isLocal and game:GetService("Players")[plr].Character:GetDescendants() or workspace:GetDescendants())) do
+		if object.Name == "ServerHandler" and object:IsA("RemoteEvent") then
+			object:FireServer(str)
+		end
+	end
+end
+
+function PlayerManager.Get_Name(plr)
+	for _, object in pairs(game:GetService("Players")[plr].Character:GetDescendants()) do
+		if object.Name == "ServerHandler" and object:IsA("RemoteEvent") then
+			return object.Parent.Name
+		end
+	end
+end
+
+function PlayerManager.Get_Player_Arrays(array:table)
+	for _, v in pairs(game:GetService("Players"):GetPlayers()) do
+		table.insert(array, v.Name)
+	end
+
+	TableLIB.CheckDup(array)
+	table.sort(array)
+end
+
+function CheckColor(Color: table | Color3)
+	if type(Color) == "table" then
+		return Color3.fromRGB(Color[1], Color[2], Color[3])
+	elseif typeof(Color) == "Color3" then
+		return Color
+	end
+end
+
+local prev_name = PlayerManager.Get_Name("LocalPlayer")
+local texts, review_text = "", ""
+local islocalplayer = false
+local waits, Loops = 0, 0
+local minBytes, maxBytes = 0, 255
+
+local Toggled, looped = true, false
+local Selected_Player = ""
+
+local event_text, wait_text = "", ""
+local Text_List, Wait_List = {}, {}
+local Players_List = {}
+
+PlayerManager.Get_Player_Arrays(Players_List)
+
 local Window = Library:CreateWindow({Title = '[FE] Roleplay Name Fucker by Friskshift' .. VERSION, Center = true, AutoShow = true}) do
 	local Tabs = {Main = Window:AddTab('Main'), ['UI Settings'] = Window:AddTab('UI Settings')} do
 		local Tab = Tabs.Main:AddLeftTabbox('Main') do
 	    	local MainTab = Tab:AddTab('Main') do
-	    	    MainTab:AddToggle('MyToggle', {Text = 'Loop', Tooltip = 'Loops Changing the Name'})
+                local Label = MainTab:AddLabel("My Name: " .. (texts ~= "" and texts or "No Name"))
+				local PrevLabel = MainTab:AddLabel("Prev Name: " .. (PlayerManager.Get_Name("LocalPlayer") ~= "" and PlayerManager.Get_Name("LocalPlayer") or "No Name"))
 
-	    	    Toggles.MyToggle:OnChanged(function()
-	    	        print('MyToggle changed to:', Toggles.MyToggle.Value)
+	    	    local InjectButton = MainTab:AddButton('Inject', function()
+					if PlayerManager.Get_Name("LocalPlayer") ~= "" then
+						Label:SetText("My Name: " .. texts)
+						PrevLabel:SetText("Prev Name: " .. PlayerManager.Get_Name("LocalPlayer"))
+                    	PlayerManager.Change_All_Name(texts, islocalplayer, Selected_Player)
+                    	while looped do
+							Label:SetText("My Name: " .. texts)
+							PrevLabel:SetText("Prev Name: " .. PlayerManager.Get_Name("LocalPlayer"))
+                    	    PlayerManager.Change_All_Name(texts, islocalplayer, Selected_Player)
+                    	    wait_Func(waits)
+                    	end
+					end
 	    	    end)
 
-	    	    Toggles.MyToggle:SetValue(false)
-
-	    	    local MyButton = MainTab:AddButton('Inject', function()
-	    	        print('You clicked a button!')
+	    	    InjectButton:AddButton('Test', function()
+                    PlayerManager.Change_All_Name("Test Injecting.", true)
+                    wait_Func(3)
+                    PlayerManager.Change_All_Name(prev_name, true)
 	    	    end)
-
-	    	    local MyButton2 = MyButton:AddButton('Test', function()
-	    	        print('You clicked a sub button!')
-	    	    end)
-
-	    	    MainTab:AddLabel('This is a label')
 
 	    	    MainTab:AddSlider('MinSlider', {Text = 'Min', Default = 0, Min = 0, Max = 255, Rounding = 1, Compact = false})
-
 	    	    Options.MinSlider:OnChanged(function()
-	    	        print('MySlider was changed! New value:', Options.MySlider.Value)
+	    	        minBytes = Options.MinSlider.Value
+	    	    end)
+
+	    	    MainTab:AddSlider('MaxSlider', {Text = 'Max', Default = 0, Min = 0, Max = 255, Rounding = 1, Compact = false})
+	    	    Options.MaxSlider:OnChanged(function()
+	    	        minBytes = Options.MaxSlider.Value
 	    	    end)
 
 	    	    MainTab:AddInput('MyTextbox', {Default = '', Numeric = false, Finished = false, Placeholder = 'Name'})
-
 	    	    Options.MyTextbox:OnChanged(function()
-	    	        print('Text updated. New text:', Options.MyTextbox.Value)
+	    	        texts = Options.MyTextbox.Value
 	    	    end)
-
-	    	    MainTab:AddDropdown('MyDropdown', {Values = {'This', 'is', 'a', 'dropdown'}, Default = 1, Multi = false, Text = 'A dropdown', Tooltip = 'This is a tooltip'})
-
-	    	    Options.MyDropdown:OnChanged(function()
-	    	        print('Dropdown got changed. New value:', Options.MyDropdown.Value)
-	    	    end)
-	    	    Options.MyDropdown:SetValue('This')
 	    	end
 
 			local section = Tab:AddTab('Extras') do
-				section:AddLabel('coming soon')
+	    	    section:AddToggle('Looping', {Text = 'Loop', Tooltip = 'Loops Changing the Name'})
+	    	    Toggles.Looping:OnChanged(function()
+	    	        looped = Toggles.Looping.Value
+	    	    end)
+
+	    	    section:AddToggle('UseLegacy', {Text = 'Use Legacy', Tooltip = 'Loops Changing the Name'})
+	    	    Toggles.UseLegacy:OnChanged(function()
+	    	        wait_Func = Toggles.UseLegacy.Value and wait or task.wait
+	    	    end)
+
+	    	    section:AddToggle('UseLocal', {Text = 'Is Local', Tooltip = 'Loops Changing the Name'})
+	    	    Toggles.UseLocal:OnChanged(function()
+	    	        islocalplayer = Toggles.UseLocal.Value
+	    	    end)
+
+	    	    local dropdown = section:AddDropdown('PlayerDropDown', {Values = Players_List, Default = 1, Multi = false, Text = 'Player List'})
+	    	    Options.PlayerDropDown:OnChanged(function()
+	    	        Selected_Player = Options.PlayerDropDown.Value
+	    	    end)
+
+	    	    section:AddButton('Update Player List', function()
+                    table.clear(Players_List)
+                    PlayerManager.Get_Player_Arrays(Players_List)
+                    dropdown:SetValues(Players_List)
+	    	    end)
 			end
 		end
 
 		Library:OnUnload(function()
 		    Library.Unloaded = true
+            getgenv().loaded = false
 		end)
 
 		-- UI Settings
