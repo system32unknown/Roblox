@@ -1,3 +1,10 @@
+for _, object in pairs(game:GetService("Players").LocalPlayer.Character:GetDescendants()) do
+    if not (object.Name == "ServerHandler" and object:IsA("RemoteEvent")) then
+        warn("RemoteEvent 'ServerHandler' not found!")
+        return
+    end
+end
+
 local VERSION = " v1.2.0"
 
 local github = 'https://raw.githubusercontent.com/'
@@ -95,7 +102,7 @@ end
 
 local prev_name = PlayerManager.Get_Name("LocalPlayer")
 local texts, review_text = "", ""
-local islocalplayer = false
+local IsAll, IsLocal = false, false
 local waits, Loops = 0, 0
 local minBytes, maxBytes = 0, 255
 
@@ -112,18 +119,19 @@ local Window = Library:CreateWindow({Title = '[FE] Roleplay Name Fucker by Frisk
 	local Tabs = {Main = Window:AddTab('Main'), ['UI Settings'] = Window:AddTab('UI Settings')} do
 		local Tab = Tabs.Main:AddLeftTabbox('Main') do
 	    	local MainTab = Tab:AddTab('Main') do
+                local LocalName = IsLocal and PlayerManager.Get_Name("LocalPlayer") or PlayerManager.Get_Name(Selected_Player)
                 local Label = MainTab:AddLabel("My Name: " .. (texts ~= "" and texts or "No Name"))
-				local PrevLabel = MainTab:AddLabel("Prev Name: " .. (PlayerManager.Get_Name("LocalPlayer") ~= "" and PlayerManager.Get_Name("LocalPlayer") or "No Name"))
+				local PrevLabel = MainTab:AddLabel("Prev Name: " .. (LocalName ~= "" and LocalName or "No Name"))
 
 	    	    local InjectButton = MainTab:AddButton('Inject', function()
-					if PlayerManager.Get_Name("LocalPlayer") ~= "" then
+					if LocalName ~= "" then
 						Label:SetText("My Name: " .. texts)
-						PrevLabel:SetText("Prev Name: " .. PlayerManager.Get_Name("LocalPlayer"))
-                    	PlayerManager.Change_All_Name(texts, islocalplayer, Selected_Player)
+						PrevLabel:SetText("Prev Name: " .. LocalName)
+                    	PlayerManager.Change_All_Name(texts, IsAll, Selected_Player)
                     	while looped do
 							Label:SetText("My Name: " .. texts)
-							PrevLabel:SetText("Prev Name: " .. PlayerManager.Get_Name("LocalPlayer"))
-                    	    PlayerManager.Change_All_Name(texts, islocalplayer, Selected_Player)
+							PrevLabel:SetText("Prev Name: " .. LocalName)
+                    	    PlayerManager.Change_All_Name(texts, IsAll, Selected_Player)
                     	    wait_Func(waits)
                     	end
 					end
@@ -157,15 +165,21 @@ local Window = Library:CreateWindow({Title = '[FE] Roleplay Name Fucker by Frisk
 	    	        looped = Toggles.Looping.Value
 	    	    end)
 
-	    	    section:AddToggle('UseLegacy', {Text = 'Use Legacy', Tooltip = 'Loops Changing the Name'})
+	    	    section:AddToggle('UseLegacy', {Text = 'Use Legacy', Tooltip = 'Uses Legacy Component'})
 	    	    Toggles.UseLegacy:OnChanged(function()
 	    	        wait_Func = Toggles.UseLegacy.Value and wait or task.wait
 	    	    end)
 
-	    	    section:AddToggle('UseLocal', {Text = 'Is Local', Tooltip = 'Loops Changing the Name'})
-	    	    Toggles.UseLocal:OnChanged(function()
-	    	        islocalplayer = Toggles.UseLocal.Value
+	    	    section:AddToggle('UseAll', {Text = 'Is All', Tooltip = 'Uses All Players'})
+	    	    Toggles.UseAll:OnChanged(function()
+	    	        IsAll = Toggles.UseAll.Value
 	    	    end)
+
+	    	    section:AddToggle('UseLocal', {Text = 'Is Local', Tooltip = 'Uses Local Player'})
+	    	    Toggles.UseLocal:OnChanged(function()
+	    	        IsLocal = Toggles.UseLocal.Value
+	    	    end)
+                Toggles.UseLocal:SetValue(true)
 
 	    	    local dropdown = section:AddDropdown('PlayerDropDown', {Values = Players_List, Default = 1, Multi = false, Text = 'Player List'})
 	    	    Options.PlayerDropDown:OnChanged(function()
