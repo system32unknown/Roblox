@@ -114,26 +114,34 @@ local Window = Library:CreateWindow({Title = 'Where\'s the RETARD' .. VERSION, C
 					end
 	    	    end)
 
-                MainTab:AddDivider()
+				local section = Tab:AddTab('Extras') do
+					section:AddButton('Hack Vote', function()
+						GS.Votes.Vote:FireServer(isManual(not isinf, chooseVote), amountVote)
+					end)
 
-	    	    MainTab:AddButton('Hack Vote', function()
-                    GS.Votes.Vote:FireServer(isManual(not isinf, chooseVote), amountVote)
-	    	    end)
-
-	    	    MainTab:AddToggle('IsInfi', {Text = 'Is Infinite'})
-	    	    Toggles.IsInfi:OnChanged(function()
-	    	        isinf = Toggles.IsInfi.Value
-	    	    end)
-
-	    	    MainTab:AddSlider('VoteSlider', {Text = 'Game Modes', Default = 0, Min = 0, Max = 6, Rounding = 0, Compact = false})
-	    	    Options.VoteSlider:OnChanged(function()
-	    	        chooseVote = Options.VoteSlider.Value
-	    	    end)
-
-	    	    MainTab:AddInput('votemany', {Default = '', Numeric = true, Finished = false, Text = 'Vote Amount:', Placeholder = 'Name'})
-	    	    Options.votemany:OnChanged(function()
-	    	        amountVote = Options.votemany.Value
-	    	    end)
+					section:AddButton('Delete Blind', function()
+						PSLP.PlayerGui.Menu.Clear:Destroy()
+					end)
+	
+					section:AddToggle('IsInfi', {Text = 'Is Infinite'})
+					Toggles.IsInfi:OnChanged(function()
+						isinf = Toggles.IsInfi.Value
+					end)
+	
+					section:AddSlider('VoteSlider', {Text = 'Game Modes', Default = 0, Min = 0, Max = 6, Rounding = 0, Compact = false})
+					Options.VoteSlider:OnChanged(function()
+						chooseVote = Options.VoteSlider.Value
+					end)
+	
+					section:AddInput('votemany', {Default = '', Numeric = false, Finished = false, Text = 'Vote Amount:', Placeholder = 'Name'})
+					Options.votemany:OnChanged(function()
+						if Options.votemany.Value == "math.huge" then
+							amountVote = math.huge
+						else
+							amountVote = Options.votemany.Value
+						end
+					end)
+				end
 	    	end
 		end
 
