@@ -20,11 +20,7 @@ getgenv().loaded = true
 function isManual(mode:boolean, num:number):string
     local av = 0
     if mode then
-        if num > 6 then
-            av = num
-        else 
-            av = 6
-        end
+        av = num
     else
         av = math.random(0, 6)
     end
@@ -32,11 +28,12 @@ function isManual(mode:boolean, num:number):string
 end
 
 local chooseVote = 0
+local amountVote = 0
 local isinf = false
 local TeamType = BrickColor.new(21)
 local PlayerName = ''
 
-local Window = Library:CreateWindow({Title = 'Where\'s the Baby RETARD' .. VERSION, Center = true, AutoShow = true}) do
+local Window = Library:CreateWindow({Title = 'Where\'s the RETARD' .. VERSION, Center = true, AutoShow = true}) do
 	local Tabs = {Main = Window:AddTab('Main'), ['UI Settings'] = Window:AddTab('UI Settings')} do
 		local Tab = Tabs.Main:AddLeftTabbox('Main') do
 	    	local MainTab = Tab:AddTab('Main') do
@@ -59,6 +56,10 @@ local Window = Library:CreateWindow({Title = 'Where\'s the Baby RETARD' .. VERSI
 
 	    	    MainTab:AddButton('Team Change', function()
                     GS.FE.TeamChange:FireServer(PSLP, TeamType)
+	    	    end)
+
+	    	    MainTab:AddButton('Team Change Neutral', function()
+                    GS.FE.TeamChange:FireServer(PSLP, BrickColor.new(0))
 	    	    end)
 
 	    	    MainTab:AddToggle('IsBaby', {Text = 'Is Baby'})
@@ -116,7 +117,7 @@ local Window = Library:CreateWindow({Title = 'Where\'s the Baby RETARD' .. VERSI
                 MainTab:AddDivider()
 
 	    	    MainTab:AddButton('Hack Vote', function()
-                    GS.Votes.Vote:FireServer(isManual(not isinf, chooseVote), math.huge)
+                    GS.Votes.Vote:FireServer(isManual(not isinf, chooseVote), amountVote)
 	    	    end)
 
 	    	    MainTab:AddToggle('IsInfi', {Text = 'Is Infinite'})
@@ -127,6 +128,11 @@ local Window = Library:CreateWindow({Title = 'Where\'s the Baby RETARD' .. VERSI
 	    	    MainTab:AddSlider('VoteSlider', {Text = 'Game Modes', Default = 0, Min = 0, Max = 6, Rounding = 0, Compact = false})
 	    	    Options.VoteSlider:OnChanged(function()
 	    	        chooseVote = Options.VoteSlider.Value
+	    	    end)
+
+	    	    MainTab:AddInput('votemany', {Default = '', Numeric = true, Finished = false, Text = 'Vote Amount:', Placeholder = 'Name'})
+	    	    Options.votemany:OnChanged(function()
+	    	        amountVote = Options.votemany.Value
 	    	    end)
 	    	end
 		end
