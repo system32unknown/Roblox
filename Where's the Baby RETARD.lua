@@ -61,7 +61,7 @@ local Window = Library:CreateWindow({Title = 'Where\'s the Baby RETARD' .. VERSI
                     GS.FE.TeamChange:FireServer(PSLP, TeamType)
 	    	    end)
 
-	    	    section:AddToggle('IsBaby', {Text = 'Is Baby'})
+	    	    MainTab:AddToggle('IsBaby', {Text = 'Is Baby'})
 	    	    Toggles.IsBaby:OnChanged(function()
 	    	        TeamType = Toggles.IsBaby.Value and BrickColor.new(23) or BrickColor.new(21)
 	    	    end)
@@ -99,13 +99,29 @@ local Window = Library:CreateWindow({Title = 'Where\'s the Baby RETARD' .. VERSI
 
                 MainTab:AddDivider()
 
+	    	    MainTab:AddButton('Flip Player', function()
+					local deez = PS[PlayerName].Character
+					local nuts = deez.HumanoidRootPart
+                    PSLP.Character.Spatula.ToolUse:FireServer(PSLP, deez, nuts.Position, nuts.Position)
+	    	    end)
+
+	    	    MainTab:AddButton('Flip All', function()
+					for _, v in pairs(workspace:GetDescendants()) do
+						if v:IsA("BasePart") then
+							PSLP.Character.Spatula.ToolUse:FireServer(PSLP, v, v.Position, v.Position)
+						end
+					end
+	    	    end)
+
+                MainTab:AddDivider()
+
 	    	    MainTab:AddButton('Hack Vote', function()
                     GS.Votes.Vote:FireServer(isManual(not isinf, chooseVote), math.huge)
 	    	    end)
 
-	    	    section:AddToggle('IsInf', {Text = 'Is Infinite'})
-	    	    Toggles.IsInf:OnChanged(function()
-	    	        isinf = Toggles.IsInf.Value
+	    	    MainTab:AddToggle('IsInfi', {Text = 'Is Infinite'})
+	    	    Toggles.IsInfi:OnChanged(function()
+	    	        isinf = Toggles.IsInfi.Value
 	    	    end)
 
 	    	    MainTab:AddSlider('VoteSlider', {Text = 'Game Modes', Default = 0, Min = 0, Max = 6, Rounding = 0, Compact = false})
