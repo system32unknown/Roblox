@@ -9,6 +9,7 @@ local SaveManager = loadstring(game:HttpGet(repo..'addons/SaveManager.lua'))()
 
 local PS = game:GetService("Players")
 local TS = game:GetService("Teams")
+local RS = game:GetService("ReplicatedStorage")
 local PSLP = PS.LocalPlayer
 local GS = workspace.GameStuff
 
@@ -34,6 +35,7 @@ local isinf = false
 local TeamType = BrickColor.new(21)
 local TeamName = ''
 local PlayerName = ''
+local prevanimid, animid = 0, 0
 
 local Window = Library:CreateWindow({Title = 'Where\'s the RETARD' .. VERSION, Center = true, AutoShow = true}) do
 	local Tabs = {Main = Window:AddTab('Main'), ['UI Settings'] = Window:AddTab('UI Settings')} do
@@ -128,7 +130,7 @@ local Window = Library:CreateWindow({Title = 'Where\'s the RETARD' .. VERSION, C
 						GS.FE.Config:FireServer(PSLP, "Kick", plr.Name)
 					end)
 	    	    end)
-
+				
                 MainTab:AddDivider()
 
 				local section = Tab:AddTab('Extras') do
@@ -144,13 +146,33 @@ local Window = Library:CreateWindow({Title = 'Where\'s the RETARD' .. VERSION, C
 						PSLP.PlayerGui.Menu.Config.Frame.Visible = true
 					end)
 
-					MainTab:AddButton('Flip All', function()
+					section:AddButton('Flip All', function()
 						for _, v in pairs(workspace:GetDescendants()) do
 							if v:IsA("BasePart") then
-								PSLP.Character.Spatula.ToolUse:FireServer(PSLP, v, v.Position, v.Position)
+								RS.ToolUse:FireServer(PSLP, v, v.Position, v.Position)
 							end
 						end
 					end)
+
+					section:AddDivider()
+
+					section:AddInput('previdbox', {Default = '', Numeric = true, Finished = false, Text = 'Prev Anim ID:', Placeholder = 'ID'})
+					Options.previdbox:OnChanged(function()
+						prevanimid = Options.previdbox.Value
+					end)
+
+					section:AddInput('animidbox', {Default = '', Numeric = true, Finished = false, Text = 'Anim ID:', Placeholder = 'ID'})
+					Options.animidbox:OnChanged(function()
+						animid = Options.animidbox.Value
+					end)
+
+					section:AddButton('Play Animation All', function()
+						for _, v in pairs(PS:GetPlayers()) do
+							GS.FE.Crouch:FireServer(v, prevanimid, animid, v.Character.HumanoidRootPart.Position)
+						end
+					end)
+
+					section:AddDivider()
 	
 					section:AddToggle('IsInfi', {Text = 'Is Randomized'})
 					Toggles.IsInfi:OnChanged(function()
@@ -162,7 +184,7 @@ local Window = Library:CreateWindow({Title = 'Where\'s the RETARD' .. VERSION, C
 						chooseVote = Options.VoteSlider.Value
 					end)
 	
-					section:AddInput('votemany', {Default = '', Numeric = false, Finished = false, Text = 'Vote Amount:', Placeholder = 'Name'})
+					section:AddInput('votemany', {Default = '', Numeric = false, Finished = false, Text = 'Vote Amount:', Placeholder = 'Amount'})
 					Options.votemany:OnChanged(function()
 						if Options.votemany.Value == "math.huge" then
 							amountVote = math.huge
