@@ -1,4 +1,4 @@
-local VERSION = " v1.2.0"
+local VERSION = " v1.0.0"
 
 local github = 'https://raw.githubusercontent.com/'
 local repo = github..'wally-rblx/LinoriaLib/main/'
@@ -21,24 +21,14 @@ end
 getgenv().loaded = true
 
 function isManual(mode:boolean, num:number):string
-    local av = 0
-    if mode then
-        av = num
-    else
-        av = math.random(0, 6)
-    end
-    return tostring(av)
+    return tostring(mode and num or math.random(0, 6))
 end
 
-local chooseVote = 0
-local amountVote = 0
-local isinf = false
-local TeamType = BrickColor.new(21)
-local TeamName = ''
+local chooseVote, amountVote = 0, 0
+local IsRandom, TeamType, TeamName = false, BrickColor.new(21), ''
 local PlayerName = ''
-local prevanimid, animid = 0, 0
 
-local Window = Library:CreateWindow({Title = 'Where\'s the RETARD' .. VERSION, Center = true, AutoShow = true}) do
+local Window = Library:CreateWindow({Title = 'Where\'s the Ruiner' .. VERSION, Center = true, AutoShow = true}) do
 	local Tabs = {Main = Window:AddTab('Main'), ['UI Settings'] = Window:AddTab('UI Settings')} do
 		local Tab = Tabs.Main:AddLeftTabbox('Main') do
 	    	local MainTab = Tab:AddTab('Main') do
@@ -150,12 +140,12 @@ local Window = Library:CreateWindow({Title = 'Where\'s the RETARD' .. VERSION, C
 					section:AddDivider()
 	
 					section:AddButton('Hack Vote', function()
-						GS.Votes.Vote:FireServer(isManual(not isinf, chooseVote), amountVote)
+						GS.Votes.Vote:FireServer(isManual(not IsRandom, chooseVote), amountVote)
 					end)
 
-					section:AddToggle('IsInfi', {Text = 'Is Randomized'})
+					section:AddToggle('IsRand', {Text = 'Is Randomized'})
 					Toggles.IsInfi:OnChanged(function()
-						isinf = Toggles.IsInfi.Value
+						IsRandom = Toggles.IsRand.Value
 					end)
 	
 					section:AddSlider('VoteSlider', {Text = 'Game Modes', Default = 0, Min = 0, Max = 6, Rounding = 0, Compact = false})
