@@ -137,6 +137,10 @@ local Window = Library:CreateWindow({Title = 'Where\'s the RETARD' .. VERSION, C
 					section:AddButton('Delete Blind', function()
 						PSLP.PlayerGui.Menu.Clear:Destroy()
 					end)
+
+					section:AddButton('Show Developer Menu', function()
+						PSLP.PlayerGui.Menu.Config.Frame.Visible = true
+					end)
 	
 					section:AddToggle('IsInfi', {Text = 'Is Infinite'})
 					Toggles.IsInfi:OnChanged(function()
@@ -155,10 +159,6 @@ local Window = Library:CreateWindow({Title = 'Where\'s the RETARD' .. VERSION, C
 						else
 							amountVote = Options.votemany.Value
 						end
-					end)
-
-					MainTab:AddButton('Show Developer Menu', function()
-						PSLP.PlayerGui.Menu.Config.Frame.Visible = true
 					end)
 				end
 	    	end
