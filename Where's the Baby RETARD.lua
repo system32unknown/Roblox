@@ -138,7 +138,11 @@ local Window = Library:CreateWindow({Title = 'Where\'s the RETARD' .. VERSION, C
 					section:AddButton('Flip All', function()
 						for _, v in pairs(workspace:GetDescendants()) do
 							if v:IsA("BasePart") then
-								RS.UseTool:FireServer(PSLP, v, v.Position, v.Position)
+								if PSLP.Backpack:FindFirstChild("Spatula") then
+									PSLP.Backpack.Spatula.ToolUse:FireServer(PSLP, v, v.Position, v.Position)
+								else
+									RS.UseTool:FireServer(PSLP, v, v.Position, v.Position)
+								end
 							end
 						end
 					end)
