@@ -12,6 +12,7 @@ local TS = game:GetService("Teams")
 local RS = game:GetService("ReplicatedStorage")
 local PSLP = PS.LocalPlayer
 local GS = workspace.GameStuff
+local CLEARMENU = PSLP.PlayerGui.Menu.Clear
 
 if loaded then
 	print("already loaded you dumb")
@@ -64,16 +65,6 @@ local Window = Library:CreateWindow({Title = 'Where\'s the RETARD' .. VERSION, C
 
 	    	    MainTab:AddButton('Team Change Neutral', function()
                     GS.FE.TeamChange:FireServer(PSLP, BrickColor.new(0))
-	    	    end)
-
-	    	    MainTab:AddButton('Change Neutral Everyone', function()
-					for _, team in pairs(TS:GetChildren()) do
-						if team.Name == TeamName then
-							for _, player in pairs(team:GetPlayers()) do
-								GS.FE.TeamChange:FireServer(player, BrickColor.new(0))
-							end
-						end
-					end
 	    	    end)
 
 	    	    MainTab:AddToggle('IsBaby', {Text = 'Is Baby'})
@@ -130,16 +121,14 @@ local Window = Library:CreateWindow({Title = 'Where\'s the RETARD' .. VERSION, C
 						GS.FE.Config:FireServer(PSLP, "Kick", plr.Name)
 					end)
 	    	    end)
-				
-                MainTab:AddDivider()
 
 				local section = Tab:AddTab('Extras') do
-					section:AddButton('Hack Vote', function()
-						GS.Votes.Vote:FireServer(isManual(not isinf, chooseVote), amountVote)
-					end)
-
 					section:AddButton('Delete Blind', function()
-						PSLP.PlayerGui.Menu.Clear:Destroy()
+						for _, v in CLEARMENU:GetDescendants() do
+							if type(tonumber(v.Name)) == "number" then
+								v:Destroy()
+							end
+						end
 					end)
 
 					section:AddButton('Show Developer Menu', function()
@@ -149,31 +138,17 @@ local Window = Library:CreateWindow({Title = 'Where\'s the RETARD' .. VERSION, C
 					section:AddButton('Flip All', function()
 						for _, v in pairs(workspace:GetDescendants()) do
 							if v:IsA("BasePart") then
-								RS.ToolUse:FireServer(PSLP, v, v.Position, v.Position)
+								RS.UseTool:FireServer(PSLP, v, v.Position, v.Position)
 							end
 						end
 					end)
 
 					section:AddDivider()
-
-					section:AddInput('previdbox', {Default = 798089266, Numeric = true, Finished = false, Text = 'Prev Anim ID:', Placeholder = 'ID'})
-					Options.previdbox:OnChanged(function()
-						prevanimid = Options.previdbox.Value
-					end)
-
-					section:AddInput('animidbox', {Default = 799144691, Numeric = true, Finished = false, Text = 'Anim ID:', Placeholder = 'ID'})
-					Options.animidbox:OnChanged(function()
-						animid = Options.animidbox.Value
-					end)
-
-					section:AddButton('Play Animation All', function()
-						for _, v in pairs(PS:GetPlayers()) do
-							GS.FE.Crouch:FireServer(v, prevanimid, animid, v.Character.HumanoidRootPart.Position)
-						end
-					end)
-
-					section:AddDivider()
 	
+					section:AddButton('Hack Vote', function()
+						GS.Votes.Vote:FireServer(isManual(not isinf, chooseVote), amountVote)
+					end)
+
 					section:AddToggle('IsInfi', {Text = 'Is Randomized'})
 					Toggles.IsInfi:OnChanged(function()
 						isinf = Toggles.IsInfi.Value
