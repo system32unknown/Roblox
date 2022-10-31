@@ -64,6 +64,16 @@ local Window = Library:CreateWindow({Title = 'Where\'s the RETARD' .. VERSION, C
                     GS.FE.TeamChange:FireServer(PSLP, BrickColor.new(0))
 	    	    end)
 
+	    	    MainTab:AddButton('Change Neutral Everyone', function()
+					for _, team in pairs(TS:GetChildren()) do
+						if team.Name == TeamName then
+							for _, player in pairs(team:GetPlayers()) do
+								GS.FE.TeamChange:FireServer(player, BrickColor.new(0))
+							end
+						end
+					end
+	    	    end)
+
 	    	    MainTab:AddToggle('IsBaby', {Text = 'Is Baby'})
 	    	    Toggles.IsBaby:OnChanged(function()
 					TeamName = Toggles.IsBaby.Value and 'Baby' or 'Parent'
@@ -121,14 +131,6 @@ local Window = Library:CreateWindow({Title = 'Where\'s the RETARD' .. VERSION, C
 
                 MainTab:AddDivider()
 
-	    	    MainTab:AddButton('Flip All', function()
-					for _, v in pairs(workspace:GetDescendants()) do
-						if v:IsA("BasePart") then
-							PSLP.Character.Spatula.ToolUse:FireServer(PSLP, v, v.Position, v.Position)
-						end
-					end
-	    	    end)
-
 				local section = Tab:AddTab('Extras') do
 					section:AddButton('Hack Vote', function()
 						GS.Votes.Vote:FireServer(isManual(not isinf, chooseVote), amountVote)
@@ -141,8 +143,16 @@ local Window = Library:CreateWindow({Title = 'Where\'s the RETARD' .. VERSION, C
 					section:AddButton('Show Developer Menu', function()
 						PSLP.PlayerGui.Menu.Config.Frame.Visible = true
 					end)
+
+					MainTab:AddButton('Flip All', function()
+						for _, v in pairs(workspace:GetDescendants()) do
+							if v:IsA("BasePart") then
+								PSLP.Character.Spatula.ToolUse:FireServer(PSLP, v, v.Position, v.Position)
+							end
+						end
+					end)
 	
-					section:AddToggle('IsInfi', {Text = 'Is Infinite'})
+					section:AddToggle('IsInfi', {Text = 'Is Randomized'})
 					Toggles.IsInfi:OnChanged(function()
 						isinf = Toggles.IsInfi.Value
 					end)
