@@ -144,7 +144,7 @@ local Window = Library:CreateWindow({Title = 'Where\'s the Ruiner' .. VERSION, C
 					end)
 
 					section:AddToggle('IsRand', {Text = 'Is Randomized'})
-					Toggles.IsInfi:OnChanged(function()
+					Toggles.IsRand:OnChanged(function()
 						IsRandom = Toggles.IsRand.Value
 					end)
 	
@@ -157,6 +157,8 @@ local Window = Library:CreateWindow({Title = 'Where\'s the Ruiner' .. VERSION, C
 					Options.votemany:OnChanged(function()
 						if Options.votemany.Value == "math.huge" then
 							amountVote = math.huge
+						elseif Options.votemany.Value == "-math.huge" then
+							amountVote = -math.huge
 						else
 							amountVote = Options.votemany.Value
 						end
