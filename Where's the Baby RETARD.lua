@@ -156,12 +156,12 @@ local Window = Library:CreateWindow({Title = 'Where\'s the RETARD' .. VERSION, C
 
 					section:AddDivider()
 
-					section:AddInput('previdbox', {Default = '', Numeric = true, Finished = false, Text = 'Prev Anim ID:', Placeholder = 'ID'})
+					section:AddInput('previdbox', {Default = 798089266, Numeric = true, Finished = false, Text = 'Prev Anim ID:', Placeholder = 'ID'})
 					Options.previdbox:OnChanged(function()
 						prevanimid = Options.previdbox.Value
 					end)
 
-					section:AddInput('animidbox', {Default = '', Numeric = true, Finished = false, Text = 'Anim ID:', Placeholder = 'ID'})
+					section:AddInput('animidbox', {Default = 799144691, Numeric = true, Finished = false, Text = 'Anim ID:', Placeholder = 'ID'})
 					Options.animidbox:OnChanged(function()
 						animid = Options.animidbox.Value
 					end)
