@@ -106,7 +106,7 @@ local Window = Library:CreateWindow({Title = 'Where\'s the RETARD' .. VERSION, C
 	    	    MainTab:AddButton('Kick Teams', function()
 					for _, team in pairs(TS:GetChildren()) do
 						if team.Name == TeamName then
-							for _, player in pairs(tt:GetPlayers()) do
+							for _, player in pairs(team:GetPlayers()) do
 								GS.FE.Config:FireServer(game:GetService("Players").LocalPlayer, "Kick", player.Name)
 							end
 						end
