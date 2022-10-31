@@ -8,6 +8,7 @@ local ThemeManager = loadstring(game:HttpGet(repo..'addons/ThemeManager.lua'))()
 local SaveManager = loadstring(game:HttpGet(repo..'addons/SaveManager.lua'))()
 
 local PS = game:GetService("Players")
+local TS = game:GetService("Teams")
 local PSLP = PS.LocalPlayer
 local GS = workspace.GameStuff
 
@@ -31,6 +32,7 @@ local chooseVote = 0
 local amountVote = 0
 local isinf = false
 local TeamType = BrickColor.new(21)
+local TeamName = ''
 local PlayerName = ''
 
 local Window = Library:CreateWindow({Title = 'Where\'s the RETARD' .. VERSION, Center = true, AutoShow = true}) do
@@ -64,14 +66,11 @@ local Window = Library:CreateWindow({Title = 'Where\'s the RETARD' .. VERSION, C
 
 	    	    MainTab:AddToggle('IsBaby', {Text = 'Is Baby'})
 	    	    Toggles.IsBaby:OnChanged(function()
+					TeamName = Toggles.IsBaby.Value and 'Baby' or 'Parent'
 	    	        TeamType = Toggles.IsBaby.Value and BrickColor.new(23) or BrickColor.new(21)
 	    	    end)
 
                 MainTab:AddDivider()
-
-	    	    MainTab:AddButton('Show Developer Menu', function()
-                    PSLP.PlayerGui.Menu.Config.Frame.Visible = true
-	    	    end)
 
 	    	    MainTab:AddButton('Grab All', function()
                     for _, v in pairs(workspace:GetDescendants()) do
@@ -90,7 +89,7 @@ local Window = Library:CreateWindow({Title = 'Where\'s the RETARD' .. VERSION, C
                     GS.FE.Config:FireServer(PSLP, "Kick", PlayerName)
 	    	    end)
 
-	    	    MainTab:AddButton('Kick All', function()
+	    	    MainTab:AddButton('Kick Others', function()
                     for _, v in pairs(PS:GetPlayers()) do
                         if v ~= PSLP then
                             GS.FE.Config:FireServer(PSLP, "Kick", v.Name)
@@ -98,13 +97,29 @@ local Window = Library:CreateWindow({Title = 'Where\'s the RETARD' .. VERSION, C
                     end
 	    	    end)
 
-                MainTab:AddDivider()
-
-	    	    MainTab:AddButton('Flip Player', function()
-					local deez = PS[PlayerName].Character
-					local nuts = deez.HumanoidRootPart
-                    PSLP.Character.Spatula.ToolUse:FireServer(PSLP, deez, nuts.Position, nuts.Position)
+	    	    MainTab:AddButton('Kick All', function()
+                    for _, v in pairs(PS:GetPlayers()) do
+                        GS.FE.Config:FireServer(PSLP, "Kick", v.Name)
+                    end
 	    	    end)
+
+	    	    MainTab:AddButton('Kick Teams', function()
+					for _, team in pairs(TS:GetChildren()) do
+						if team.Name == TeamName then
+							for _, player in pairs(tt:GetPlayers()) do
+								GS.FE.Config:FireServer(game:GetService("Players").LocalPlayer, "Kick", player.Name)
+							end
+						end
+					end
+	    	    end)
+
+	    	    MainTab:AddButton('Ban Others', function()
+					PS.PlayerAdded:Connect(function(plr:Player)
+						GS.FE.Config:FireServer(PSLP, "Kick", plr.Name)
+					end)
+	    	    end)
+
+                MainTab:AddDivider()
 
 	    	    MainTab:AddButton('Flip All', function()
 					for _, v in pairs(workspace:GetDescendants()) do
@@ -140,6 +155,10 @@ local Window = Library:CreateWindow({Title = 'Where\'s the RETARD' .. VERSION, C
 						else
 							amountVote = Options.votemany.Value
 						end
+					end)
+
+					MainTab:AddButton('Show Developer Menu', function()
+						PSLP.PlayerGui.Menu.Config.Frame.Visible = true
 					end)
 				end
 	    	end
