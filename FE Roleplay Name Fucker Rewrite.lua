@@ -208,12 +208,12 @@ local Window = Library:CreateWindow({Title = '[FE] Roleplay Name Fucker by Frisk
 	    	        Selected_Player = Options.PlayerDropDown.Value
 	    	    end)
 
-	    	    section:AddInput('WaitBox', {Default = '1', Numeric = true, Finished = false, Name = 'Wait Numbers', Placeholder = 'Wait Numbers'})
+	    	    section:AddInput('WaitBox', {Default = '0', Numeric = false, Finished = false, Text = 'Wait Numbers', Placeholder = 'Wait Numbers'})
 	    	    Options.WaitBox:OnChanged(function()
 	    	        waits = Options.WaitBox.Value
 	    	    end)
 
-	    	    section:AddInput('LoopBox', {Default = '1', Numeric = true, Finished = false, Name = 'Loop Numbers', Placeholder = 'Loop Numbers'})
+	    	    section:AddInput('LoopBox', {Default = '1', Numeric = true, Finished = false, Text = 'Loop Numbers', Placeholder = 'Loop Numbers'})
 	    	    Options.LoopBox:OnChanged(function()
 	    	        Loops = Options.LoopBox.Value
 	    	    end)
