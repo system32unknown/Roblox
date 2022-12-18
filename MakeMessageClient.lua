@@ -1,4 +1,5 @@
 local ExploitTool = {}
+ExploitTool.__index = ExploitTool
 
 function ExploitTool:MakeSysMsg(text, color, font, size)
     local text = text or "Hello World"
@@ -28,7 +29,7 @@ function ExploitTool.EncodeReversedBase64(data)
 end
 
 function ExploitTool.DecodeReversedBase64(data)
-    return Krnl.Base64.Decode(string.reverse(data))
+    return string.reverse(Krnl.Base64.Decode(data))
 end
 
 return ExploitTool

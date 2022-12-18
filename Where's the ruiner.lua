@@ -143,7 +143,7 @@ local Window = Library:CreateWindow({Title = 'Where\'s the Ruiner' .. VERSION, C
 						GS.Votes.Vote:FireServer(isManual(not IsRandom, chooseVote), amountVote)
 					end)
 
-					section:AddToggle('IsRand', {Text = 'Is Randomized'})
+					section:AddToggle('IsRand', {Text = 'Randomized'})
 					Toggles.IsRand:OnChanged(function()
 						IsRandom = Toggles.IsRand.Value
 					end)

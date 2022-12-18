@@ -70,27 +70,11 @@ E_PowerText.TextWrapped = true
 E_PowerText.TextXAlignment = Enum.TextXAlignment.Right
 E_PowerText.TextYAlignment = Enum.TextYAlignment.Bottom
 
-local E_OwnerText = Instance.new("TextLabel", TelekinesisGUI)
-E_OwnerText.Name = "E_OwnerText"
-E_OwnerText.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-E_OwnerText.BackgroundTransparency = 1
-E_OwnerText.Position = UDim2.new(0.825, 0, 0.945, 0)
-E_OwnerText.Size = UDim2.new(0, 227, 0, 11)
-E_OwnerText.Font = Enum.Font.SourceSans
-E_OwnerText.Text = "Ownership: nil"
-E_OwnerText.TextColor3 = Color3.fromRGB(0, 0, 0)
-E_OwnerText.TextSize = 16
-E_OwnerText.TextStrokeColor3 = Color3.fromRGB(255, 255, 255)
-E_OwnerText.TextStrokeTransparency = 0
-E_OwnerText.TextWrapped = true
-E_OwnerText.TextXAlignment = Enum.TextXAlignment.Right
-E_OwnerText.TextYAlignment = Enum.TextYAlignment.Bottom
-
 local E_DistanceText = Instance.new("TextLabel", TelekinesisGUI)
 E_DistanceText.Name = "E_DistanceText"
 E_DistanceText.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
 E_DistanceText.BackgroundTransparency = 1
-E_DistanceText.Position = UDim2.new(0.825, 0, 0.965, 0)
+E_DistanceText.Position = UDim2.new(0.825, 0, 0.945, 0)
 E_DistanceText.Size = UDim2.new(0, 227, 0, 11)
 E_DistanceText.Font = Enum.Font.SourceSans
 E_DistanceText.Text = "Distance: 0"
@@ -106,7 +90,7 @@ local E_SelectedText = Instance.new("TextLabel", TelekinesisGUI)
 E_SelectedText.Name = "E_SelectedText"
 E_SelectedText.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
 E_SelectedText.BackgroundTransparency = 1
-E_SelectedText.Position = UDim2.new(0.825, 0, 0.985, 0)
+E_SelectedText.Position = UDim2.new(0.825, 0, 0.965, 0)
 E_SelectedText.Size = UDim2.new(0, 227, 0, 11)
 E_SelectedText.Font = Enum.Font.SourceSans
 E_SelectedText.Text = "Selected Object: nil"
@@ -266,11 +250,6 @@ table.insert(scripts, sandbox(TelekinesisScript, function()
                     dist = (object.Position - front.Position).magnitude
                     E_SelectedText.Text = "Selected: " .. target.Name
                     E_DistanceText.Text = "Distance: " .. math.floor(dist) * .5
-                    local s, r = pcall(function()
-                        if target:CanSetNetworkOwnership() then
-                            E_OwnerText.Text = "Ownership: " .. target:GetNetworkOwner()
-                        end
-                    end)
                     if not s then
                         print("[ERROR]: " .. r)
                     end
@@ -299,7 +278,6 @@ table.insert(scripts, sandbox(TelekinesisScript, function()
 
         E_SelectedText.Text = "Selected: nil"
         E_DistanceText.Text = "Distance: nil"
-        E_OwnerText = "Ownership: nil"
     end
 
 	local function take_ownership(boolean)
@@ -430,11 +408,7 @@ table.insert(scripts, sandbox(TelekinesisScript, function()
 		
         if key == Keys_Settings["Net Bypass"] then
             if hiddenproperty then
-                if RenderStep == nil then
-					take_ownership(true)
-                else
-					take_ownership(false)
-                end
+				take_ownership(RenderStep == nil)
             else
                 game:GetService("StarterGui"):SetCore("SendNotification", {
                     Title = "Script Error", 

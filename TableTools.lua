@@ -1,4 +1,5 @@
 local Table = {}
+Table.__index = Table
 
 function Table.has_value(tab, val)
     for _, v in pairs(tab) do

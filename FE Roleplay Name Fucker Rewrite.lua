@@ -1,6 +1,8 @@
-for _, object in pairs(game:GetService("Players").LocalPlayer.Character:GetDescendants()) do
+local PS = game:GetService("Players")
+
+for _, object in pairs(PS.LocalPlayer.Character:GetDescendants()) do
     if not object.Name == "ServerHandler" and object:IsA("RemoteEvent") then
-        warn("RemoteEvent 'ServerHandler' not found!")
+        print("RemoteEvent 'ServerHandler' not found!")
         return
     end
 end
@@ -15,16 +17,20 @@ local MessageLIB = loadstring(game:HttpGet(github..'system32unknown/Roblox/main/
 local TableLIB = loadstring(game:HttpGet(github..'system32unknown/Roblox/main/TableTools.lua'))()
 local ThemeManager = loadstring(game:HttpGet(repo..'addons/ThemeManager.lua'))()
 local SaveManager = loadstring(game:HttpGet(repo..'addons/SaveManager.lua'))()
-local TextManager, PlayerManager = {}, {}
 
 local wait_Func = task.wait
 
-if loaded then
+if getgenv().loaded then
 	print("already loaded you dumb")
 	return
 end
 
 getgenv().loaded = true
+
+local TextManager = {}
+TextManager.__index = TextManager
+local PlayerManager = {}
+PlayerManager.__index = PlayerManager
 
 function TextManager.TypeWrite(str, sec, isLocal, plrs)
 	local plr = (plrs ~= "" and plrs or "LocalPlayer")
@@ -68,7 +74,7 @@ end
 
 function PlayerManager.Change_All_Name(str, isLocal, plrs)
 	local plr = (plrs ~= "" and plrs or "LocalPlayer")
-	for _, object in pairs((isLocal and game:GetService("Players")[plr].Character:GetDescendants() or workspace:GetDescendants())) do
+	for _, object in pairs((isLocal and PS[plr].Character:GetDescendants() or workspace:GetDescendants())) do
 		if object.Name == "ServerHandler" and object:IsA("RemoteEvent") then
 			object:FireServer(str)
 		end
@@ -76,7 +82,7 @@ function PlayerManager.Change_All_Name(str, isLocal, plrs)
 end
 
 function PlayerManager.Get_Name(plr)
-	for _, object in pairs(game:GetService("Players")[plr].Character:GetDescendants()) do
+	for _, object in pairs(PS[plr].Character:GetDescendants()) do
 		if object.Name == "ServerHandler" and object:IsA("RemoteEvent") then
 			return object.Parent.Name
 		end
@@ -84,7 +90,7 @@ function PlayerManager.Get_Name(plr)
 end
 
 function PlayerManager.Get_Player_Arrays(array:table)
-	for _, v in pairs(game:GetService("Players"):GetPlayers()) do
+	for _, v in pairs(PS:GetPlayers()) do
 		table.insert(array, v.Name)
 	end
 
@@ -173,7 +179,7 @@ local Window = Library:CreateWindow({Title = '[FE] Roleplay Name Fucker by Frisk
                 end)
 
                 MainTab:AddButton("Shuffle Name", function()
-                    for _, object in pairs((IsLocal and game:GetService("Players")[Selected_Player].Character:GetDescendants() or workspace:GetDescendants())) do
+                    for _, object in pairs((IsLocal and PS[Selected_Player].Character:GetDescendants() or workspace:GetDescendants())) do
                         if object.Name == "ServerHandler" and object:IsA("RemoteEvent") then
                             object:FireServer(TextManager.shuffle(texts))
                         end
