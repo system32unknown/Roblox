@@ -36,8 +36,7 @@ function TextManager.TypeWrite(str, sec, isLocal, plrs)
 	local plr = (plrs ~= "" and plrs or "LocalPlayer")
 	local temp_str = str
 	for i = 0, string.len(str) do
-		local init_text = string.sub(temp_str, 0, i)
-		PlayerManager.Change_All_Name(init_text, isLocal, plr)
+		PlayerManager.Change_All_Name(string.sub(temp_str, 0, i), isLocal, plr)
 		wait_Func(sec)
 	end
 	PlayerManager.Change_All_Name(temp_str, isLocal, plr)
