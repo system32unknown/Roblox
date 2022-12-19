@@ -250,9 +250,6 @@ table.insert(scripts, sandbox(TelekinesisScript, function()
                     dist = (object.Position - front.Position).magnitude
                     E_SelectedText.Text = "Selected: " .. target.Name
                     E_DistanceText.Text = "Distance: " .. math.floor(dist) * .5
-                    if not s then
-                        print("[ERROR]: " .. r)
-                    end
                     break
                 end
             end
