@@ -102,7 +102,8 @@ local prev_name = PlayerManager.Get_Name("LocalPlayer")
 local texts, Selected_Player = "", ""
 local IsLocal, looped = false, false
 local waits, Loops = 0, 0
-local minBytes, maxBytes = 0, 255
+local minBytes = 0
+local maxBytes = 255
 local del_num = 0
 local rainbowRGB = 0
 
@@ -152,7 +153,7 @@ local Window = Library:CreateWindow({Title = '[FE] Roleplay Name Fucker by Frisk
 
 	    	    MainTab:AddSlider('MaxSlider', {Text = 'Max', Default = 0, Min = 0, Max = 255, Rounding = 0, Compact = false})
 	    	    Options.MaxSlider:OnChanged(function()
-	    	        minBytes = Options.MaxSlider.Value
+	    	        maxBytes = Options.MaxSlider.Value
 	    	    end)
 
 	    	    MainTab:AddInput('NameTextbox', {Default = '', Numeric = false, Finished = false, Text = 'RP Name:', Placeholder = 'Name'})
