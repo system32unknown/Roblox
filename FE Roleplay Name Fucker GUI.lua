@@ -1,16 +1,14 @@
 --Services
 local UserInputService = game:GetService("UserInputService")
-local HttpService = game:GetService("HttpService")
+local RS = game:GetService("RunService")
 
 --Functions
-if loaded then
+if _G.loaded then
 	print("already loaded you dumb")
 	return
 end
 
-pcall(function()
-	getgenv().loaded = true
-end)
+_G.loaded = true
 
 function typewriter(str, sec, isLocal, plrs)
 	local plr = (plrs ~= "" and plrs or "LocalPlayer")
@@ -100,8 +98,7 @@ function shuffle(str)
 		letters[i] = v.letter 
 	end
 	return table.concat(letters)
- end
- 
+end
 
 --Variables
 local prev_name = Get_Name("LocalPlayer")

@@ -14,11 +14,11 @@ local PSLP = PS.LocalPlayer
 local GS = workspace.GameStuff
 local CLEARMENU = PSLP.PlayerGui.Menu.Clear
 
-if loaded then
+if _G.loaded then
 	print("already loaded you dumb")
 	return
 end
-getgenv().loaded = true
+_G.loaded = true
 
 function isManual(mode:boolean, num:number):string
     return tostring(mode and num or math.random(0, 6))

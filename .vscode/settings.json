@@ -13,6 +13,9 @@
         "checkcaller",
         "setreadonly",
         "getrawmetatable",
-        "setclipboard"
+        "setclipboard",
+        "Krnl",
+        "Options",
+        "Toggles"
     ]
 }

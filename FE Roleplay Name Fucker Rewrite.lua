@@ -1,31 +1,32 @@
 local PS = game:GetService("Players")
+local LP = PS.LocalPlayer
 
-for _, object in pairs(PS.LocalPlayer.Character:GetDescendants()) do
+for _, object in pairs(LP.Character:GetDescendants()) do
     if not object.Name == "ServerHandler" and object:IsA("RemoteEvent") then
         print("RemoteEvent 'ServerHandler' not found!")
         return
     end
 end
 
-local VERSION = " v1.2.0"
+local VERSION = " v1.3b"
 
 local github = 'https://raw.githubusercontent.com/'
-local repo = github..'wally-rblx/LinoriaLib/main/'
+local repoName = 'system32unknown'
+local repo = github..repoName..'/LinoriaLib/main/'
 
 local Library = loadstring(game:HttpGet(repo..'Library.lua'))()
-local MessageLIB = loadstring(game:HttpGet(github..'system32unknown/Roblox/main/MakeMessageClient.lua'))()
-local TableLIB = loadstring(game:HttpGet(github..'system32unknown/Roblox/main/TableTools.lua'))()
+local MessageLIB = loadstring(game:HttpGet(github..repoName..'/Roblox/main/MakeMessageClient.lua'))()
+local TableLIB = loadstring(game:HttpGet(github..repoName..'/Roblox/main/TableTools.lua'))()
 local ThemeManager = loadstring(game:HttpGet(repo..'addons/ThemeManager.lua'))()
 local SaveManager = loadstring(game:HttpGet(repo..'addons/SaveManager.lua'))()
 
 local wait_Func = task.wait
 
-if getgenv().loaded then
+if _G.loaded then
 	print("already loaded you dumb")
 	return
 end
-
-getgenv().loaded = true
+_G.loaded = true
 
 local TextManager = {}
 TextManager.__index = TextManager
@@ -103,6 +104,7 @@ local IsLocal, looped = false, false
 local waits, Loops = 0, 0
 local minBytes, maxBytes = 0, 255
 local del_num = 0
+local rainbowRGB = 0
 
 local event_text, wait_text = "", ""
 local Text_List, Wait_List = {"Hello World!"}, {1}
@@ -231,6 +233,17 @@ local Window = Library:CreateWindow({Title = '[FE] Roleplay Name Fucker by Frisk
                     end
                 end)
 
+                section:AddButton('Chat To RP Name', function()
+					PS.PlayerAdded:Connect(function()
+						local Action = PS:GetPlayers()
+						for i = 1, #Action do
+							Action[i].Chatted:Connect(function(Message)
+								PlayerManager.Change_All_Name(Message, true, Action[i].Name)
+							end)
+						end
+					end)
+                end)
+
                 section:AddButton("Revert Selected Player", function()
                     Selected_Player = ""
                 end)
@@ -329,7 +342,7 @@ local Window = Library:CreateWindow({Title = '[FE] Roleplay Name Fucker by Frisk
 
 		local lol = MenuGroup:AddTab("Menu")
 		lol:AddButton('Unload', function() Library:Unload() end)
-		lol:AddLabel('Menu bind'):AddKeyPicker('MenuKeybind', { Default = 'End', NoUI = true, Text = 'Menu keybind' }) 
+		lol:AddLabel('Menu bind'):AddKeyPicker('MenuKeybind', {Default = 'End', NoUI = true, Text = 'Menu keybind'}) 
 
 		Library.ToggleKeybind = Options.MenuKeybind -- Allows you to have a custom keybind for the menu
 
