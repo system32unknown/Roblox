@@ -51,7 +51,7 @@ end)
 local utilsection = tab:Section("Util Scripts")
 
 utilsection:Button("Click GUI", function()
-    loadstring(game:HttpGet("https://raw.githubusercontent.com/system32unknown/Roblox/main/AllUi.lua"))()
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/system32unknown/Roblox/main/Click%20GUI.lua"))()
 end)
 
 utilsection:Button("IY Field", function()
@@ -60,4 +60,16 @@ end)
 
 utilsection:Button("Kick Bypass", function()
     loadstring(game:HttpGet("https://raw.githubusercontent.com/system32unknown/Roblox/main/Antis/%5BOP%5D%20New%20Kick%20Bypass.lua"))()
+end)
+
+utilsection:Button("Click All Play", function()
+    local Click = click_detector or fireclickdetector
+
+    for _, object in pairs(workspace:GetDescendants()) do
+    	if object:IsA("ClickDetector") then
+    		if string.lower(object.Parent.name) == "play" then
+    			Click(object)
+    		end
+    	end
+    end
 end)
