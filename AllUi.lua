@@ -50,10 +50,14 @@ end)
 
 local utilsection = tab:Section("Util Scripts")
 
-utilsection:Button("Roleplay Name Fucker", function()
-    loadstring(game:HttpGet("https://raw.githubusercontent.com/system32unknown/Roblox/main/FE%20Roleplay%20Name%20Fucker%20Rewrite.lua"))()
+utilsection:Button("Click GUI", function()
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/system32unknown/Roblox/main/AllUi.lua"))()
 end)
 
-utilsection:Button("Where's the ruiner", function()
-    loadstring(game:HttpGet('https://raw.githubusercontent.com/system32unknown/Roblox/main/Where\'s%20the%20ruiner.lua'))()
+utilsection:Button("IY Field", function()
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/EdgeIY/infiniteyield/master/source"))()
+end)
+
+utilsection:Button("Kick Bypass", function()
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/system32unknown/Roblox/main/Antis/%5BOP%5D%20New%20Kick%20Bypass.lua"))()
 end)
