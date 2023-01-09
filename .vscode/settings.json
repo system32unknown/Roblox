@@ -16,6 +16,10 @@
         "setclipboard",
         "Krnl",
         "Options",
-        "Toggles"
+        "Toggles",
+        "click_detector",
+        "fireclickdetector",
+        "fireproximityprompt",
+        "firetouchinterest"
     ]
 }

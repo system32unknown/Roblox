@@ -335,7 +335,7 @@ local Window = Library:CreateWindow({Title = '[FE] Roleplay Name Fucker by Frisk
 
 		Library:OnUnload(function()
 		    Library.Unloaded = true
-            getgenv().loaded = false
+            _G.loaded = false
 		end)
 
 		-- UI Settings
