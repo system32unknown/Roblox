@@ -1,6 +1,11 @@
 local MMC_LIB = loadstring(game:HttpGet("https://raw.githubusercontent.com/system32unknown/Roblox/main/MakeMessageClient.lua"))()
 local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/Jxereas/UI-Libraries/main/cerberus.lua"))()
 
+_G.Key = "JEUFUb7Wyq4jsbWfE"
+getgenv().CoolEmotes = false
+
+local Click = click_detector or fireclickdetector
+
 local looped_sound = false
 local pitch = 1
 local volume = 1
@@ -70,6 +75,26 @@ section:Button("Where's the ruiner", function()
     loadstring(game:HttpGet('https://raw.githubusercontent.com/system32unknown/Roblox/main/Where\'s%20the%20ruiner.lua'))()
 end)
 
+section:Button("Apple GUI", function()
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/Applehollyday7/Roblox-Apple_GUI/main/Main"))()
+end)
+
+section:Button("R15 GUI", function()
+    loadstring(game:HttpGet('https://gitlab.com/Tsuniox/lua-stuff/-/raw/master/R15GUI.lua'))()
+end)
+
+section:Button("Town Trasher", function()
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/MojaveMF/miscscripts/main/towntrasher.lua",true))()
+end)
+
+section:Button("Runker 51 GUI", function()
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/GoodB0y08/Sk1dW6r3.lua/main/cool-stuff/Runker51.lua"))("OMG GIVE PSU PREMIUM!!!! :(")("JOIN DISCORD OR NOOB")
+end)
+
+section:Button("Rook GUI", function()
+    loadstring(game:HttpGetAsync("https://shattered-gang.lol/rook.lua"))()
+end)
+
 local utilsection = tab:Section("Util Scripts")
 
 utilsection:Button("Click GUI", function()
@@ -80,13 +105,29 @@ utilsection:Button("IY Field", function()
     loadstring(game:HttpGet("https://raw.githubusercontent.com/EdgeIY/infiniteyield/master/source"))()
 end)
 
+utilsection:Button("IY Store", function()
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/Infinite-Store/Infinite-Store/main/main.lua"))()
+end)
+
 utilsection:Button("Kick Bypass", function()
     loadstring(game:HttpGet("https://raw.githubusercontent.com/system32unknown/Roblox/main/Antis/%5BOP%5D%20New%20Kick%20Bypass.lua"))()
 end)
 
-utilsection:Button("Click All Play", function()
-    local Click = click_detector or fireclickdetector
+utilsection:Button("Secured Dex", function()
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/Babyhamsta/RBLX_Scripts/main/Universal/BypassedDarkDexV3.lua"))()
+end)
 
+local OPsection = tab:Section("OP Scripts")
+
+OPsection:Button("Backdoor.exe", function()
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/iK4oS/backdoor.exe/master/source.lua"))()
+end)
+
+OPsection:Button("Selexity", function()
+    loadstring(game:HttpGet('https://raw.githubusercontent.com/o5u3/Selexity/main/Main', true))()
+end)
+
+utilsection:Button("Click All Play", function()
     for _, object in pairs(workspace:GetDescendants()) do
     	if object:IsA("ClickDetector") then
     		if string.lower(object.Parent.name) == "play" then
