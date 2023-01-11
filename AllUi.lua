@@ -182,7 +182,3 @@ end, 100, 0) -- Args(<String> Name, <Function> Callback, <Number?> MaximumValue,
 FEsection:TextBox("SoundId", function(txt)
     soundId = tonumber(txt)
 end) -- Args(<String> Name, <Function> Callback
-
-local dropdown = FEsection:Dropdown("Dropdown") -- Args(<String> Name)
-dropdown:ChangeText("Dropdown") -- Args(<String> NewText)
-dropdown:Toggle("Toggle") -- Dropdowns and searchbars can go inside dropdowns
