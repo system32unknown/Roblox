@@ -1,8 +1,30 @@
 local MMC_LIB = loadstring(game:HttpGet("https://raw.githubusercontent.com/system32unknown/Roblox/main/MakeMessageClient.lua"))()
 local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/Jxereas/UI-Libraries/main/cerberus.lua"))()
 
-local window = Library.new("Friskshift's Script Collection") -- Args(<string> Name, <boolean?> ConstrainToScreen)
+local looped_sound = false
+local pitch = 1
+local volume = 1
+local soundId = 0
 
+function setSound(pitch, Volume, SoundID, Remote, looped)
+    looped = looped or true
+	local randomized_id = "V3rm was here".. math.random(5838327)
+   	local Args = {
+		[1] = "newSound",
+		[2] = randomized_id,
+		[3] = game.InsertService,
+		[4] = 'rbxassetid://'..SoundID,
+		[5] = pitch,
+		[6] = Volume,
+		[7] = looped
+	}
+   	Remote:FireServer(unpack(Args))
+	return {[1] = "playSound", [2] = randomized_id}
+end
+
+local SongList = {3929730934, 5567523008, 5517133180, 2631687985, 2478816735, 188088048, 343430735}
+
+local window = Library.new("Friskshift's Script Collection") -- Args(<string> Name, <boolean?> ConstrainToScreen)
 window:LockScreenBoundaries(true) -- Args(<boolean> ConstrainToScreen)
 
 local tab = window:Tab("Main") -- Args(<string> Name, <string?> TabImage)
@@ -73,3 +95,53 @@ utilsection:Button("Click All Play", function()
     	end
     end
 end)
+
+local FEtab = window:Tab("FE") -- Args(<string> Name, <string?> TabImage)
+
+local FEsection = FEtab:Section("FE Sound (Only Cars)") -- Args(<string> Name)
+
+FEsection:Button("Play Crazy Sound", function()
+    for _, v in pairs(workspace:GetDescendants()) do
+        if v.Name == "AC6_FE_Sounds" then
+            local soundshit = SongList[math.random(1, #SongList)]
+            v:FireServer(unpack(setSound(math.random(-3, 3), math.random(1, 100), soundshit, v)))
+        end
+    end
+end)
+
+FEsection:Button("Play Sound", function()
+    for _, v in pairs(workspace:GetDescendants()) do
+        if v.Name == "AC6_FE_Sounds" then
+            v:FireServer(unpack(setSound(pitch, volume, soundId, v, looped_sound)))
+        end
+    end
+end)
+
+FEsection:Button("Play Randomized Sound", function()
+    for _, v in pairs(workspace:GetDescendants()) do
+        if v.Name == "AC6_FE_Sounds" then
+            local soundshit = SongList[math.random(1, #SongList)]
+            v:FireServer(unpack(setSound(pitch, volume, soundshit, v, looped_sound)))
+        end
+    end
+end)
+
+FEsection:Toggle("Looped", function(bool)
+    looped_sound = bool
+end) -- Args(<String> Name, <Function> Callback)
+
+FEsection:Slider("Pitch", function(val)
+   pitch = val
+end, 3, -3) -- Args(<String> Name, <Function> Callback, <Number?> MaximumValue, <Number?> MinimumValue)ack)
+
+FEsection:Slider("Volume", function(val)
+   volume = val
+end, 100, 0) -- Args(<String> Name, <Function> Callback, <Number?> MaximumValue, <Number?> MinimumValue)
+
+FEsection:TextBox("SoundId", function(txt)
+    soundId = tonumber(txt)
+end) -- Args(<String> Name, <Function> Callback
+
+local dropdown = FEsection:Dropdown("Dropdown") -- Args(<String> Name)
+dropdown:ChangeText("Dropdown") -- Args(<String> NewText)
+dropdown:Toggle("Toggle") -- Dropdowns and searchbars can go inside dropdowns
