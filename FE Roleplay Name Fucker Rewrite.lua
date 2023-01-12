@@ -105,7 +105,6 @@ local waits, Loops = 0, 0
 local minBytes = 0
 local maxBytes = 255
 local del_num = 0
-local rainbowRGB = 0
 
 local event_text, wait_text = "", ""
 local Text_List, Wait_List = {"Hello World!"}, {1}
@@ -190,9 +189,9 @@ local Window = Library:CreateWindow({Title = '[FE] Roleplay Name Fucker by Frisk
 	    	end
 
 			local section = Tab:AddTab('Extras') do
-	    	    section:AddToggle('Looping', {Text = 'Loop', Tooltip = 'Loops Changing the Name'})
-	    	    Toggles.Looping:OnChanged(function()
-	    	        looped = Toggles.Looping.Value
+	    	    section:AddToggle('Repeating', {Text = 'Loop', Tooltip = 'Loops Changing the Name'})
+	    	    Toggles.Repeating:OnChanged(function()
+	    	        looped = Toggles.Repeating.Value
 	    	    end)
 
 	    	    section:AddToggle('UseLegacy', {Text = 'Use Legacy', Tooltip = 'Uses Legacy Component'})
@@ -251,8 +250,8 @@ local Window = Library:CreateWindow({Title = '[FE] Roleplay Name Fucker by Frisk
 			end
 		end
 
-        local Tab = Tabs.Main:AddRightTabbox('Events') do
-            local MainTab = Tab:AddTab('Main') do
+        local EventTab = Tabs.Main:AddRightTabbox('Events') do
+            local MainTab = EventTab:AddTab('Main') do
                 local EventLabel = MainTab:AddLabel("Text: ")
 
                 event_list = MainTab:AddDropdown('EventDropdown', {Values = Text_List, Default = 1, Multi = false, Text = 'Event Text List'})
