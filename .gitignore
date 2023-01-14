@@ -1,7 +1,7 @@
 .vscode/*
 *.code-workspace
 # Local history which shouldn't be shared.
-.ACS_ENGINE.lua
+acs_engine/*
 .history
 .ionide
 # ! means a file should be added regardless of it it gets ignored prior.
