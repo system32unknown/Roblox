@@ -3,6 +3,21 @@ local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/Jxere
 
 _G.Key = "JEUFUb7Wyq4jsbWfE"
 getgenv().CoolEmotes = false
+getgenv().Keys_Settings = {
+    ["Increase Distance"] = "h",
+    ["Decrease Distance"] = "j",
+    ["Freeze Rotation"] = "r",
+    ["Pull"] = "t",
+    ["Throw"] = "y",
+    ["Increase Power"] = "-",
+    ["Decrease Power"] = "=",
+    ["Clone Object"] = "x",
+    ["Net Bypass"] = "k",
+    ["Pull Torso to Part"] = "b",
+    ["Show Help Menu"] = "v",
+    ["Spawn Cube"] = "n"
+}
+getgenv().useLegacyObj = true
 
 local Click = click_detector or fireclickdetector
 
@@ -37,24 +52,9 @@ local tab = window:Tab("Main") -- Args(<string> Name, <string?> TabImage)
 local section = tab:Section("Main Scripts") -- Args(<string> Name)
 
 section:Button("Telekinesis", function()
-    getgenv().Keys_Settings = {
-        ["Increase Distance"] = "h",
-        ["Decrease Distance"] = "j",
-        ["Freeze Rotation"] = "r",
-        ["Pull"] = "t",
-        ["Throw"] = "y",
-        ["Increase Power"] = "-",
-        ["Decrease Power"] = "=",
-        ["Clone Object"] = "x",
-        ["Net Bypass"] = "k",
-        ["Pull Torso to Part"] = "b",
-        ["Show Help Menu"] = "v",
-        ["Spawn Cube"] = "n"
-    }
-    getgenv().useLegacyObj = true
     local ShowUI = true
     local UIRequest = ShowUI and "%20with%20UI" or ""
-    
+
     if not getgenv().AlreadyEquipped then
         MMC_LIB:MakeSysMsg("[Friskshift]: Telekinesis Final by Friskshift", Color3.fromRGB(255, 255, 255))
         MMC_LIB:MakeSysMsg("[Friskshift]: Press V to Show Keys")
@@ -101,12 +101,12 @@ utilsection:Button("Click GUI", function()
     loadstring(game:HttpGet("https://raw.githubusercontent.com/system32unknown/Roblox/main/Click%20GUI.lua"))()
 end)
 
-utilsection:Button("IY Field", function()
-    loadstring(game:HttpGet("https://raw.githubusercontent.com/EdgeIY/infiniteyield/master/source"))()
+utilsection:Button("Simple Remote Spy V3", function()
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/78n/SimpleSpy/main/SimpleSpySource.lua"))()
 end)
 
-utilsection:Button("IY Store", function()
-    loadstring(game:HttpGet("https://raw.githubusercontent.com/Infinite-Store/Infinite-Store/main/main.lua"))()
+utilsection:Button("IY Field", function()
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/EdgeIY/infiniteyield/master/source"))()
 end)
 
 utilsection:Button("Kick Bypass", function()
