@@ -303,7 +303,7 @@ local Window = Library:CreateWindow({Title = '[FE] Roleplay Name Fucker by Frisk
                 end)
             end
 
-            local SettingTab = Tab:AddTab('List Settings') do
+            local SettingTab = EventTab:AddTab('List Settings') do
                 SettingTab:AddButton("Delete All Lists", function()
                     if #Text_List > 0 then
                         table.clear(Text_List)
