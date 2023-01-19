@@ -2,22 +2,6 @@ local MMC_LIB = loadstring(game:HttpGet("https://raw.githubusercontent.com/syste
 local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/Jxereas/UI-Libraries/main/cerberus.lua"))()
 
 _G.Key = "JEUFUb7Wyq4jsbWfE"
-getgenv().CoolEmotes = false
-getgenv().Keys_Settings = {
-    ["Increase Distance"] = "h",
-    ["Decrease Distance"] = "j",
-    ["Freeze Rotation"] = "r",
-    ["Pull"] = "t",
-    ["Throw"] = "y",
-    ["Increase Power"] = "-",
-    ["Decrease Power"] = "=",
-    ["Clone Object"] = "x",
-    ["Net Bypass"] = "k",
-    ["Pull Torso to Part"] = "b",
-    ["Show Help Menu"] = "v",
-    ["Spawn Cube"] = "n"
-}
-getgenv().useLegacyObj = true
 
 local Click = click_detector or fireclickdetector
 
@@ -95,6 +79,14 @@ section:Button("Rook GUI", function()
     loadstring(game:HttpGetAsync("https://shattered-gang.lol/rook.lua"))()
 end)
 
+section:Button("Bark", function()
+    loadstring(game:HttpGetAsync'https://cdn.applebee1558.com/bark/bark.lua')('thanks for bark, #barkwinning')
+end)
+
+section:Button("Work at Pizza Place", function()
+    loadstring(game:HttpGetAsync("https://raw.githubusercontent.com/system32unknown/Roblox/main/Work%20at%20Pizza%20Place.lua"))()
+end)
+
 local utilsection = tab:Section("Util Scripts")
 
 utilsection:Button("Click GUI", function()
@@ -115,6 +107,15 @@ end)
 
 utilsection:Button("Secured Dex", function()
     loadstring(game:HttpGet("https://raw.githubusercontent.com/Babyhamsta/RBLX_Scripts/main/Universal/BypassedDarkDexV3.lua"))()
+end)
+
+utilsection:Button("Hydroxide", function()
+    local function webImport(file)
+        return loadstring(game:HttpGetAsync(("https://raw.githubusercontent.com/Upbolt/Hydroxide/revision/%s.lua"):format(file)), file .. '.lua')()
+    end
+
+    webImport("init")
+    webImport("ui/main")
 end)
 
 local OPsection = tab:Section("OP Scripts")
