@@ -7,7 +7,11 @@ if not (getrawmetatable and getupvalues and setupvalue and (getreg or debug.getr
 	h:Destroy()
 	return
 end
-local settings = {refill_at=50, refill_end=97, stay_in_kitchen=true}
+local settings = {
+	refill_at=50, 
+	refill_end=97, 
+	stay_in_kitchen=true
+}
 local doCashier,doBoxer,doCook,doSupplier,doDelivery = true,true,true,true,true
 if readfile then
 	pcall(function()
@@ -84,9 +88,9 @@ do
 end
 assert(network,"failed to find network")
 --//gui
-Create = function(class,parent,props)
-	local new = Instance.new(class, parent)
-	for k, v in next, props do
+Create = function(class, parent, props)
+	local new = Instance.new(class,parent)
+	for k,v in next,props do
 		new[k]=v
 	end
 	return new
@@ -262,7 +266,7 @@ closeBtn.MouseButton1Click:Connect(function() gui:Destroy() end)
 closeBtn.MouseEnter:Connect(function() closeBtn.TextColor3=Color3.new(.9,0,0) end)
 closeBtn.MouseLeave:Connect(function() closeBtn.TextColor3=Color3.new(1,1,1) end)
 saveBtn.MouseButton1Click:Connect(function()
-	if writefile and messageLbl.Visible==false then
+	if writefile and not messageLbl.Visible then
 		writefile("PizzaFarm.txt",game:GetService("HttpService"):JSONEncode(settings))
 		messageLbl.Visible=true
 		wait(2)
@@ -343,9 +347,9 @@ local function FindBoxes()
 	for i=1,#children do
 		local b = children[i]
 		if ffc(b,"HasPizzaInside") or ffc(b,"Pizza") then
-			if c==nil and b.Name=="BoxClosed" and b.Anchored==false and not b.HasPizzaInside.Value then
+			if c==nil and b.Name=="BoxClosed" and not b.Anchored and not b.HasPizzaInside.Value then
 				c=b
-			elseif o==nil and b.Name=="BoxOpen" and b.Anchored==false and not b.Pizza.Value then
+			elseif o==nil and b.Name=="BoxOpen" and not b.Anchored and not b.Pizza.Value then
 				o=b
 			elseif f==nil and (b.Name=="BoxOpen" and b.Pizza.Value) or (b.Name=="BoxClosed" and b.HasPizzaInside.Value) then
 				f=b
@@ -472,10 +476,7 @@ local bcolorToSupply = {
 }
 local supplyButtons = {"", "", "", "", "", "", ""}
 for _,button in ipairs(workspace.SupplyButtons:GetChildren()) do
-	print(button.Unpressed.BrickColor.Name)
-	local lol = bcolorToSupply[button.Unpressed.BrickColor.Name]
-	print(lol)
-	supplyButtons[lol] = button.Unpressed
+	supplyButtons[bcolorToSupply[button.Unpressed.BrickColor.Name]] = button.Unpressed
 end
 
 local delTool
@@ -667,7 +668,7 @@ while gui.Parent do
 			end
 		end
 		--trash
-		if trash and (not trash.IsBurned.Value or getOvenNear(trash.Position)==nil or getOvenNear(trash.Position).IsOpen.Value) then
+		if trash and (trash.IsBurned.Value==false or getOvenNear(trash.Position)==nil or getOvenNear(trash.Position).IsOpen.Value) then
 			--closed oven breaks if you take burnt out of it
 			if (root.Position-Vector3.new(44.63, 6.60, 45.20)).magnitude>9 then rootMoved = true root.CFrame = CFrame.new(44.63, 6.60, 45.20) wait(.1) end
 			network:FireServer("UpdateProperty", trash, "CFrame", CFrame.new(47.9,RNG:NextNumber(-10,-30),72.5))
@@ -797,7 +798,7 @@ while gui.Parent do
 	end
 	if doDelivery then
 		local del = FindFirstDeliveryTool()
-		if delTool == nil and del then
+		if delTool==nil and del then
 			--get tool
 			delTool=del
 			if (root.Position-delTool.Handle.Position).magnitude>19 then
@@ -807,7 +808,7 @@ while gui.Parent do
 			delTool.Handle.CFrame = root.CFrame
 			wait(0.9)
 			delay(6,forgetDeliveryTool)
-		elseif delTool and delTool.Parent==character and not delTouched then
+		elseif delTool and delTool.Parent==character and delTouched==false then
 			--deliver to house
 			local housePart = getHousePart(delTool.Name)
 			if housePart then
