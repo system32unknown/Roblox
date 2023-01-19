@@ -22,6 +22,10 @@
         "fireproximityprompt",
         "firetouchinterest",
         "make_writeable",
-        "make_writeable"
+        "make_writeable",
+        "getconnections",
+        "readfile",
+        "getreg",
+        "writefile"
     ]
 }

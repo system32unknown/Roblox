@@ -13,11 +13,16 @@ local settings = {
 	stay_in_kitchen=true
 }
 local doCashier,doBoxer,doCook,doSupplier,doDelivery = true,true,true,true,true
+
+local SContext = game:GetService("ScriptContext")
+local HTTP = game:GetService("HttpService")
+local UIS = game:GetService("UserInputService")
+
 if readfile then
 	pcall(function()
-		local new = game:GetService("HttpService"):JSONDecode(readfile("PizzaFarm.txt"))
+		local new = HTTP:JSONDecode(readfile("PizzaFarm.txt"))
 		local doOverwrite=false
-		for k,v in pairs(new) do
+		for k, _ in pairs(new) do
 			if settings[k]==nil then
 				doOverwrite=true
 				new[k]=nil
@@ -31,14 +36,14 @@ if readfile then
 		end
 		if doOverwrite then
 			warn("Settings overwritten")
-			writefile("PizzaFarm.txt",game:GetService("HttpService"):JSONEncode(new))
+			writefile("PizzaFarm.txt", HTTP:JSONEncode(new))
 		end
 		settings = new
 	end)
 end
 
 if getconnections then
-	for _,c in next,getconnections(game:GetService("ScriptContext").Error) do
+	for _, c in next, getconnections(SContext.Error) do
 		c:Disable()
 	end
 end
@@ -47,7 +52,7 @@ local player = game:GetService("Players").LocalPlayer
 local ffc = game.FindFirstChild
 local RNG = Random.new()
 local network
-local character,root
+local character, root
 do
 	local reg = (getreg or debug.getregistry)()
 	for i=1,#reg do
@@ -205,7 +210,7 @@ boxerBtn.MouseButton1Click:Connect(toggleBoxer)
 deliveryBtn.MouseButton1Click:Connect(toggleDelivery)
 supplierBtn.MouseButton1Click:Connect(toggleSupplier)
 allOffBtn.InputBegan:Connect(function()
-	if game:GetService("UserInputService"):IsMouseButtonPressed(Enum.UserInputType.MouseButton1) then
+	if UIS:IsMouseButtonPressed(Enum.UserInputType.MouseButton1) then
 		toggleCashier(false)
 		toggleCook(false)
 		toggleBoxer(false)
@@ -219,7 +224,7 @@ allOffBtn.InputBegan:Connect(function()
 	end
 end)
 allOnBtn.InputBegan:Connect(function()
-	if game:GetService("UserInputService"):IsMouseButtonPressed(Enum.UserInputType.MouseButton1) then
+	if UIS:IsMouseButtonPressed(Enum.UserInputType.MouseButton1) then
 		toggleCashier(true)
 		toggleCook(true)
 		toggleBoxer(true)
@@ -267,7 +272,7 @@ closeBtn.MouseEnter:Connect(function() closeBtn.TextColor3=Color3.new(.9,0,0) en
 closeBtn.MouseLeave:Connect(function() closeBtn.TextColor3=Color3.new(1,1,1) end)
 saveBtn.MouseButton1Click:Connect(function()
 	if writefile and not messageLbl.Visible then
-		writefile("PizzaFarm.txt",game:GetService("HttpService"):JSONEncode(settings))
+		writefile("PizzaFarm.txt", HTTP:JSONEncode(settings))
 		messageLbl.Visible=true
 		wait(2)
 		messageLbl.Visible=false
