@@ -20,6 +20,8 @@
         "click_detector",
         "fireclickdetector",
         "fireproximityprompt",
-        "firetouchinterest"
+        "firetouchinterest",
+        "make_writeable",
+        "make_writeable"
     ]
 }
