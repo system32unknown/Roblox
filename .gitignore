@@ -1,5 +1,6 @@
 # Local history which shouldn't be shared.
 acs_engine/*
+Template_Lua/*
 .history
 .ionide
 # ! means a file should be added regardless of it it gets ignored prior.

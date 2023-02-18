@@ -76,7 +76,7 @@ section:Button("Runker 51 GUI", function()
 end)
 
 section:Button("Rook GUI", function()
-    loadstring(game:HttpGetAsync("https://shattered-gang.lol/rook.lua"))()
+    loadstring(game:HttpGetAsync("https://raw.githubusercontent.com/Duderpast/nomi/main/rook-hub/rook-hub-loader.lua"))()
 end)
 
 section:Button("Bark", function()
