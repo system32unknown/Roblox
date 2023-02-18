@@ -54,7 +54,7 @@ end)
 Slider1:AddToolTip("Slider 1 ToolTip")
 Slider1:SetValue(50)
 -------------
-local Dropdown1 = Section1:CreateDropdown("Dropdown 1", {"Option 1","Option 2","Option 3"}, function(String)
+local Dropdown1 = Section1:AddDropdown("Dropdown 1", {"Option 1","Option 2","Option 3"}, function(String)
 	print(String)
 end)
 Dropdown1:AddToolTip("Dropdown 1 ToolTip")
