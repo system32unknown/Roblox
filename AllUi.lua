@@ -87,6 +87,10 @@ section:Button("Work at Pizza Place", function()
     loadstring(game:HttpGetAsync("https://raw.githubusercontent.com/system32unknown/Roblox/main/Work%20at%20Pizza%20Place.lua"))()
 end)
 
+section:Button("ACS Exploit Tool", function()
+    loadstring(game:HttpGetAsync("https://raw.githubusercontent.com/system32unknown/Roblox/main/ACS%20Exploit.lua"))()
+end)
+
 local utilsection = tab:Section("Util Scripts")
 
 utilsection:Button("Click GUI", function()
