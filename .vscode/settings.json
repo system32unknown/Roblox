@@ -1,4 +1,22 @@
 {
+    "krnlLsp.diagnostics.globals": [
+        "set_hidden_property",
+        "set_hidden_prop",
+        "set_simulation_radius",
+        "syn_newcclosure",
+        "newcclosure",
+        "getnamecallmethod",
+        "checkcaller",
+        "setreadonly",
+        "setclipboard",
+        "Krnl",
+        "Options",
+        "Toggles",
+        "click_detector",
+        "make_writeable",
+        "readfile",
+        "writefile"
+    ],
     "robloxLsp.diagnostics.globals": [
         "sethiddenproperty",
         "set_hidden_property",
