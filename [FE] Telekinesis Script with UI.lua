@@ -461,14 +461,14 @@ table.insert(scripts, sandbox(TelekinesisScript, function()
 	local function onUnequip()
 		mousedown = false
 		hooked = false
-		if TelekinesisGUI.Visible then
+		if TelekinesisGUI.Enabled then
 			TelekinesisGUI.Enabled = false
 		end
 	end
 	
     local function onEquipped(mouse)
         local human = tool.Parent.Humanoid
-		if not TelekinesisGUI.Visible then
+		if not TelekinesisGUI.Enabled then
 			TelekinesisGUI.Enabled = true
 		end
 		
