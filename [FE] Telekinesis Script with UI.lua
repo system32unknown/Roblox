@@ -123,8 +123,8 @@ function Create_Text(Name, Color, Pos, Size, Text, TextSize)
 	text_frame.Name = Name
 	text_frame.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
 	text_frame.BackgroundTransparency = 1
-	text_frame.Position = UDim2.new(0, Pos[1], 0, Pos[2])
-	text_frame.Size = UDim2.new(0, Size[1], 0, Size[2])
+	text_frame.Position = UDim2.fromOffset(Pos[1], Pos[2])
+	text_frame.Size = UDim2.fromOffset(Size[1], Size[2])
 	text_frame.Font = Enum.Font.SourceSans
 	text_frame.Text = Text
 	text_frame.TextColor3 = Color
@@ -170,13 +170,14 @@ tool.GripForward = Vector3.new(0, -1, 0)
 tool.GripRight = Vector3.new(0, 0, 1)
 tool.GripUp = Vector3.new(1, 0, 0)
 tool.CanBeDropped = false
+tool.ToolTip = "My Favorite Tool."
 
 local handle = Instance.new("Part", tool)
 handle.Name = "Handle"
 handle.CFrame = CFrame.new(-17, 15, 46, 0, 1, 0, 1, 0, 0, 0, 0, -1)
 handle.Position = Vector3.new(-17, 15, 46)
 handle.Rotation = Vector3.new(-180, 0, 90)
-handle.Color = Color3.new(0.5, 0.5, 0.5)
+handle.Color = Color3.new(.5, .5, .5)
 handle.Transparency = 0.5
 handle.Size = Vector3.new(1, 1, 1)
 handle.Material = Enum.Material.Metal
@@ -191,12 +192,12 @@ table.insert(scripts, sandbox(TelekinesisScript, function()
 	local dist = 0
 
     local huge = math.huge * math.huge
-	
+
     local BP = Instance.new("BodyPosition")
     BP.MaxForce = Vector3.new(huge, huge, huge)
     BP.P = BP.P * 1.1
 	E_PowerText.Text = "Power: " .. math.floor(BP.P)
-    
+
 	local hooked = false 
 	local hookBP = BP:clone()
 	hookBP.maxForce = BP.MaxForce
@@ -460,13 +461,16 @@ table.insert(scripts, sandbox(TelekinesisScript, function()
 	local function onUnequip()
 		mousedown = false
 		hooked = false
-		if FirstFrame.Visible then
-			FirstFrame.Visible = false
+		if TelekinesisGUI.Visible then
+			TelekinesisGUI.Enabled = false
 		end
 	end
 	
     local function onEquipped(mouse)
         local human = tool.Parent.Humanoid
+		if not TelekinesisGUI.Visible then
+			TelekinesisGUI.Enabled = true
+		end
 		
         if human then
             human.Changed:connect(function()
@@ -527,7 +531,7 @@ for _, v in pairs(Model_tel:GetChildren()) do
             v:MakeJoints()
         end
     end)
-	
+
     if not s then
         error(r)
     end

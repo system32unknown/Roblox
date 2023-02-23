@@ -1,5 +1,6 @@
 local MMC_LIB = loadstring(game:HttpGet("https://raw.githubusercontent.com/system32unknown/Roblox/main/MakeMessageClient.lua"))()
 local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/Jxereas/UI-Libraries/main/cerberus.lua"))()
+local SPLP = game:GetService("Players").LocalPlayer
 
 _G.Key = "JEUFUb7Wyq4jsbWfE"
 
@@ -46,6 +47,9 @@ section:Button("Telekinesis", function()
         MMC_LIB:MakeSysMsg("[Friskshift]: Telekinesis Already running, retrying..", Color3.fromRGB(255, 0, 0), Enum.Font.Arcade, 20)
         getgenv().AlreadyEquipped = false
         wait(2)
+        if SPLP.Backpack:FindFirstChild("Telekinesis") then
+            SPLP.Backpack:FindFirstChild("Telekinesis"):Destroy()
+        end
         MMC_LIB:MakeSysMsg("[Friskshift]: Done!", Color3.fromRGB(0, 255, 0), Enum.Font.Arcade, 20)
     end
     loadstring(game:HttpGet("https://raw.githubusercontent.com/system32unknown/Roblox/main/%5BFE%5D%20Telekinesis%20Script".. UIRequest ..".lua"))()
