@@ -35,8 +35,7 @@ local label_Text = {
 	"Clone Object",
 	"Net Bypass",
 	"Pull Torso to Part",
-    "Show Help Menu",
-    "Spawn Cube"
+    "Show Help Menu"
 }
 
 local Keys_Settings = getgenv().Keys_Settings or {
@@ -50,8 +49,7 @@ local Keys_Settings = getgenv().Keys_Settings or {
     ["Clone Object"] = "x",
     ["Net Bypass"] = "k",
     ["Pull Torso to Part"] = "b",
-    ["Show Help Menu"] = "v",
-    ["Spawn Cube"] = "n"
+    ["Show Help Menu"] = "v"
 }
 
 local E_PowerText = Instance.new("TextLabel", TelekinesisGUI)
@@ -433,19 +431,6 @@ table.insert(scripts, sandbox(TelekinesisScript, function()
 				hookBP.Parent = nil
 			end
 		end
-
-        if key == Keys_Settings["Spawn Cube"] then
-            local Cube = Instance.new("Part", workspace)
-            Cube.Size = Vector3.new(4, 4, 4)
-            Cube.Name = "WeightedStorageCube"
-            Cube.CFrame = CFrame.new(mouse.Hit.p) + Vector3.new(0,2,0)
-            for _, v in pairs(Enum.NormalId:GetEnumItems()) do
-                local Decal = Instance.new("Decal", Cube)
-                Decal.Texture = "rbxassetid://2662260"
-                Decal.Face = v
-                Decal.Name = "WeightedStorageCubeDecal"
-            end
-        end
 
 		if key == Keys_Settings["Show Help Menu"] then
 			FirstFrame.Visible = not FirstFrame.Visible
