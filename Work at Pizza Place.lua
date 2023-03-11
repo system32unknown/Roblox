@@ -477,7 +477,7 @@ local bcolorToSupply = {
 	["Bright red"]="TomatoSauce",
 	["Brick yellow"]="Dough",
 	["Light stone grey"]="Box",
-	["Navy blue"]="Dew"
+	["Dark green"]="Dew"
 }
 local supplyButtons = {"", "", "", "", "", "", ""}
 for _,button in ipairs(workspace.SupplyButtons:GetChildren()) do
