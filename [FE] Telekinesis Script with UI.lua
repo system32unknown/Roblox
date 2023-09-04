@@ -240,7 +240,7 @@ table.insert(scripts, sandbox(TelekinesisScript, function()
         while mousedown do
             if mouse.Target ~= nil then
                 local target = mouse.Target
-                if target.Anchored = false then
+                if target.Anchored == false then
                     object = target
                     dist = (object.Position - front.Position).magnitude
                     E_SelectedText.Text = "Selected: " .. target.Name
@@ -259,11 +259,7 @@ table.insert(scripts, sandbox(TelekinesisScript, function()
             wait_func()
         end
 		
-        if useLegacyObj then
-            BP:Remove()
-        else
-            BP:Destroy()
-        end
+        BP:remove()
         object = nil
 
         E_SelectedText.Text = "Selected: nil"
@@ -449,16 +445,10 @@ table.insert(scripts, sandbox(TelekinesisScript, function()
             human.Changed:connect(function()
                 if human.Health == 0 then
 		    		onUnequip()
-                
-                    if useLegacyObj then
-                        BP:Remove()
-                        point:Remove()
-                        tool:Remove()
-                    else
-                        BP:Destroy()
-                        point:Destroy()
-                        tool:Destroy()
-                    end
+					
+                    BP:Destroy()
+                    point:Destroy()
+                    tool:Destroy()
 
                     getgenv().AlreadyEquipped = false
                 end
@@ -466,15 +456,9 @@ table.insert(scripts, sandbox(TelekinesisScript, function()
         else
             onUnequip()
                 
-            if useLegacyObj then
-                BP:Remove()
-                point:Remove()
-                tool:Remove()
-            else
-                BP:Destroy()
-                point:Destroy()
-                tool:Destroy()
-            end
+            BP:Destroy()
+            point:Destroy()
+            tool:Destroy()
 
             getgenv().AlreadyEquipped = false
         end
