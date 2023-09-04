@@ -216,9 +216,7 @@ table.insert(scripts, sandbox(TelekinesisScript, function()
     local front = tool.Handle
 	
     local function onButton1Down(mouse)
-        if mousedown then
-            return
-        end
+        if mousedown then return end
 
         mousedown = true
         coroutine.resume(coroutine.create(function()
@@ -233,9 +231,7 @@ table.insert(scripts, sandbox(TelekinesisScript, function()
                     else
                         H.CFrame = CFrame.new(mouse.Hit.p)
                     end
-                else
-                    break
-                end
+                else break end
                 wait_func()
             end
             H:Destroy()
@@ -244,7 +240,7 @@ table.insert(scripts, sandbox(TelekinesisScript, function()
         while mousedown do
             if mouse.Target ~= nil then
                 local target = mouse.Target
-                if not target.Anchored then
+                if target.Anchored = false then
                     object = target
                     dist = (object.Position - front.Position).magnitude
                     E_SelectedText.Text = "Selected: " .. target.Name
@@ -256,9 +252,7 @@ table.insert(scripts, sandbox(TelekinesisScript, function()
         end
 		
         while mousedown do
-            if object.Parent == nil then
-                break
-            end
+            if object.Parent == nil then break end
             local w = CFrame.new(front.Position, mouse.Hit.p)
             BP.Parent = object
             BP.position = front.Position + w.LookVector * dist
@@ -351,9 +345,7 @@ table.insert(scripts, sandbox(TelekinesisScript, function()
             until object.CFrame == CFrame.new(object.CFrame.p)
             BG.Parent = nil
 			
-            if object == nil then
-                return
-            end
+            if object == nil then return end
 
             for _, N in pairs(object:children()) do
                 if N.className == "BodyGyro" then
@@ -367,9 +359,7 @@ table.insert(scripts, sandbox(TelekinesisScript, function()
         end
 		
         if key == Keys_Settings["Pull"] then
-            if dist ~= 10 then
-                dist = 10
-            end
+            if dist ~= 10 then dist = 10 end
         end
 		
         if key == Keys_Settings["Throw"] then
@@ -383,13 +373,11 @@ table.insert(scripts, sandbox(TelekinesisScript, function()
         end
 		
         if key == Keys_Settings["Increase Power"] then
-            BP.P = BP.P * 0.5
+            BP.P = BP.P * 05
         end
 
 		if key == Keys_Settings["Clone Object"] then
-			if object == nil then
-                return
-            end
+			if object == nil then return end
 			
 			local New = object:Clone()
 			New.Parent = object.Parent
