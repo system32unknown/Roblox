@@ -27,7 +27,7 @@ function setSound(pitch, Volume, SoundID, Remote, looped)
 	return {[1] = "playSound", [2] = randomized_id}
 end
 
-local SongList = {3929730934, 5567523008, 5517133180, 2631687985, 2478816735, 188088048, 343430735}
+local SongList = {3929730934, 5567523008, 5517133180, 2631687985, 2478816735, 188088048, 343430735, 6343741731, 8280196339, 5538547181, 7696427240}
 
 local window = Library.new("Friskshift's Script Collection") -- Args(<string> Name, <boolean?> ConstrainToScreen)
 window:LockScreenBoundaries(true) -- Args(<boolean> ConstrainToScreen)
