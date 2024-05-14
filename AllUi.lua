@@ -71,10 +71,6 @@ section:Button("R15 GUI", function()
     loadstring(game:HttpGet('https://gitlab.com/Tsuniox/lua-stuff/-/raw/master/R15GUI.lua'))()
 end)
 
-section:Button("Town Trasher", function()
-    loadstring(game:HttpGet("https://raw.githubusercontent.com/MojaveMF/miscscripts/main/towntrasher.lua",true))()
-end)
-
 section:Button("Runker 51 GUI", function()
     loadstring(game:HttpGet("https://raw.githubusercontent.com/GoodB0y08/Sk1dW6r3.lua/main/cool-stuff/Runker51.lua"))("OMG GIVE PSU PREMIUM!!!! :(")("JOIN DISCORD OR NOOB")
 end)
