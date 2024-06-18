@@ -66,10 +66,16 @@ local isSpammingTouchInt = false
 local isSpammingRandomTouch = false
 local isSpammingProximity = false
 local UseLegacy = false
-local Click = click_detector or fireclickdetector
 local FirePrompt = fireproximityprompt
 local RenderStop = true
 local LocalPlayer = game:GetService("Players").LocalPlayer
+
+function Click(v)
+	local _c = click_detector or fireclickdetector
+	if not table.find({"ButtonEle1", "ButtonEle12", v.Name}) then
+		_c(v)
+	end
+end
 
 function ClrList()
 	for _, item in pairs(ScrollingFrame:GetChildren()) do
