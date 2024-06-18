@@ -72,7 +72,7 @@ local LocalPlayer = game:GetService("Players").LocalPlayer
 
 function Click(v)
 	local _c = click_detector or fireclickdetector
-	if v.Name ~= "ButtonEle1" and v.Name ~= "ButtonEle12" then
+	if v.Name ~= "ButtonEle1" and v.Name ~= "ButtonEle2" then
 		_c(v)
 	end
 end
