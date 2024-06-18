@@ -72,7 +72,7 @@ local LocalPlayer = game:GetService("Players").LocalPlayer
 
 function Click(v)
 	local _c = click_detector or fireclickdetector
-	if not table.find({"ButtonEle1", "ButtonEle12"}, v.Name) then
+	if v.Name ~= "ButtonEle1" and v.Name ~= "ButtonEle12" then
 		_c(v)
 	end
 end
