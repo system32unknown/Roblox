@@ -71,8 +71,9 @@ local RenderStop = true
 local LocalPlayer = game:GetService("Players").LocalPlayer
 
 function Click(v)
+	if v.Parent and (v.Parent:IsA("DragDetector") or v:IsA("DragDetector")) then return end
 	local _c = click_detector or fireclickdetector
-	if v.Parent ~= nil and not table.find({"ButtonEle1", "ButtonEle2"}, v.Parent.Name) and not v:IsA("DragDetector") then
+	if v.Parent ~= nil and not table.find({"ButtonEle1", "ButtonEle2"}, v.Parent.Name) then
 		_c(v)
 	end
 end
@@ -243,7 +244,7 @@ ShowSelectionClick.TextWrapped = true
 ShowSelectionClick.MouseButton1Click:Connect(function()
 	if not isClickShown then
 		for _, object in pairs(workspace:GetDescendants()) do
-			if object:IsA("ClickDetector") and not object:IsA("DragDetector") and object.parent:FindFirstChild("SelectionBox") == nil then
+			if object:IsA("ClickDetector") and object.parent:FindFirstChild("SelectionBox") == nil then
 				Instance.new("SelectionBox", object.parent).Adornee = object.parent
 			end
 		end
@@ -251,7 +252,7 @@ ShowSelectionClick.MouseButton1Click:Connect(function()
 		ShowSelectionClick.BackgroundColor3 = Color3.fromRGB(0, 255, 0)
 	else
 		for _, object in pairs(workspace:GetDescendants()) do
-			if object:IsA("ClickDetector") and not object:IsA("DragDetector") and object.parent:FindFirstChild("SelectionBox") ~= nil then
+			if object:IsA("ClickDetector") and object.parent:FindFirstChild("SelectionBox") ~= nil then
 				object.parent:FindFirstChild("SelectionBox"):Destroy()
 			end
 		end
@@ -274,7 +275,7 @@ MaxActive.TextSize = 14
 MaxActive.TextWrapped = true
 MaxActive.MouseButton1Click:Connect(function()
 	for _, object in pairs(workspace:GetDescendants()) do
-		if object:IsA("ClickDetector") and not object:IsA("DragDetector") and object then
+		if object:IsA("ClickDetector") and object then
 			object.MaxActivationDistance = math.huge
 		end
 	end
@@ -361,7 +362,7 @@ FirePause.TextSize = 14
 FirePause.TextWrapped = true
 FirePause.MouseButton1Click:Connect(function()
 	for _, object in pairs(workspace:GetDescendants()) do
-		if object.parent.Name == "Stop" and object:IsA("ClickDetector") and not object:IsA("DragDetector") then
+		if object.parent.Name == "Stop" and object:IsA("ClickDetector") then
 			Click(object)
 		end
 	end
@@ -465,7 +466,7 @@ SpamButton.MouseButton1Click:Connect(function()
 	isSpammingTouch = not isSpammingTouch
 	while isSpammingTouch do
 		for _, object in pairs(workspace:GetDescendants()) do
-			if object:IsA("ClickDetector") and not object:IsA("DragDetector") then
+			if object:IsA("ClickDetector") then
 				Click(object)
 			end
 		end
@@ -513,7 +514,7 @@ RandomButton.TextSize = 14
 RandomButton.TextWrapped = true
 RandomButton.MouseButton1Click:Connect(function()
 	for _, object in pairs(workspace:GetDescendants()) do
-		if object:IsA("ClickDetector") and not object:IsA("DragDetector") then
+		if object:IsA("ClickDetector") then
 			if math.random(1, 3) == 2 then
 				Click(object)
 			end
@@ -541,7 +542,7 @@ SpamRandomButton.MouseButton1Click:Connect(function()
 	isSpammingRandomTouch = not isSpammingRandomTouch
 	while isSpammingRandomTouch do
 	for _,v in pairs(workspace:GetDescendants()) do
-		if v:IsA("ClickDetector") and not v:IsA("DragDetector") then
+		if v:IsA("ClickDetector") then
 			if math.random(1, 3) == 2 then
 				Click(v)
 			end
