@@ -541,7 +541,7 @@ SpamRandomButton.MouseButton1Click:Connect(function()
 	isSpammingRandomTouch = not isSpammingRandomTouch
 	while isSpammingRandomTouch do
 	for _,v in pairs(workspace:GetDescendants()) do
-		if v:IsA("ClickDetector") and not object:IsA("DragDetector") then
+		if v:IsA("ClickDetector") and not v:IsA("DragDetector") then
 			if math.random(1, 3) == 2 then
 				Click(v)
 			end
