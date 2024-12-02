@@ -9,7 +9,7 @@ local LocalChr = PS.LocalPlayer.Character
 local shovelType = LocalChr:FindFirstChild("Medium shovel")
 
 --init
-local decos = {}
+snow.decos = {}
 for _, v in RS:WaitForChild("Decoration"):GetDescendants() do decos[string.lower(v.Name)] = v end
 for _, v in RS:WaitForChild("PremiumDecoration"):GetDescendants() do decos[string.lower(v.Name)] = v end
 
