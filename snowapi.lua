@@ -10,8 +10,8 @@ local shovelType = LocalChr:FindFirstChild("Medium shovel")
 
 --init
 snow.decos = {}
-for _, v in RS:WaitForChild("Decoration"):GetDescendants() do decos[string.lower(v.Name)] = v end
-for _, v in RS:WaitForChild("PremiumDecoration"):GetDescendants() do decos[string.lower(v.Name)] = v end
+for _, v in RS:WaitForChild("Decoration"):GetDescendants() do snow.decos[string.lower(v.Name)] = v end
+for _, v in RS:WaitForChild("PremiumDecoration"):GetDescendants() do snow.decos[string.lower(v.Name)] = v end
 
 snow.swears = {
 	["fuck"] = {CFrame.new(-2.81, 4.34, 0), CFrame.new(-3.33, 4.30, 0), CFrame.new(-3.93, 4.30, 0), CFrame.new(-4.29, 4.26, 0), CFrame.new(-4.37, 3.66, 0), CFrame.new(-4.41, 2.90, 0), CFrame.new(-4.41, 2.46, 0), CFrame.new(-4.41, 1.84, 0), CFrame.new(-4.43, 1.24, 0), CFrame.new(-3.85, 2.86, 0), CFrame.new(-3.43, 2.82, 0), CFrame.new(-2.89, 2.82, 0), CFrame.new(-2.65, 2.82, 0), CFrame.new(-1.73, 4.28, 0), CFrame.new(-1.83, 3.76, 0), CFrame.new(-1.83, 3.00, 0), CFrame.new(-1.79, 2.46, 0), CFrame.new(-1.73, 2.02, 0), CFrame.new(-1.43, 1.56, 0), CFrame.new(-1.07, 1.48, 0), CFrame.new(-0.69, 1.50, 0), CFrame.new(-0.47, 1.86, 0), CFrame.new(-0.17, 2.44, 0), CFrame.new(-0.13, 2.76, 0), CFrame.new(-0.13, 3.44, 0), CFrame.new(-0.11, 3.96, 0), CFrame.new(-0.09, 4.08, 0), CFrame.new(1.69, 4.10, 0), CFrame.new(1.11, 3.76, 0), CFrame.new(0.83, 3.22, 0), CFrame.new(0.79, 2.58, 0), CFrame.new(1.07, 1.90, 0), CFrame.new(1.29, 1.64, 0), CFrame.new(1.77, 1.52, 0), CFrame.new(2.93, 4.28, 0), CFrame.new(2.83, 3.24, 0), CFrame.new(2.83, 2.60, 0), CFrame.new(2.85, 2.12, 0), CFrame.new(2.87, 1.50, 0), CFrame.new(2.91, 1.44, 0), CFrame.new(3.33, 3.28, 0), CFrame.new(3.75, 4.06, 0), CFrame.new(3.97, 4.26, 0), CFrame.new(4.19, 4.38, 0), CFrame.new(3.53, 2.44, 0), CFrame.new(3.85, 1.98, 0), CFrame.new(4.17, 1.46, 0)},
@@ -32,7 +32,7 @@ snow.swears = {
 
 function snow.Draw(deco:string, cf:CFrame)
     PD:FireServer(unpack({
-        [1] = decos[deco],
+        [1] = snow.decos[deco],
         [2] = cf
     }))
 end
