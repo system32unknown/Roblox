@@ -27,7 +27,4 @@ function snow.Draw(deco:string, cf:CFrame)
     }))
 end
 
-function getRoot(char):Part
-	return char:FindFirstChild('HumanoidRootPart') or char:FindFirstChild('Torso') or char:FindFirstChild('UpperTorso')
-end
 return snow
