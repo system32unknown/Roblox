@@ -64,7 +64,7 @@ SH:FireServer(unpack({
     },
     [2] = rad,
     [3] = height
-))
+}))
 end
 
 return snow
