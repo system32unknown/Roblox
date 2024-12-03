@@ -31,10 +31,8 @@ function snow.Draw(deco:string, r:Ray)
         local _dec = get_keys(decos)
         local curDec = _dec[math.random(0, #_dec)]
         if curDec == nil then
-            print("curDec is nil! default: rock")
             curDeco = "rock"
         else
-            print("Current Deco: " .. curDec)
             curDeco = decos[curDec]
         end
     end
