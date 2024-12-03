@@ -34,7 +34,7 @@ function snow.Draw(deco:string, r:Ray)
 	local curDeco = deco ~= nil and decos[deco] or decos[math.random(0, #decos)]
     PD:FireServer(unpack({
         [1] = curDeco,
-        [2] = 
+        [2] = r
     }))
 end
 function snow.Shovel(dig:boolean, vec3:Vector3)
