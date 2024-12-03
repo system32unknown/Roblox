@@ -13,7 +13,7 @@ local shovelType = LocalChr:FindFirstChild("Medium shovel")
 --init
 local decos = {}
 for _, v in RS:WaitForChild("Decoration"):GetDescendants() do decos[string.lower(v.Name)] = v end
-for _, v in RS:WaitForChild("PremiumDecoration"):GetDescendants() do decos[string.lower(v.Name)] = v end
+for _, v in RS:WaitForChild("PremiumDecoration"):GetChildren() do decos[string.lower(v.Name)] = v end
 
 function get_keys(t):table
     local keys = {}
@@ -29,7 +29,10 @@ function snow.Draw(deco:string, r:Ray)
         curDeco = deco
     else
         local _dec = get_keys(decos)
-        curDeco = decos[_dec[math.random(0, #_dec)]]
+        local die = _dec[math.random(0, #_dec)]
+        print("Current Deco: " .. die)
+
+        curDeco = decos[die]
     end
     PD:FireServer(unpack({[1] = curDeco, [2] = r}))
 end
