@@ -40,7 +40,7 @@ function snow.Draw(deco:string, r:Ray)
 end
 function snow.WriteAllText(s:string)
     for _, tb in game:GetDescendants() do
-        if tb:IsA("TextBox") then
+        if tb:IsA("TextBox") or tb:IsA("TextLabel") then
             FT:FireServer(unpack({[1] = s, [2] = tb}))
         end
     end
