@@ -29,7 +29,7 @@ function snow.Draw(deco:string, r:Ray)
         curDeco = deco
     else
         local _dec = get_keys(decos)
-        curDeco = _dec[math.random(0, #_dec)]
+        curDeco = decos[_dec[math.random(0, #_dec)]]
     end
     PD:FireServer(unpack({[1] = curDeco, [2] = r}))
 end
