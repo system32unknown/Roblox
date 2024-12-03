@@ -6,6 +6,7 @@ local PS = game:GetService("Players")
 
 local PD:RemoteEvent = RS:WaitForChild("PlaceDecoration")
 local FT:RemoteEvent = RS:WaitForChild("FilterText")
+local SH:RemoteEvent = RS:WaitForChild("SnowballHit")
 
 local LocalChr = PS.LocalPlayer.Character
 
@@ -53,6 +54,17 @@ function snow.Shovel(dig:boolean, digtype:string, vec3:Vector3)
     else
         mod:FireServer(unpack({[1] = shovelType, [2] = vec3, [3] = false}))
     end
+end
+
+function snow.Launch(location:Vector3, rad, height)
+SH:FireServer(unpack({
+    [1] = {
+        [1] = workspace:WaitForChild("Baseplate"),
+        [2] = location
+    },
+    [2] = rad,
+    [3] = height
+))
 end
 
 return snow
