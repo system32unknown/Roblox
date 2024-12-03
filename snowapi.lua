@@ -8,7 +8,6 @@ local PD:RemoteEvent = RS:WaitForChild("PlaceDecoration")
 local FT:RemoteEvent = RS:WaitForChild("FilterText")
 
 local LocalChr = PS.LocalPlayer.Character
-local shovelType = LocalChr:FindFirstChild("Medium shovel")
 
 --init
 local decos = {}
@@ -46,7 +45,8 @@ function snow.WriteAllText(s:string)
     end
 end
 
-function snow.Shovel(dig:boolean, vec3:Vector3)
+function snow.Shovel(dig:boolean, digtype:string, vec3:Vector3)
+    local shovelType = LocalChr:FindFirstChild(digtype)
     local mod:RemoteEvent = RS:FindFirstChild(dig and "Dig" or "Place")
     if dig then
         mod:FireServer(unpack({[1] = shovelType, [2] = vec3}))
