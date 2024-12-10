@@ -5,7 +5,7 @@ local RS = game:GetService('ReplicatedStorage')
 local PS = game:GetService('Players')
 local PSPL = PS.LocalPlayer
 
-local ACS = nil
+local RS_ACS = nil
 local ACS_EVENTS = nil
 local newACS = false
 
@@ -17,15 +17,15 @@ function acs.init(name:string):boolean
     if not RS:FindFirstChild(name) then
         return false
     else
-        ACS = RS[name]
+        RS_ACS = RS[name]
     end
 
-    if ACS:FindFirstChild("Events") then
-        ACS_EVENTS = ACS.Events
+    if RS_ACS:FindFirstChild("Events") then
+        ACS_EVENTS = RS_ACS.Events
         newACS = true
         return true
     else
-        ACS_EVENTS = ACS.Eventos
+        ACS_EVENTS = RS_ACS.Eventos
     end
 
     acs.version = newACS and "2.0.1" or "1.7.5"
@@ -33,8 +33,6 @@ function acs.init(name:string):boolean
 end
 
 function acs.setValue(ValueObj, NewValue):boolean
-    if string.lower(ValueObj.Name) == "fortifications" then return false end
-
     local status, message = pcall(function()
         if newACS then
             ACS_EVENTS.Refil:FireServer(ValueObj, NewValue)
@@ -77,11 +75,13 @@ function acs.build(parent:CFrame, cframe:CFrame, size:Vector3)
     newACS.Breach:FireServer(3, {Fortified = {}, Destroyable = workspace}, CFrame.new(), CFrame.new(), {CFrame = parent * cframe, Size = size})
 end
 function acs.bypassbuild():boolean
+    local fort = PSPL.Character.ACS_Client.Kit.Fortifications
+
     local status, message = pcall(function()
         if newACS then
-            ACS_EVENTS.Refil:FireServer(PSPL.Character.ACS_Client.Kit.Fortifications, -99999999)
+            ACS_EVENTS.Refil:FireServer(fort, -99999999)
         else
-            ACS_EVENTS.Recarregar:FireServer(9999999, {ACS_Modulo = {Variaveis = {StoredAmmo = PSPL.Character.ACS_Client.Kit.Fortifications}}})
+            ACS_EVENTS.Recarregar:FireServer(9999999, {ACS_Modulo = {Variaveis = {StoredAmmo = fort}}})
         end
     end)
     if status then
@@ -110,7 +110,7 @@ end
 
 function acs.nomodifiers()
     if acs.version == "2.0.1" then
-        local cfg = require(ACS.GameRules.Config)
+        local cfg = require(RS_ACS.GameRules.Config)
         cfg.EnableStamina = false
         cfg.EnableFallDamage = false
         cfg.AntiBunnyHop = false
