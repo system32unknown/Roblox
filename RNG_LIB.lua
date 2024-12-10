@@ -1,7 +1,7 @@
 local RNG = {}
 RNG.__index = RNG
 
-function RNG.char(valueRange, length):string
+function RNG.Char(valueRange, length):string
     local result = ""
     for _ = 1, length do
         result = result .. utf8.char(math.random(0, valueRange))
@@ -9,7 +9,7 @@ function RNG.char(valueRange, length):string
     return result
 end
 
-function RNG.vector(n:number):Vector3
+function RNG.Vector(n:number):Vector3
     return Vector3.new(math.random(-n, n), math.random(-n, n), math.random(-n, n)) 
 end
 
