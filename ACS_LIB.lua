@@ -11,6 +11,12 @@ local newACS = false
 
 acs.version = "unknown"
 
+function acs.getACS_Class(plr, type)
+    if plr.Character:FindFirstChild("ACS_Client") then
+        return plr.Character.ACS_Client[type]
+    else return nil end
+end
+
 function acs.init(name:string):boolean
     name = name or "ACS_Engine"
 
@@ -74,13 +80,18 @@ function acs.build(parent:CFrame, cframe:CFrame, size:Vector3)
     ACS_EVENTS.Breach:FireServer(3, {Fortified = {}, Destroyable = workspace}, CFrame.new(), CFrame.new(), {CFrame = parent * cframe, Size = size})
 end
 function acs.bypassbuild():boolean
-    local fort = PSPL.Character.ACS_Client.Kit.Fortifications
     local status, message = pcall(function()
-        if newACS then
-            ACS_EVENTS.Refil:FireServer(fort, -99999999)
-        else
-            ACS_EVENTS.Recarregar:FireServer(9999999, {ACS_Modulo = {Variaveis = {StoredAmmo = fort}}})
+        for _, v in PS:GetPlayers() do
+            local fort = acs.getACS_Class(v, "Kit").Fortifications
+            if acs.getACS_Class(v, "Kit") ~= nil then
+                if newACS then
+                    ACS_EVENTS.Refil:FireServer(fort, -99999999)
+                else
+                    ACS_EVENTS.Recarregar:FireServer(9999999, {ACS_Modulo = {Variaveis = {StoredAmmo = fort}}})
+                end
+            end
         end
+
     end)
     if status then
         return true
