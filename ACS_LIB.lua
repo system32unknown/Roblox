@@ -77,7 +77,11 @@ function acs.whizz(p:Player)
 end
 
 function acs.build(parent:CFrame, cframe:CFrame, size:Vector3)
-    ACS_EVENTS.Breach:FireServer(3, {Fortified = {}, Destroyable = workspace}, CFrame.new(), CFrame.new(), {CFrame = parent * cframe, Size = size})
+    if newACS then
+        ACS_EVENTS.Breach:InvokeServer(3, {Fortified = {}, Destroyable = workspace}, CFrame.new(), CFrame.new(), {CFrame = parent * cframe, Size = size})
+    else
+        ACS_EVENTS.Breach:FireServer(3, {Fortified = {}, Destroyable = workspace}, CFrame.new(), CFrame.new(), {CFrame = parent * cframe, Size = size})
+    end
 end
 function acs.bypassbuild():boolean
     local status, message = pcall(function()
@@ -96,7 +100,7 @@ function acs.bypassbuild():boolean
     if status then
         return true
     else
-        print("Tired to kick: " .. message)
+        print("Tired to kick or error: " .. message)
         return false
     end
 end
@@ -106,14 +110,14 @@ function acs.supress(p:Player, x:number, y:number, z:number)
     if not newACS then
         ACS_EVENTS.Suppression:FireServer(p, x, y, z)
     else
-        print("Supression event doesn't support on 2.0.1.")
+        print("Supression event doesn't support for 2.0.1.")
     end
 end
 function acs.damage(p:Player, val:number)
     if not newACS then
         ACS_EVENTS.Damage:FireServer(p, val, 0, 0)
     else
-        print("Damage event doesn't support on 2.0.1.")
+        print("Damage event doesn't support for 2.0.1.")
     end
 end
 
