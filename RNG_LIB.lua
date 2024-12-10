@@ -25,4 +25,8 @@ function RNG.CFrame(positionRange, rotationRange):CFrame
 	return CFrame.new(randomX, randomY, randomZ) * CFrame.Angles(randomRotX, randomRotY, randomRotZ)
 end
 
+function RNG.Color():Color3
+    return Color3.fromRGB(math.random(0, 255), math.random(0, 255), math.random(0, 255))
+end
+
 return RNG
