@@ -23,13 +23,12 @@ function acs.init(name:string):boolean
     if RS_ACS:FindFirstChild("Events") then
         ACS_EVENTS = RS_ACS.Events
         newACS = true
-        return true
     else
         ACS_EVENTS = RS_ACS.Eventos
     end
 
     acs.version = newACS and "2.0.1" or "1.7.5"
-    return false
+    return true
 end
 
 function acs.setValue(ValueObj, NewValue):boolean
