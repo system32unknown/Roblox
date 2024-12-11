@@ -12,14 +12,12 @@ end
 
 function Table.CheckDup(table:table)
 	local hash, res = {}, {}
-
 	for _, v in ipairs(table) do
 	   	if not hash[v] then
 			res[#res + 1] = v
 	   	    hash[v] = true
 	   	end
 	end
-
 	return res
 end
 
