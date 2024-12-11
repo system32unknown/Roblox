@@ -9,7 +9,8 @@ local RS_ACS = nil
 local ACS_EVENTS = nil
 local newACS = false
 
-acs.version = "unknown"
+acs.version_ = "unknown"
+acs.acs_id = "unknown"
 
 function acs.getACS_Class(plr, type)
     if plr.Character:FindFirstChild("ACS_Client") then
@@ -17,14 +18,12 @@ function acs.getACS_Class(plr, type)
     else return nil end
 end
 
-function acs.init(name:string):boolean
+function acs.init(name:string, noaccess:boolean):boolean
     name = name or "ACS_Engine"
+    noaccess = noaccess or true
 
-    if not RS:FindFirstChild(name) then
-        return false
-    else
-        RS_ACS = RS[name]
-    end
+    if not RS:FindFirstChild(name) then return false end
+    RS_ACS = RS[name]
 
     if RS_ACS:FindFirstChild("Events") then
         ACS_EVENTS = RS_ACS.Events
@@ -33,33 +32,36 @@ function acs.init(name:string):boolean
         ACS_EVENTS = RS_ACS.Eventos
     end
 
-    acs.version = newACS and "2.0.1" or "1.7.5"
+    acs.version_ = newACS and "2.0.1" or "1.7.5"
+    if newACS and not noaccess then
+        acs.acs_id = ACS_EVENTS.AcessId:InvokeServer(PSPL.UserId) .. "-" .. PSPL.UserId
+    end
     return true
 end
 
-function acs.setValue(ValueObj, NewValue):boolean
+function acs.setValue(ValueObj:ValueBase, NewValue:any):boolean
     local status, message = pcall(function()
         if newACS then
             ACS_EVENTS.Refil:FireServer(ValueObj, NewValue)
         else
-            ACS_EVENTS.Recarregar:FireServer(NewValue, {ACS_Modulo = {Variaveis = {StoredAmmo = ValueObj}}})
+            ACS_EVENTS.Recarregar:FireServer(NewValue, {["ACS_Modulo"] = {["Variaveis"] = {["StoredAmmo"] = ValueObj}}})
         end
     end)
-    if status then
-        return true
-    else
-        print("Tired to kick: " .. message)
+    if not status then
+        print("Tired to kick or error: " .. message)
         return false
     end
+
+    return true
 end
 
 local crash_active = false
 function acs.crash()
-    if not crash_active then
-        crash_active = true
-    else
+    if crash_active then
+        print("Currently crashing in this server!")
         return
     end
+    crash_active = true
 
     while task.wait() do
         if newACS then
@@ -91,45 +93,103 @@ function acs.bypassbuild():boolean
                 if newACS then
                     ACS_EVENTS.Refil:FireServer(fort, -99999999)
                 else
-                    ACS_EVENTS.Recarregar:FireServer(9999999, {ACS_Modulo = {Variaveis = {StoredAmmo = fort}}})
+                    ACS_EVENTS.Recarregar:FireServer(9999999, {["ACS_Modulo"] = {["Variaveis"] = {["StoredAmmo"] = fort}}})
                 end
             end
         end
-
     end)
-    if status then
-        return true
-    else
+    if not status then
         print("Tired to kick or error: " .. message)
         return false
+    end
+
+    return true
+end
+
+function acs.damage(p:Player, val:number)
+    if newACS then
+        local GunModel = PS:FindFirstChild("ACS_Settings", true) or workspace:FindFirstChild("ACS_Settings", true)
+        if not GunModel then print("[WARN] No available gun in current game") return end
+        GunModel = GunModel.Parent
+
+        local Module:ModuleScript = require(GunModel.ACS_Settings)
+        Module.BulletPenetration = 99999999
+
+        ACS_EVENTS.Damage:InvokeServer(GunModel, p.Character.Humanoid, 999, 1, Module, {minDamageMod = val, DamageMod = val}, nil, nil, acs.acs_id)
+    else
+        ACS_EVENTS.Damage:FireServer(p, val, 0, 0)
     end
 end
 
 -- 1.7.5 Exclusive
 function acs.supress(p:Player, x:number, y:number, z:number)
-    if not newACS then
-        ACS_EVENTS.Suppression:FireServer(p, x, y, z)
-    else
+    if newACS then
         print("Supression event doesn't support for 2.0.1.")
+        return
     end
+    ACS_EVENTS.Suppression:FireServer(p, x, y, z)
 end
-function acs.damage(p:Player, val:number)
-    if not newACS then
-        ACS_EVENTS.Damage:FireServer(p, val, 0, 0)
-    else
-        print("Damage event doesn't support for 2.0.1.")
+function acs.explode(offset:Vector3, pressure:number, radius:number, desjoint:number, expdamage:number)
+    pressure = pressure or 50
+    radius = radius or 50
+    desjoint = desjoint or 1
+    expdamage = expdamage or 100
+
+    if newACS then
+        print("Explode event doesn't support for 2.0.1.")
+        return
     end
+    ACS_EVENTS.Hit:FireServer(offset, nil, Vector3.zero, nil, {
+        ["ExplosiveHit"] = true, --Don't change this
+        ["ExPressure"] = pressure, --Used to determine the amount of force applied to BaseParts caught in the BlastRadius
+        ["ExpRadius"] = radius, --This property determines the radius of the Explosion, in studs. (0 - 100)
+        ["DestroyJointRadiusPercent"] = desjoint, --Used to set how much of the BlastRadius, (0 - 1) within which all joints will be destroyed.
+        ["ExplosionDamage"] = expdamage --Amount of damage it does
+    })
+end
+function acs.surrender(on:boolean, p:Player)
+    if newACS then
+        print("Surrender event doesn't support for 2.0.1.")
+        return
+    end
+    ACS_EVENTS.MedSys.Algemar:FireServer(on, p.Name, 1)
 end
 
+-- 2.0.1 Exclusive
 function acs.nomodifiers()
-    if acs.version == "2.0.1" then
-        local cfg = require(RS_ACS.GameRules.Config)
-        cfg.EnableStamina = false
-        cfg.EnableFallDamage = false
-        cfg.AntiBunnyHop = false
-    else
-        print("Damage event doesn't support on 1.7.5.")
+    if not newACS then
+        print("Modifiers doesn't support for 1.7.5.")
+        return
     end
+
+    local cfg:ModuleScript = require(RS_ACS.GameRules.Config)
+    cfg.EnableStamina = false
+    cfg.EnableFallDamage = false
+    cfg.AntiBunnyHop = false
+end
+function acs.hitfx(p:Player, mat:Enum.Material, radius:number, damage:number)
+    mat = mat or Enum.Material.DiamondPlate
+    radius = radius or 99e99
+    damage = damage or 333
+
+    if not newACS then
+        print("HitFX doesn't support for 1.7.5.")
+        return
+    end
+
+    ACS_EVENTS.HitEffect:FireServer(unpack({
+        [1] = p.Character.HumanoidRootPart.CFrame.Position,
+        [2] = workspace,
+        [4] = mat,
+        [5] = {
+            ["ExplosionRadius"] = radius,
+            ["ExplosionType"] = "72EXP",
+            ["ExplosiveAmmo"] = true,
+            ["TorsoDamage"] = {[1] = damage, [2] = damage},
+            ["LimbDamage"] = {[1] = damage, [2] = damage},
+            ["HeadDamage"] = {[1] = damage, [2] = damage},
+        }
+    }))
 end
 
 return acs
