@@ -98,7 +98,7 @@ utilsection:Button("Click GUI", function()
 end)
 
 utilsection:Button("Simple Remote Spy V3", function()
-    loadstring(game:HttpGet("https://raw.githubusercontent.com/78n/SimpleSpy/main/SimpleSpySource.lua"))()
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/78n/SimpleSpy/refs/heads/main/SimpleSpySource.lua"))()
 end)
 
 utilsection:Button("IY Field", function()
@@ -128,10 +128,6 @@ OPsection:Button("Backdoor.exe", function()
     loadstring(game:HttpGet("https://raw.githubusercontent.com/iK4oS/backdoor.exe/master/source.lua"))()
 end)
 
-OPsection:Button("Selexity", function()
-    loadstring(game:HttpGet('https://raw.githubusercontent.com/o5u3/Selexity/main/Main', true))()
-end)
-
 utilsection:Button("Click All Play", function()
     for _, object in pairs(workspace:GetDescendants()) do
     	if object:IsA("ClickDetector") then
@@ -143,7 +139,6 @@ utilsection:Button("Click All Play", function()
 end)
 
 local FEtab = window:Tab("FE") -- Args(<string> Name, <string?> TabImage)
-
 local FEsection = FEtab:Section("FE Sound (Only Cars)") -- Args(<string> Name)
 
 FEsection:Button("Play Crazy Sound", function()

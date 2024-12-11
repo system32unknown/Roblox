@@ -57,14 +57,14 @@ function snow.Shovel(dig:boolean, digtype:string, vec3:Vector3)
 end
 
 function snow.Launch(location:Vector3, rad, height)
-SH:FireServer(unpack({
-    [1] = {
-        [1] = workspace:WaitForChild("Baseplate"),
-        [2] = location
-    },
-    [2] = rad,
-    [3] = height
-}))
+    SH:FireServer(unpack({
+        [1] = {
+            [1] = workspace:WaitForChild("Baseplate"),
+            [2] = location
+        },
+        [2] = rad,
+        [3] = height
+    }))
 end
 
 return snow
