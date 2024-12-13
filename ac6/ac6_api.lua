@@ -25,7 +25,7 @@ function acs.delete(i:Instance):boolean
     end
 
     for _, v in i:GetDescendants() do
-        if v == DC then continue end
+        if v == DC or v == game.Players.LocalPlayer then continue end
         DC:FireServer(v)
     end
     return true
