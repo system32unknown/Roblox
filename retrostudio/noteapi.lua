@@ -22,7 +22,7 @@ function note.change(text:string, color:Color3)
     end
 end
 function note.place(vec1:Vector3, vec2:Vector3)
-    for _, v in pairs(getEvents("Change")) do
+    for _, v in pairs(getEvents("Place")) do
         v:FireServer(unpack({
             [1] = {
                 [1] = vec1,
