@@ -12,7 +12,7 @@ local PS = game:GetService("Players")
 
 for _, p in PS:GetPlayers() do
     if p == PS.LocalPlayer then continue end
-    PS:FireServer(unpack({
+    banPlr:FireServer(unpack({
         [1] = {
             [1] = p.UserId,
             [2] = p.UserId,
