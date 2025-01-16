@@ -1,5 +1,4 @@
 if getgenv().loaded then
-	print("it's already running!")
 	return
 end
 
@@ -28,7 +27,7 @@ local ExploitGUI = Instance.new("ScreenGui")
 local FirstFrame = Instance.new("Frame")
 local SecondFrame = Instance.new("Frame")
 local FireClick = Instance.new("TextButton")
-local RandomPitch = Instance.new("TextButton")
+--local RandomPitch = Instance.new("TextButton")
 local UnlockParts = Instance.new("TextButton")
 local TriggerTouch = Instance.new("TextButton")
 local ShowSelectionClick = Instance.new("TextButton")
@@ -85,7 +84,7 @@ function ClrList()
 		end
 	end
 end
-	
+
 function FillList()
 	ClrList()
 	for _, Plr in pairs(game.Players:GetChildren()) do
@@ -109,9 +108,9 @@ local function Touch(x)
 	x = x.FindFirstAncestorWhichIsA(x, "Part")
 	if x then
 		if firetouchinterest then
-			return task.spawn(function()
-				firetouchinterest(x, Root, 1, wait() and firetouchinterest(x, Root, 0))
-			end)
+			firetouchinterest(x, Root, 0)
+			task.wait(.01)
+			firetouchinterest(x, Root, 1)
 		end
 		x.CFrame = Root.CFrame
 	end
@@ -169,6 +168,7 @@ FireClick.MouseButton1Click:Connect(function()
 	end
 end)
 
+--[[
 RandomPitch.Name = "RandomPitch"
 RandomPitch.Parent = SecondFrame
 RandomPitch.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
@@ -187,6 +187,7 @@ RandomPitch.MouseButton1Click:Connect(function()
 		end
 	end
 end)
+]]--
 
 UnlockParts.Name = "UnlockParts"
 UnlockParts.Parent = SecondFrame
@@ -611,7 +612,6 @@ SpamTouchInts.TextScaled = true
 SpamTouchInts.TextSize = 14
 SpamTouchInts.TextWrapped = true
 SpamTouchInts.MouseButton1Click:Connect(function()
-	local human = (UseLegacy and game.Players.LocalPlayer.Character.Humanoid or game.Players.LocalPlayer.Character.HumanoidRootPart)
 	if not isSpammingTouchInt then
 		SpamTouchInts.BackgroundColor3 = Color3.fromRGB(0, 255, 0)
 	else
