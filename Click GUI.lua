@@ -112,7 +112,6 @@ local function Touch(x)
 			task.wait(.01)
 			firetouchinterest(x, Root, 1)
 		end
-		x.CFrame = Root.CFrame
 	end
 end
 
