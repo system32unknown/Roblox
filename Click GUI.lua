@@ -71,6 +71,7 @@ local LocalPlayer = game:GetService("Players").LocalPlayer
 
 function Click(v)
 	if v.Parent and (v.Parent:IsA("DragDetector") or v:IsA("DragDetector")) then return end
+
 	local _c = click_detector or fireclickdetector
 	if v.Parent ~= nil and not table.find({"ButtonEle1", "ButtonEle2"}, v.Parent.Name) then
 		_c(v)
